@@ -1,0 +1,253 @@
+@import 'src/assets/styles/global.scss';
+@import "src/assets/styles/mixin";
+@import "src/assets/styles/variable";
+
+body {}
+
+.root {
+  background-color: $color-p-black;
+  color: $color-p-white;
+  padding: 2rem;
+  text-align: center;
+}
+
+#detail-page {
+  padding: 0;
+}
+
+#main-content {
+  background: #1a1a1a;
+
+}
+
+#block {
+  display: flex;
+  margin: 0 6%;
+  display: flex;
+}
+
+#left-content {
+  padding: 1rem 0;
+  width: 74%;
+
+  .container {
+    margin: 1rem;
+    width: auto;
+
+    .film-infor {
+      display: block;
+      padding: 0;
+      margin: 0;
+      vertical-align: top;
+
+      .image {
+        background: url(../../../assets/images/home/bannerctv.jpg) no-repeat center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 100%;
+        height: 0;
+        padding-bottom: 50%;
+        position: relative;
+        border-bottom: 3px solid #fff;
+        border-top: 3px solid #fff;
+
+        .avatar {
+          position: absolute;
+          width: 250px;
+          height: 150px;
+          object-fit: cover;
+          border: 1px solid #fff;
+          bottom: 10px;
+          left: 10px;
+          border-color: #ffffff;
+          border-style: solid;
+          border-width: 1px;
+          color: #dcdcdc;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        .text-top {
+          position: absolute;
+          bottom: 10px;
+          left: 280px;
+
+          .name {
+            font-size: 28px;
+            margin: 0 0 8px;
+            color: #fff;
+            text-shadow: 0 2px 1px #333;
+          }
+
+          h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 1px #333;
+            color: #fff;
+          }
+
+          .list-button {
+            display: flex;
+            padding: 0 8px 0 0px;
+            margin: 0px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, .5);
+            list-style: none;
+
+            li {
+              padding: 0 5px;
+
+              a {
+                color: #fff;
+                font-weight: 700;
+                border-radius: 0;
+              }
+            }
+          }
+
+
+        }
+      }
+
+      .text {
+        color: #828282;
+        background: #282828;
+
+        .block-film {
+          margin: 10px 0 0;
+          border-bottom: 1px solid #3a3a3a;
+          padding: 0 0 10px;
+        }
+
+        #more {
+          display: none;
+          padding: 5px;
+        }
+
+        .film-content {
+          line-height: 1.5em;
+          padding: 0 10px;
+
+          .infor-film {
+            border-bottom: 1px solid #3a3a3a;
+            border-top: 1px solid #3a3a3a;
+            margin: 5px 0;
+
+            .btn-groups {
+              display: flex;
+              padding: 0 8px 0 0px;
+              margin: 5px 0px;
+              // box-shadow: 0 3px 5px rgb(0 0 0 / 50%);
+
+              .fb-like {
+                background-color: #3962b1;
+                color: #fff;
+                height: 100%;
+                border: 2px solid #3962b1;
+                padding: 5px;
+                margin: 5px;
+                border-radius: 5px;
+                cursor: pointer;
+              }
+            }
+
+            .entry-meta {
+              padding: 0;
+              list-style: none;
+              content: "";
+              display: table;
+              clear: both;
+              width: 100%/3;
+              color: #fff;
+
+              a {
+                text-decoration: none;
+                color: #828282;
+              }
+
+              .column {
+                float: left;
+                width: 33.33%;
+                padding: 10px;
+              }
+            }
+          }
+
+        }
+
+        .comment {
+          background: #fff;
+          padding: 5px;
+          margin: 20px 0 0;
+          border-radius: 3px;
+        }
+
+        .heading {
+          font-weight: 700;
+          margin-bottom: 15px;
+          font-size: 1.1em;
+          color: #ff9601;
+        }
+
+        #myBtn {
+          margin-left: 1rem;
+          color: #fff;
+          background-color: #3a3a3a;
+          border: none;
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+
+#right-content {
+  width: 25%;
+  margin: 1.7rem 0;
+
+  .list-movie {
+    padding: 1rem 0 6px 6px;
+
+    li {
+      display: flex;
+      border-bottom-style: dashed;
+      border-bottom-width: 1px;
+    }
+
+    .description {
+      padding-left: 1rem;
+    }
+
+    .img-film {
+      background-image: url(../../../assets/images/home/tgd.jpg);
+      height: 75px;
+      width: 55px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+
+  h3 {
+    font-weight: 700;
+    color: #fff;
+    font-size: 18px;
+  }
+
+  li {
+    list-style: none;
+    padding: 1rem 0 1rem 6px;
+
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .otherName {
+      color: #dcdcdc;
+    }
+  }
+
+
+}

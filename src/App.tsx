@@ -10,7 +10,9 @@ import HomePage from './pages/HomePage/HomePage.tsx';
 import Header from './components/Header/Header.tsx';
 //@ts-ignore
 import Footer from './components/Footer/Footer.tsx';
-
+//@ts-ignore
+import Detail from './components/Contents/Detail/Detail.tsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
@@ -18,6 +20,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<HomePage/>}></Route>
+        <Route path="/detail" element={<Detail/>}></Route>
       </Routes>
       <Footer></Footer>
     </Router>
