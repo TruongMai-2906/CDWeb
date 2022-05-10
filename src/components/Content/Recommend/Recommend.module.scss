@@ -1,0 +1,49 @@
+#right-content {
+    width: 25%;
+    margin: 1.7rem 0;
+  
+    .list-movie {
+      padding: 1rem 0 6px 6px;
+  
+      li {
+        display: flex;
+        border-bottom-style: dashed;
+        border-bottom-width: 1px;
+      }
+  
+      .description {
+        padding-left: 1rem;
+        a {font-size: 16px;}
+      }
+  
+      .img-film {
+        height: 5rem;
+        min-width: 4rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+  
+    h3 {
+      font-weight: 700;
+      color: #fff;
+      font-size: 18px;
+    }
+  
+    li {
+      list-style: none;
+      padding: 1rem 0 1rem 6px;
+  
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+  
+      .otherName {
+        color: #dcdcdc;
+      }
+    }
+  
+  
+  }

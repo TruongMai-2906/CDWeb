@@ -11,7 +11,7 @@ import Header from './components/Header/Header.tsx';
 //@ts-ignore
 import Footer from './components/Footer/Footer.tsx';
 //@ts-ignore
-import Detail from './components/Contents/Detail/Detail.tsx';
+import Detail from './pages/Detail/Detail.tsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
