@@ -91,6 +91,10 @@ const Detail: React.FC<DetailProps> = (props) => {
                       </div>
                     </ul>
                   </div>
+
+                </div>
+                <div className={styles['content']}>
+                  <div className={styles['content-film']}>
                   <h3 className={styles['heading']}>Nội dung phim</h3>
                   <div id="film-content">
                     <p><b>Công Tố Viên Chuyển Sinh - </b>Again My Life 2022 xuất phát điểm không suôn sẻ khi là một học sinh trung học cấp ba để học lên đại học và cuối cùng đã vượt qua kỳ thi
@@ -106,6 +110,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                       <div className={styles['item-content-gradient']}></div>
                       <span onClick={myFunction} id={styles['myBtn']} className={styles['show-more']} data-single="true" data-showmore="Mở rộng" data-showless="Thu gọn">Mở rộng</span>
                     </div>
+                  </div>
                   </div>
                 </div>
                 <Related />
