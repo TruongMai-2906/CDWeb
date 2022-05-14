@@ -1,7 +1,7 @@
 [
     {
         "name": "Tôi là Triệu Giáp đệ",
-        "img": "images/home/bannerctv.jpg",
+        "img": "images/detail/ctv.jpg",
         "ortherName": "Zhao Jiadi (2022)"
     },
     {
@@ -13,6 +13,16 @@
         "name": "Phù Thủy Tối Thượng Trong Đa Vũ Trụ Hỗn Loạn",
         "img": "images/home/tgd.jpg",
         "ortherName": "Doctor Strange in the Multiverse of Madness"
+    },
+    {
+        "name": "Trái Tim Ngừng Nhịp",
+        "img": "/images/home/tgd.jpg",
+        "ortherName": "Heartstopper"
+    },
+    {
+        "name": "Trái Tim Ngừng Nhịp",
+        "img": "/images/home/tgd.jpg",
+        "ortherName": "Heartstopper"
     },
     {
         "name": "Trái Tim Ngừng Nhịp",

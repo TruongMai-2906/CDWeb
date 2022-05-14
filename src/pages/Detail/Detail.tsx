@@ -8,6 +8,7 @@ import { FaYoutube, FaPlayCircle, FaArrowDown } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import classNames from 'classnames';
 import Recommend from '../../components/Content/Recommend/Recommend.tsx';
+import Related from '../../components/Content/Related/Related.tsx';
 export interface DetailProps { }
 
 export interface DetailDataType { }
@@ -90,7 +91,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                       </div>
                     </ul>
                   </div>
-                  <h3 className={styles['heading']}>Nội dung phim Công Tố Viên Chuyển Sinh</h3>
+                  <h3 className={styles['heading']}>Nội dung phim</h3>
                   <div id="film-content">
                     <p><b>Công Tố Viên Chuyển Sinh - </b>Again My Life 2022 xuất phát điểm không suôn sẻ khi là một học sinh trung học cấp ba để học lên đại học và cuối cùng đã vượt qua kỳ thi
                       kiểm tra luật sư. Sự chăm chỉ không ngừng nghỉ của anh ấy cuối cùng đã được đền đáp, và anh ấy đã trở thành một công tố viên. Trong quá trình điều tra của mình, anh ta phải tiến hành điều tra một chính trị gia bị nghi ngờ
@@ -100,30 +101,20 @@ const Detail: React.FC<DetailProps> = (props) => {
                         ra rằng một đội bóng mờ ám gồm những người môi giới quyền lực giàu có có thể đã đóng một vai trò nào đó trong “cái chết” của anh ấy.<br />“<strong>Again My Life</strong>” là một bộ phim truyền hình Hàn Quốc năm 2022 do
                         Han Chul Soo và Kim Yong Min làm đạo diễn.</span>
                     </p>
-                    
+
                     <div className={styles['item-content-toggle']}>
                       <div className={styles['item-content-gradient']}></div>
                       <span onClick={myFunction} id={styles['myBtn']} className={styles['show-more']} data-single="true" data-showmore="Mở rộng" data-showless="Thu gọn">Mở rộng</span>
-                      
                     </div>
-                    {/* <button onClick={myFunction} id={styles['myBtn']}>
-                    
-                    Xem thêm  &nbsp;
-                    <FaArrowDown color='gray' />
-                    </button> */}
-                    {/* <div className={styles['comment']}> */}
-                    {/* <iframe src="http://www.facebook.com/plugins/comments.php?href=http://localhost:3000" scrolling="no" frameBorder="0" style={{border:"none", overflow:"hidden", width:"100%", height:"3806px"}} allowTransparency="true"></iframe> */}
-                    {/* </div> */}
                   </div>
-
                 </div>
-
+                <Related />
                 <div className="clear" />
               </div>
             </div>
           </div>
         </div>
-        <Recommend/>
+        <Recommend />
       </div>
     </div >
 
