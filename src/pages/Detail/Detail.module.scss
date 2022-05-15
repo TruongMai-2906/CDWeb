@@ -2,7 +2,10 @@
 @import "src/assets/styles/mixin";
 @import "src/assets/styles/variable";
 
-body {}
+$color-border: rgba(29, 39, 49, 0.6509803922);
+$color-background: #151d25;
+$color-item: #101821;
+$color-h3: #ff9601;
 
 .root {
   background-color: $color-p-black;
@@ -16,14 +19,14 @@ body {}
 }
 
 #main-content {
-  background: #1a1a1a;
-
+  background: #222d38 url(../../assets/images/detail/background.png) fixed center;
 }
 
 #block {
   display: flex;
   margin: 0 6%;
   display: flex;
+  background: $color-background;
 }
 
 #left-content {
@@ -141,7 +144,6 @@ body {}
 
       .text {
         color: #828282;
-        background: #282828;
 
         .block-film {
           margin: 10px 0 0;
@@ -157,6 +159,9 @@ body {}
         .film-content {
           line-height: 1.5em;
           padding: 0 10px;
+          background: $color-item;
+          border: 1px solid #1d2731a6;
+          border-radius: 6px;
 
           .item-content-toggle {
             position: relative;
@@ -172,8 +177,6 @@ body {}
           }
 
           .infor-film {
-            border-bottom: 1px solid #3a3a3a;
-            border-top: 1px solid #3a3a3a;
             margin: 5px 0;
 
             .btn-groups {
@@ -215,21 +218,24 @@ body {}
               }
             }
           }
-
         }
 
-        .comment {
-          background: #fff;
-          padding: 5px;
-          margin: 20px 0 0;
-          border-radius: 3px;
+        .content {
+          margin-top: 10px;
+          border-radius: 6px;
+          border: 1px solid $color-border;
+          background: $color-item;
+          
+          .content-film{
+            padding: 10px ;
+          }
         }
 
         .heading {
           font-weight: 700;
-          margin-bottom: 15px;
+          margin: 15px 0;
           font-size: 1.1em;
-          color: #ff9601;
+          color: $color-h3;
         }
 
         #myBtn {

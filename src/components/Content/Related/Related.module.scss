@@ -1,0 +1,168 @@
+$color-border: rgba(29, 39, 49, 0.6509803922);
+$color-background: #151d25;
+$color-item: #101821;
+$color-h3: #ff9601;
+$color-text: #fff;
+
+#related-movies {
+    line-height: 1.5em;
+    background: $color-background;
+    padding: 20px 20px 0 10px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .heading {
+        font-weight: 700;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        color: $color-h3;
+    }
+
+    .mySwiper {
+        display: grid;
+        gap: 6px;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
+        overflow-x: auto;
+        overflow: hidden;
+        scroll-behavior: smooth;
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            background: rgba(255, 152, 0, .75);
+            color: #fff;
+            border-radius: 0;
+            padding: 8px 5px;
+            position: absolute;
+            font-size: 35px;
+            top: 40%;
+        }
+
+        .items {
+            transform: scale(1);
+            max-width: 400px;
+            max-height: 500px;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s linear;
+            user-select: none;
+            overflow: hidden;
+            // border-radius: 6px;
+            transform: center left;
+            position: relative;
+            padding-bottom: 1.5rem;
+
+            .box {
+                width: 100%;
+                transform: scale(1);
+                max-width: 400px;
+                max-height: 500px;
+                width: 100%;
+                height: 100%;
+                transition: all 0.5s linear;
+                user-select: none;
+                overflow: hidden;
+                transform: center left;
+                position: relative;
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: 0.5s;
+                    z-index: 10;
+                    opacity: 1;
+                }
+
+                .img-film {
+                    display: block;
+                    width: 100%;
+                    -webkit-transform-style: preserve-3d;
+                    height: 300px;
+                    -moz-border-radius: 5%;
+                    -webkit-border-radius: 5%;
+                    cursor: pointer;
+                    scroll-behavior: smooth;
+                }
+
+                .film-title-box {
+                    position: unset !important;
+                    padding: 50px 0 0 !important;
+                    text-align: center !important;
+                    background: #202a34 !important;
+                    width: 200px;
+                    border-bottom-right-radius: 7px;
+                    border-bottom-left-radius: 7px;
+
+
+                    .film-title {
+                        position: absolute;
+                        background: transparent;
+                        line-height: 18px;
+                        padding: 8px 10px 4px;
+                        margin: 0;
+                        bottom: 0;
+                        width: 100%;
+
+                        .entry-title {
+
+                            font-size: 14px;
+                            color: $color-h3;
+                            font-weight: 700;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .original-title {
+                            font-size: 11.5px !important;
+                            margin: 0;
+                            padding-right: 5px;
+                            color: $color-text;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+.the_tag_list {
+    line-height: 1.5em;
+    background: $color-background;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+
+    .heading {
+        font-weight: 700;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        color: $color-h3;
+    }
+
+    a {
+        text-decoration: none;
+        padding: 6px 10px 3px;
+        margin: 1px;
+        color: #949494;
+        font-size: 12px;
+        display: inline-block;
+        line-height: 15px;
+        border: 1px solid #1d2731;
+        background: #0b0f15;
+        border-radius: 3px;
+        background-size: 300% 100%;
+        background-image: linear-gradient(to right, #070f19 0, #010408 51%, #6d2323 100%);
+        transition: .7s;
+    }
+}

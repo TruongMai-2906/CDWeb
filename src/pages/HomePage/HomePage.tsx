@@ -28,14 +28,14 @@ const HomePage: React.FC<HomePageProps> = (props) => (
       modules={[Pagination]}
       className={styles["swiper"]}
     >
-      {/* <SwiperSlide className={styles["swiper-item"]}>Công tố viên chuyển sinh</SwiperSlide> */}
-      <SwiperSlide> 
+      <SwiperSlide>
         <div className={styles["item"]}>
         <img src={Bannerctv} alt="banner" className={styles['background']} />
         <div className={styles['content']}>
           <Link to={'/detail'}>Công tố viên chuyển sinh</Link>
         </div>
-      </div></SwiperSlide>
+      </div>
+      </SwiperSlide>
       <SwiperSlide>
         <div className={styles["item"]}>
           <img src={Banner2} alt="banner" className={styles['background']} />

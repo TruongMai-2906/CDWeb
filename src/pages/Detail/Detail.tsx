@@ -6,9 +6,16 @@ import Banner2 from "../../assets/images/home/banner2.jpg";
 import { Link } from "react-router-dom";
 import { FaYoutube, FaPlayCircle, FaArrowDown } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
+<<<<<<< HEAD
 import classNames from "classnames";
 import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 export interface DetailProps {}
+=======
+import classNames from 'classnames';
+import Recommend from '../../components/Content/Recommend/Recommend.tsx';
+import Related from '../../components/Content/Related/Related.tsx';
+export interface DetailProps { }
+>>>>>>> 5b0282e4326d9ab18d96732ea80467aaddd8b42a
 
 export interface DetailDataType {}
 
@@ -146,9 +153,17 @@ const Detail: React.FC<DetailProps> = (props) => {
                       </div>
                     </ul>
                   </div>
+<<<<<<< HEAD
                   <h3 className={styles["heading"]}>
                     Nội dung phim Công Tố Viên Chuyển Sinh
                   </h3>
+=======
+
+                </div>
+                <div className={styles['content']}>
+                  <div className={styles['content-film']}>
+                  <h3 className={styles['heading']}>Nội dung phim</h3>
+>>>>>>> 5b0282e4326d9ab18d96732ea80467aaddd8b42a
                   <div id="film-content">
                     <p>
                       <b>Công Tố Viên Chuyển Sinh - </b>Again My Life 2022 xuất
@@ -182,6 +197,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                       </span>
                     </p>
 
+<<<<<<< HEAD
                     <div className={styles["item-content-toggle"]}>
                       <div className={styles["item-content-gradient"]}></div>
                       <span
@@ -194,18 +210,19 @@ const Detail: React.FC<DetailProps> = (props) => {
                       >
                         Mở rộng
                       </span>
+=======
+                    <div className={styles['item-content-toggle']}>
+                      <div className={styles['item-content-gradient']}></div>
+                      <span onClick={myFunction} id={styles['myBtn']} className={styles['show-more']} data-single="true" data-showmore="Mở rộng" data-showless="Thu gọn">Mở rộng</span>
+>>>>>>> 5b0282e4326d9ab18d96732ea80467aaddd8b42a
                     </div>
-                    {/* <button onClick={myFunction} id={styles['myBtn']}>
-                    
-                    Xem thêm  &nbsp;
-                    <FaArrowDown color='gray' />
-                    </button> */}
-                    {/* <div className={styles['comment']}> */}
-                    {/* <iframe src="http://www.facebook.com/plugins/comments.php?href=http://localhost:3000" scrolling="no" frameBorder="0" style={{border:"none", overflow:"hidden", width:"100%", height:"3806px"}} allowTransparency="true"></iframe> */}
-                    {/* </div> */}
                   </div>
+<<<<<<< HEAD
+=======
+                  </div>
+>>>>>>> 5b0282e4326d9ab18d96732ea80467aaddd8b42a
                 </div>
-
+                <Related />
                 <div className="clear" />
               </div>
             </div>

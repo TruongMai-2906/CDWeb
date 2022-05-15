@@ -34,9 +34,14 @@
     "react-player": "^2.10.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "redux": "^4.2.0",
     "sass": "^1.51.0",
     "sass-resources-loader": "^2.2.5",
+<<<<<<< HEAD
+=======
+    "slick-carousel": "^1.8.1",
+>>>>>>> 5b0282e4326d9ab18d96732ea80467aaddd8b42a
     "styled-components": "^5.3.5",
     "swiper": "^8.1.4",
     "typescript": "^4.6.4",
