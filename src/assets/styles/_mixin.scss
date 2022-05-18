@@ -1,3 +1,15 @@
+  // @import './variable';
+
+  // @mixin mobile {
+  //   @media only screen and (max-width:$mobile){
+  //     @content;
+  //   }
+  // }
+  // @mixin tablet {
+  //   @media only screen and (max-width:$tablet){
+  //     @content;
+  //   }
+  // }
 
 
 @mixin at($_min-width) {
