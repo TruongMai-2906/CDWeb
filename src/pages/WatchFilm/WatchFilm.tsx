@@ -3,6 +3,7 @@ import styles from "./WatchFilm.module.scss";
 import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 import Related from "../../components/Content/Related/Related.tsx";
 import ReactPlayer from "react-player";
+import { get } from '../../utilities/api.ts';
 
 export interface WatchFilmProps {}
 
@@ -10,6 +11,9 @@ export interface WatchFilmDataType {}
 
 const WatchFilm: React.FC<WatchFilmProps> = (props) => {
 
+  const [url, setUrl] = useState({
+    url:"https://vimeo.com/712482878"
+  })
   const [state, setState] = useState({
     playing: true,
   });
@@ -25,12 +29,11 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
                 <div className={styles["text"]}>
                   {/* React Player */}
                   <ReactPlayer
-                    url="videos/video1.mp4"
+                    url="https://vimeo.com/712482878"
                     controls
                     width="100%"
                     height="520px"
                     playing={playing}
-                    volume={10}
                   />
                   {/* End React Player */}
 
@@ -38,6 +41,7 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
               </div>
               <div className={styles["comment"]}>
                 <iframe
+                  title="comment"
                   src="http://www.facebook.com/plugins/comments.php?href=http://localhost:3000"
                   scrolling="no"
                   frameBorder="0"

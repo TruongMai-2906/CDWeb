@@ -4,11 +4,10 @@ import styles from './Related.module.scss';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import data from '../../../mockdata.json'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from 'swiper';
+import { useNavigate } from 'react-router-dom';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=bcc4ff10c2939665232d75d8bf0ec093";
-const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=<<api_key_here>>&query";
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 export interface RelatedProps {
   original_title: string,
@@ -17,7 +16,7 @@ export interface RelatedProps {
 }
 export const Related: React.FC<RelatedProps> = (props) => {
   const [films, setFilm] = useState([])
-  
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(API_URL)
       .then((res) => res.json())
@@ -26,11 +25,14 @@ export const Related: React.FC<RelatedProps> = (props) => {
         setFilm(data.results);
       })
   }, [])
+  const handleDetail = (e: string) => {
+    navigate(`/detail/${e}`);
+  };
 
   return (
     <>
       <div id={styles['related-movies']}>
-        <h3 className={styles['heading']}>Các phim liên quan</h3>
+        <h3 className={styles['heading']}>Related movies</h3>
         <>
           <Swiper
             slidesPerView={4}
@@ -48,7 +50,9 @@ export const Related: React.FC<RelatedProps> = (props) => {
             {films.map((film) => (
               <SwiperSlide key={film} className={styles['items']}>
                 <div className={styles['box']}>
-                  <a href="">
+                  <a href="" onClick={() => {
+                handleDetail(film.id);
+              }}>
                     <img className={styles['img-film']} src={API_IMG+film.poster_path} alt={film.title} />
                     <div className={styles['film-title-box']}>
                       <div className={styles['film-title']}>

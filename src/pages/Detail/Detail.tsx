@@ -1,39 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // @ts-ignore
-import tmdbApi from '../../utilities/tmdmApi.ts'
+import tmdbApi from "../../utilities/tmdmApi.ts";
 // @ts-ignore
-import apiConfig from '../../utilities/apiConfig.ts'
+import apiConfig from "../../utilities/apiConfig.ts";
 // @ts-ignore
 import styles from "./Detail.module.scss";
 import { Link } from "react-router-dom";
 import { FaYoutube, FaPlayCircle, FaArrowDown } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import classNames from 'classnames';
+import classNames from "classnames";
 // @ts-ignore
-import Recommend from '../../components/Content/Recommend/Recommend.tsx';
+import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 // @ts-ignore
-import Related from '../../components/Content/Related/Related.tsx';
-export interface DetailProps { }
+import Related from "../../components/Content/Related/Related.tsx";
+import { Movies } from "../ListFilm/Movie";
+import {IoIosArrowDown} from 'react-icons/io'
 
-export interface DetailDataType { }
-const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=bcc4ff10c2939665232d75d8bf0ec093";
+// Api_URL
+const API_URL = (e: string) => {
+  return `https://api.themoviedb.org/3/movie/${e}?api_key=e8b29375ae37912b8558a83eca6ec2d0&language=en-US`;
+};
+const API_SEARCH =
+  "https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093";
+const API_IMG = "https://image.tmdb.org/t/p/w500/";
+
+export interface DetailProps {}
+
+export interface DetailDataType {
+  id: string;
+  original_title: string;
+  poster_path: string;
+  backdrop_path: string;
+  genres: {
+    name: string;
+  }[];
+  release_date: string;
+  overview: string;
+  production_companies: {
+    name: string;
+  }[];
+  production_countries:{
+    name: string
+  }[]
+}
 
 const Detail: React.FC<DetailProps> = (props) => {
   const { category, id } = useParams();
-  const [films, setFilm] = useState([])
+  const [films, setFilm] = useState<DetailDataType>();
+  console.log("useParam", id);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(API_URL)
+    fetch(API_URL(id))
       .then((res) => res.json())
-      .then(data => {
-        console.log(data);
-        setFilm(data.results);
-      })
-  }, [])
+      .then((data) => {
+        setFilm(data);
+        console.log("data-detail", data);
+      });
+  }, []);
 
   function myFunction() {
-    var dots = document.getElementById("dots");
+    var dots = document.getElementById(styles["dots"]);
     var moreText = document.getElementById(styles["more"]);
     var btnText = document.getElementById(styles["myBtn"]);
 
@@ -47,6 +75,9 @@ const Detail: React.FC<DetailProps> = (props) => {
       moreText.style.display = "inline";
     }
   }
+  const handleDetail = (e: string) => {
+    navigate(`/watch/${e}`);
+  };
   return (
     <div id={styles["main-content"]}>
       <div id={styles["block"]}>
@@ -54,30 +85,42 @@ const Detail: React.FC<DetailProps> = (props) => {
           <div className={styles["container"]} id={styles["detail-page"]}>
             <div className={styles["film-infor"]}>
               <div className={styles["image"]}>
-                <img className={styles["avatar"]} itemProp="image" alt="" />{" "}
+                <img
+                  src={API_IMG + films?.backdrop_path}
+                  className={styles["image-banner"]}
+                  alt=""
+                />
+                <img
+                  className={styles["avatar"]}
+                  itemProp="image"
+                  alt=""
+                  src={API_IMG + films?.poster_path}
+                />{" "}
                 <a href="" className="icon-play" />
                 <a href="" className={styles["icon-play"]}></a>
                 <div className={styles["text-top"]}>
-                  <h1 className={styles["name"]}></h1>
-                  <h2>Again My Life (2022)</h2>
+                  <h1 className={styles["name"]}>{films?.original_title}</h1>
                   <ul className={styles["list-button"]}>
                     <li>
                       <a
                         className="btn btn-download btn-info"
-                        title="Trailer Công Tố Viên Chuyển Sinh-Again My Life"
+                        title={films?.original_title}
                       >
                         <FaYoutube color="white" style={{ margin: "0 3px" }} />
                         Trailer
                       </a>
                     </li>
                     <li>
-                      <Link
-                        to={"/watch"}
+                      <div
+                       key={films?.id}
+                        onClick={() => {
+                          handleDetail(films?.id);
+                        }}
                         className="btn-see btn btn-danger"
-                        title="Xem phim Công Tố Viên Chuyển Sinh Again My Life"
+                        title={films?.original_title}
                       >
-                        <FaPlayCircle /> Xem phim
-                      </Link>
+                        <FaPlayCircle /> Watch Now
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -94,118 +137,79 @@ const Detail: React.FC<DetailProps> = (props) => {
                     <div className={styles["btn-groups"]}>
                       <div className={styles["fb-like"]}>
                         <AiFillLike color="#fff" />
-                        Thích 86
+                        Like 86
                       </div>
                       <div className={styles["fb-like"]}>
                         <AiFillLike color="#fff" />
-                        Chia sẻ
+                        Share
                       </div>
                     </div>
                     <ul className={styles["entry-meta"]}>
                       <div className={styles["column"]}>
                         <li>
-                          <label>Đang phát: </label>
+                          <label>Playing: </label>
                           <span style={{ color: "red" }}> HD Vietsub</span>
                         </li>
                         <li>
-                          <label>Thể loại: </label>{" "}
-                          <a href="" title="Hàn Quốc">
+                          <label>Type: </label>{" "}
+                          <a href="" title="">
                             {" "}
-                            Phim Hành Động
-                          </a>
-                          ,{" "}
-                          <a href="" title="Đài Loan">
-                            Phim Hình Sự
+                            {films?.genres.map((gen) => gen.name)}
                           </a>
                         </li>
                         <li>
-                          <label>Năm Phát Hành: </label> <a href=""> 2022</a>
+                          <label>Release Year: </label>{" "}
+                          <a href=""> {films?.release_date}</a>
                         </li>
                       </div>
 
                       <div className={styles["column"]}>
                         <li>
-                          <label>Đạo diễn: </label>
+                          <label>Director: </label>
                           <span>
                             <a href="" title="Han Cheol Soo">
-                              <span> Han Cheol Soo</span>
+                              <span> {films?.production_companies.map((company) => company.name)}</span>
                             </a>
                             ,
                           </span>
                         </li>
                         <li>
-                          <label>Quốc gia: </label>{" "}
+                          <label>Country: </label>{" "}
                           <a href="" title="Phim Âu Mỹ">
                             {" "}
-                            Phim Hàn Quốc
+                            {films?.production_countries.map((country) => country.name)}
                           </a>
-                        </li>
-                        <li>
-                          <label>Thời lượng: </label>
-                          <span>
-                            <a href="" title="16 tập">
-                              <span> 16 tập</span>
-                            </a>
-                            ,
-                          </span>
                         </li>
                       </div>
                       <div className={styles["column"]}>
                         <li>
-                          <label>Diễn viên: </label>{" "}
-                          <a href="" title="Đài Loan">
-                            Lee Joon Gi, Lee Kyung Young, Kim Ji Eun, Cha Joo
-                            Young, Jung Sang Hoon, Kim Jae Kyung
-                          </a>
-                          ,{" "}
-                          <a href="" title="Đài Loan">
-                            Phim Phiêu Lưu
+                          <label>Actor: </label>{" "}
+                          <a href="" title="">
+                          {films?.production_companies.map((company) => company.name)}
                           </a>
                         </li>
                       </div>
                     </ul>
                   </div>
-
                 </div>
-                <div className={styles['content']}>
-                  <div className={styles['content-film']}>
-                    <h3 className={styles['heading']}>Nội dung phim</h3>
+                <div className={styles["content"]}>
+                  <div className={styles["content-film"]}>
+                    <h3 className={styles["heading"]}>Content </h3>
                     <div id="film-content">
-                      <p>
-                        <b>Công Tố Viên Chuyển Sinh - </b>Again My Life 2022 xuất
-                        phát điểm không suôn sẻ khi là một học sinh trung học cấp
-                        ba để học lên đại học và cuối cùng đã vượt qua kỳ thi kiểm
-                        tra luật sư. Sự chăm chỉ không ngừng nghỉ của anh ấy cuối
-                        cùng đã được đền đáp, và anh ấy đã trở thành một công tố
-                        viên. Trong quá trình điều tra của mình, anh ta phải tiến
-                        hành điều tra một chính trị gia bị nghi ngờ tham nhũng.
-                        Nhưng cuộc điều tra của anh ta đột ngột kết thúc khi một
-                        người đàn ông bí ẩn giết anh ta.
-                        <br />
-                        Tuy nhiên, sau đó anh ta đến và phát hiện ra rằng anh ta
-                        thực sự còn sống. Được phục hồi về cõi phàm trần, anh ta
-                        thấy rằng mình <span id="dots">...</span>
-                        <span id={styles["more"]}>
-                          phải quay trở lại trường đại học và hoàn thành cuộc hành
-                          trình học tập của mình một lần nữa - trong khi anh ta cố
-                          gắng khám phá sự thật về những gì đã xảy ra với mình.
-                          Trên hành trình của mình, anh gặp Kim Hee Ah ( Kim Ji
-                          Eun ), một phụ nữ trẻ đặc biệt thông minh, đồng thời
-                          cũng là con gái út của gia đình sở hữu tập đoàn kinh
-                          doanh Cheonha giàu có. Khi Kim Hee Woo và Kim Hee Ah
-                          tăng cường tìm kiếm câu trả lời, họ phát hiện ra rằng
-                          một đội bóng mờ ám gồm những người môi giới quyền lực
-                          giàu có có thể đã đóng một vai trò nào đó trong “cái
-                          chết” của anh ấy.
-                          <br />“<strong>Again My Life</strong>” là một bộ phim
-                          truyền hình Hàn Quốc năm 2022 do Han Chul Soo và Kim
-                          Yong Min làm đạo diễn.
-                        </span>
-                      </p>
+                      <p>{films?.overview}</p>
 
-                      <div className={styles['item-content-toggle']}>
-                        <div className={styles['item-content-gradient']}></div>
-                        <span onClick={myFunction} id={styles['myBtn']} className={styles['show-more']} data-single="true" data-showmore="Mở rộng" data-showless="Thu gọn">Mở rộng</span>
+                      <div className={styles["item-content-toggle"]}>
+                        <div className={styles["item-content-gradient"]}></div>
+                        <span
+                          onClick={myFunction}
+                          id={styles["myBtn"]}
+                          className={styles["show-more"]}
+                          data-single="true"
+                          data-showmore="Mở rộng"
+                          data-showless="Thu gọn"
+                        >
+                          Extend<IoIosArrowDown/>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -224,5 +228,3 @@ const Detail: React.FC<DetailProps> = (props) => {
   );
 };
 export default Detail;
-
-

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './HomePage.module.scss';
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from 'swiper';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -40,8 +41,9 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
         className={styles["swiper"]}
+        autoplay={{delay: 5000}}
       >
         <SwiperSlide>
           <div className={styles["item"]}>

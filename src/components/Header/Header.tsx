@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = (props) => (
       <img src={logo} alt="Logo" className={styles['logo']}/>
       <div className={styles['navbar']}>
         <Link to="/" className={styles['item']}><div className={styles['content']}>Home</div></Link>
-        <Link to="/" className={styles['item']}><div className={styles['content']}>List Film</div></Link>
+        <Link to="/listfilm" className={styles['item']}><div className={styles['content']}>List Film</div></Link>
         <Link to="/" className={styles['item']}><div className={styles['content']}>Hot</div></Link>
         <Link to="/" className={styles['item']}><div className={styles['content']}>About Us</div></Link>
         <Link to="/" className={styles['item']}><div className={styles['content']}>Contact</div></Link>
