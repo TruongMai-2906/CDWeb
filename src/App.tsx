@@ -21,6 +21,8 @@ import Register from "./pages/Register/Register.tsx";
 import ListFilm from "./pages/ListFilm/ListFilm.tsx";
 import TrendingList from "./pages/TrendingList/TrendingList.tsx";
 import PopularList from "./pages/PopularList/PopularList.tsx";
+//@ts-ignore
+import './App.scss';
 function App() {
   return (
     <div className="App">

@@ -1,5 +1,9 @@
+@import 'src/assets/styles/global.scss';
+@import "src/assets/styles/mixin";
+@import "src/assets/styles/variable";
+
 #right-content {
-  width: 25%;
+  // width: 25%;
   margin: 1.7rem 0;
 
   .list-movie {

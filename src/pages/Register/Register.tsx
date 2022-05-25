@@ -13,11 +13,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
     const onfinish = () => { };
 
     return (
-        // <Form form={form} name="register" onFinish={onfinish}>
-        //     <Form.Item name="email" label="E-mail" style={{ width: "480px" }}>
-        //         <Input />
-        //     </Form.Item>
-        // </Form>
         <div className={styles['login-page']}>
             <div className={styles['bg']}>
                 <div className={classNames(

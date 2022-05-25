@@ -1,8 +1,6 @@
-$color-border: rgba(29, 39, 49, 0.6509803922);
-$color-background: #151d25;
-$color-item: #101821;
-$color-h3: #ff9601;
-$color-text: #fff;
+@import 'src/assets/styles/global.scss';
+@import "src/assets/styles/mixin";
+@import "src/assets/styles/variable";
 
 #related-movies {
     line-height: 1.5em;
@@ -10,7 +8,7 @@ $color-text: #fff;
     padding: 20px 20px 0 10px;
     position: relative;
     width: 100%;
-    height: 100%;
+    // height: 100%;
 
     .heading {
         font-weight: 700;
@@ -61,7 +59,7 @@ $color-text: #fff;
                 max-width: 400px;
                 max-height: 500px;
                 width: 100%;
-                height: 100%;
+                // height: 100%;
                 transition: all 0.5s linear;
                 user-select: none;
                 overflow: hidden;
@@ -175,7 +173,7 @@ $color-text: #fff;
     padding: 10px;
     position: relative;
     width: 100%;
-    height: 100%;
+    // height: 100%;
     border: 1px solid $color-border;
     border-radius: 6px;
 
