@@ -21,13 +21,8 @@ import WatchFilm from "./pages/WatchFilm/WatchFilm.tsx";
 import ListFilm from "./pages/ListFilm/ListFilm.tsx";
 import TrendingList from "./pages/TrendingList/TrendingList.tsx";
 import PopularList from "./pages/PopularList/PopularList.tsx";
-<<<<<<< HEAD
-//@ts-ignore
-import './App.scss';
-=======
 import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
->>>>>>> b2f10f90e39a77835f9c6549a628902fb1957985
 function App() {
   return (
     <div className="App">
