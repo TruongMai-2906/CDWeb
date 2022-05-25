@@ -6,12 +6,12 @@ $color-background: #151d25;
 $color-item: #101821;
 $color-h3: #ff9601;
 $color-text: #fff;
-.register-container {
+.login-container {
   height: 580px;
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
-  .register-form {
+  .login-form {
     width: 40%;
     margin: auto;
   }
@@ -29,7 +29,7 @@ button[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
 }
-input {
+input[type="text"] {
   width: 100%;
   padding: 14px 20px;
   margin: 8px 0;

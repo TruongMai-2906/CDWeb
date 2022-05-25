@@ -1,6 +1,6 @@
-@import 'src/assets/styles/global.scss';
-@import "src/assets/styles/mixin" ;
-@import "src/assets/styles/variable" ;
+@import "src/assets/styles/global.scss";
+@import "src/assets/styles/mixin";
+@import "src/assets/styles/variable";
 
 .root {
   box-shadow: 0px 9px 11px 0px rgb(0 0 0 / 30%);
@@ -47,4 +47,50 @@
   align-self: center;
   transform: skew(20deg);
   color: $color-p-black;
+}
+.profile-dropdown-menu {
+  min-width: 180px;
+}
+
+.profile-menu .user-full-name-info {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.profile-menu .username-info {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+}
+
+.dropdown-item a {
+  padding: 10px 12px;
+  margin: -10px -12px;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.poll-icon {
+  margin-top: -4px;
+}
+
+@media (max-width: 768px) {
+  .app-title a {
+    font-size: 20px;
+  }
+
+  .app-menu > li {
+    padding: 0 15px;
+  }
+
+  .app-menu > li > a {
+    padding: 0 15px;
+    margin: 0 -15px;
+  }
 }
