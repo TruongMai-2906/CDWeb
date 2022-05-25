@@ -5,7 +5,8 @@ import apiConfig from './apiConfig.ts';
 const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'authorization': `${localStorage.getItem("tokenType")} ${localStorage.getItem("accessToken")}`
   },
   paramsSerializer: params => queryString.stringify({ ...params, api_key: apiConfig.apikey })
 })
@@ -21,6 +22,12 @@ axiosClient.interceptors.response.use((response) => {
 
 const get = (url: string) => {
   return axios.get(url);
+}
+export const getUserInfo = (url: string) => {
+  return axiosClient.get(url);
+}
+export const postUserInfo = (url: string, data: any) => {
+  return axiosClient.post(url, data);
 }
 
 const post = (url: string, data: any) => {
