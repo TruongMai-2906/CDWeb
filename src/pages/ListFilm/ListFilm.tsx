@@ -1,17 +1,15 @@
 import React from "react";
+//@ts-ignore
 import styles from "./ListFilm.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Movies } from "./Movie";
 import { Link, useNavigate } from "react-router-dom";
 import {BiRightArrowAlt} from "react-icons/bi"
+//@ts-ignore
 import { get } from '../../utilities/api.ts';
-
-// Api_URL
-export const API_URL =
-  "https://api.themoviedb.org/3/trending/all/day?api_key=e8b29375ae37912b8558a83eca6ec2d0";
-export const API_URL_POPULAR="https://api.themoviedb.org/3/movie/popular?api_key=e8b29375ae37912b8558a83eca6ec2d0&language=en-US&page=2"
-export const API_IMG = "https://image.tmdb.org/t/p/w500/";
+//@ts-ignore
+import { API_IMG, API_URL } from "../../utilities/apiUrl.ts";
 
 export interface ListFilmProps {}
 

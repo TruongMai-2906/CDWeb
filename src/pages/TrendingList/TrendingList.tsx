@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Movies } from '../ListFilm/Movie';
+//@ts-ignore
 import styles from './TrendingList.module.scss';
-import {API_URL, API_IMG} from '../ListFilm/ListFilm.tsx'
+//@ts-ignore
+import {API_URL, API_IMG} from '../../utilities/apiUrl.ts';
+//@ts-ignore
 import { get } from '../../utilities/api.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiRightArrowAlt } from 'react-icons/bi';

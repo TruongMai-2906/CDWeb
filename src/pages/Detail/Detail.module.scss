@@ -6,6 +6,7 @@ $color-border: rgba(29, 39, 49, 0.6509803922);
 $color-background: #151d25;
 $color-item: #101821;
 $color-h3: #ff9601;
+$bg-color: rgb(100,100,100);
 
 .root {
   background-color: $color-p-black;
@@ -25,8 +26,28 @@ $color-h3: #ff9601;
 #block {
   display: flex;
   margin: 0 6%;
+  padding: 1rem 0 0 0;
   display: flex;
   background: $color-background;
+}
+
+#film-content {
+  position: relative;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.overview {
+  display: -webkit-box;
+  // -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  position: relative;
+  // width: 70%;
+  max-height: 100px;
+  overflow: hidden;
+  transition: max-height .5s ease;
 }
 
 #left-content {
@@ -48,16 +69,17 @@ $color-h3: #ff9601;
         background-repeat: no-repeat;
         background-position: center center;
         width: 100%;
-        height: 0;
-        padding-bottom: 50%;
         position: relative;
-        border-bottom: 2px solid #fff;
-        border-top: 2px solid #fff;
-        .image-banner{
+        object-fit: cover;
+
+        .image-banner {
           padding: 0;
           width: 100%;
           height: auto;
+          object-fit: cover;
+
         }
+
         .avatar {
           background-size: cover;
           background-repeat: no-repeat;
@@ -102,7 +124,6 @@ $color-h3: #ff9601;
             display: flex;
             padding: 0 8px 0 0px;
             margin: 0px;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, .5);
             list-style: none;
 
             li {
@@ -122,18 +143,22 @@ $color-h3: #ff9601;
 
       .icon-play {
         background: rgba(255, 150, 1, .75);
-        height: 50px;
-        width: 50px;
+        height: 70px;
+        width: 70px;
         position: absolute;
         top: 50%;
         left: 50%;
         margin: -25px 0 0 -25px;
         border-radius: 50%;
-        transform: scale(1.5);
         transition: all .3s ease-in-out;
         cursor: pointer;
         opacity: .7;
+
+        &:hover {
+          transform: scale(1.5);
+        }
       }
+
 
       .icon-play:after {
         content: "";
@@ -228,9 +253,9 @@ $color-h3: #ff9601;
           border-radius: 6px;
           border: 1px solid $color-border;
           background: $color-item;
-          
-          .content-film{
-            padding: 10px ;
+
+          .content-film {
+            padding: 10px;
           }
         }
 
@@ -254,13 +279,57 @@ $color-h3: #ff9601;
           font-size: 13px;
         }
 
-        .show-more {
-          border-top: none;
-          padding: 8px 7px 0 0;
-          cursor: pointer;
-          font-size: 13px;
-        }
+        // .show-more {
+        //   border-top: none;
+        //   padding: 8px 7px 0 0;
+        //   cursor: pointer;
+        //   font-size: 13px;
+        //   // opacity: 0;
+        //   transition: 0.45s ease;
+        // }
+
       }
     }
   }
+}
+.toggle-box {
+  display: none;
+}
+
+.toggle-box + .show-more {
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  line-height: 21px;
+  margin-bottom: 5px;
+}
+
+.toggle-box + .show-more + .overview {
+  display: none;
+  margin-bottom: 10px;
+}
+
+.toggle-box:checked + .show-more + .overview {
+  display: block;
+}
+
+.toggle-box + .show-more:before {
+  background-color: #4F5150;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  color: #FFFFFF;
+  content: "+";
+  display: block;
+  float: left;
+  font-weight: bold;
+  height: 20px;
+  line-height: 20px;
+  margin-right: 5px;
+  text-align: center;
+  width: 20px;
+}
+
+.toggle-box:checked + .show-more:before {
+  content: "\2212";
 }

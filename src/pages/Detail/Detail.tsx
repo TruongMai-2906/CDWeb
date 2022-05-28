@@ -15,7 +15,7 @@ import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 // @ts-ignore
 import Related from "../../components/Content/Related/Related.tsx";
 import { Movies } from "../ListFilm/Movie";
-import {IoIosArrowDown} from 'react-icons/io'
+import { IoIosArrowDown } from 'react-icons/io'
 
 // Api_URL
 const API_URL = (e: string) => {
@@ -25,7 +25,7 @@ const API_SEARCH =
   "https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093";
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 
-export interface DetailProps {}
+export interface DetailProps { }
 
 export interface DetailDataType {
   id: string;
@@ -40,7 +40,7 @@ export interface DetailDataType {
   production_companies: {
     name: string;
   }[];
-  production_countries:{
+  production_countries: {
     name: string
   }[]
 }
@@ -60,21 +60,6 @@ const Detail: React.FC<DetailProps> = (props) => {
       });
   }, []);
 
-  function myFunction() {
-    var dots = document.getElementById(styles["dots"]);
-    var moreText = document.getElementById(styles["more"]);
-    var btnText = document.getElementById(styles["myBtn"]);
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Mở rộng";
-      moreText.style.display = "none";
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Thu gọn";
-      moreText.style.display = "inline";
-    }
-  }
   const handleDetail = (e: string) => {
     navigate(`/watch/${e}`);
   };
@@ -96,8 +81,11 @@ const Detail: React.FC<DetailProps> = (props) => {
                   alt=""
                   src={API_IMG + films?.poster_path}
                 />{" "}
-                <a href="" className="icon-play" />
-                <a href="" className={styles["icon-play"]}></a>
+                <a href=""
+                  onClick={() => {
+                    handleDetail(films?.id);
+                  }}
+                  className={styles["icon-play"]}></a>
                 <div className={styles["text-top"]}>
                   <h1 className={styles["name"]}>{films?.original_title}</h1>
                   <ul className={styles["list-button"]}>
@@ -112,7 +100,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                     </li>
                     <li>
                       <div
-                       key={films?.id}
+                        key={films?.id}
                         onClick={() => {
                           handleDetail(films?.id);
                         }}
@@ -185,7 +173,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                         <li>
                           <label>Actor: </label>{" "}
                           <a href="" title="">
-                          {films?.production_companies.map((company) => company.name)}
+                            {films?.production_companies.map((company) => company.name)}
                           </a>
                         </li>
                       </div>
@@ -195,22 +183,20 @@ const Detail: React.FC<DetailProps> = (props) => {
                 <div className={styles["content"]}>
                   <div className={styles["content-film"]}>
                     <h3 className={styles["heading"]}>Content </h3>
-                    <div id="film-content">
-                      <p>{films?.overview}</p>
-
-                      <div className={styles["item-content-toggle"]}>
-                        <div className={styles["item-content-gradient"]}></div>
-                        <span
-                          onClick={myFunction}
-                          id={styles["myBtn"]}
-                          className={styles["show-more"]}
-                          data-single="true"
-                          data-showmore="Mở rộng"
-                          data-showless="Thu gọn"
-                        >
-                          Extend<IoIosArrowDown/>
-                        </span>
-                      </div>
+                    <div id={styles["film-content"]}>
+                      <input className={styles["toggle-box"]} id={styles['post']} type="checkbox" />
+                        <p className={styles['overview']}>{films?.overview}</p>
+                        <div className={styles["item-content-toggle"]}>
+                          {/* <label
+                            data-for={styles['post']}
+                            id={styles["myBtn"]}
+                            className={styles["show-more"]}
+                            role="button"
+                            data-single="true"
+                          >
+                            Extend<IoIosArrowDown />
+                          </label> */}
+                        </div>
                     </div>
                   </div>
                 </div>

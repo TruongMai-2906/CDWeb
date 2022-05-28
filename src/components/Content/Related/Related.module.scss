@@ -5,7 +5,7 @@
 #related-movies {
     line-height: 1.5em;
     background: $color-background;
-    padding: 20px 20px 0 10px;
+    padding: 0 20px 0 10px;
     position: relative;
     width: 100%;
     // height: 100%;
@@ -66,12 +66,12 @@
                 transform: center left;
                 position: relative;
 
-                &:hover {
-                    transform: scale(1.1);
-                    transition: 0.5s;
-                    z-index: 10;
-                    opacity: 1;
-                }
+                // &:hover {
+                //     transform: scale(1.1);
+                //     transition: 0.5s;
+                //     z-index: 10;
+                //     opacity: 0.6;
+                // }
 
                 .img-film {
                     display: block;
@@ -82,10 +82,18 @@
                     -webkit-border-radius: 5%;
                     cursor: pointer;
                     scroll-behavior: smooth;
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        z-index: 10;
+                        opacity: 0.6;
+                        transition: all .3s ease-in-out;
+                    }
                 }
 
                 .film-title-box {
-                    position: unset !important;
+                    position: relative;
                     padding: 50px 0 0 !important;
                     text-align: center !important;
                     background: #202a34 !important;
@@ -162,41 +170,5 @@
                 }
             }
         }
-    }
-
-
-}
-
-.the_tag_list {
-    line-height: 1.5em;
-    background: $color-background;
-    padding: 10px;
-    position: relative;
-    width: 100%;
-    // height: 100%;
-    border: 1px solid $color-border;
-    border-radius: 6px;
-
-    .heading {
-        font-weight: 700;
-        margin-bottom: 15px;
-        font-size: 1.1em;
-        color: $color-h3;
-    }
-
-    a {
-        text-decoration: none;
-        padding: 6px 10px 3px;
-        margin: 1px;
-        color: #949494;
-        font-size: 12px;
-        display: inline-block;
-        line-height: 15px;
-        border: 1px solid #1d2731;
-        background: #0b0f15;
-        border-radius: 3px;
-        background-size: 300% 100%;
-        background-image: linear-gradient(to right, #070f19 0, #010408 51%, #6d2323 100%);
-        transition: .7s;
     }
 }

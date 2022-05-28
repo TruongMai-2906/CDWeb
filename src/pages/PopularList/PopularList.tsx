@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { API_IMG, API_URL } from "../ListFilm/ListFilm.tsx";
+//@ts-ignore
+import { API_IMG, API_URL } from "../../utilities/apiUrl.ts";
 import { Movies } from "../ListFilm/Movie";
+//@ts-ignore
 import styles from "./PopularList.module.scss";
+//@ts-ignore
 import { get } from "../../utilities/api.ts";
 
-export interface PopularListProps {}
+export interface PopularListProps { }
 
-export interface PopularListDataType {}
+export interface PopularListDataType { }
 
 const PopularList: React.FC<PopularListProps> = (props) => {
   const [moviePopular, setMoviePopular] = useState<Movies[]>();

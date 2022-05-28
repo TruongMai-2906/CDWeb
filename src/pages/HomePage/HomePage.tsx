@@ -1,103 +1,90 @@
 import React, { useEffect, useState } from 'react';
+//@ts-ignore
 import styles from './HomePage.module.scss';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Autoplay, Navigation, Scrollbar } from 'swiper';
+import { Button } from 'antd';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper";
 //@ts-ignore
-import Recommend from '../../components/Content/Recommend/Recommend.tsx'
+import Recommend from '../../components/Content/Recommend/Recommend.tsx';
 //@ts-ignore
-import Related from '../../components/Content/Related/Related.tsx'
-import Banner from '../../assets/images/home/banner1.jpg';
-import Banner2 from '../../assets/images/home/banner2.jpg';
-import Bannerctv from '../../assets/images/home/bannerctv.jpg';
-import { Link } from 'react-router-dom';
-import { get } from '../../utilities/api.ts';
+import Trending from '../../components/Content/Trending/Trending.tsx';
+//@ts-ignore
+import Popular from '../../components/Content/Popular/Popular.tsx';
+//@ts-ignore
+import { API_IMG, API_URL } from '../../utilities/apiUrl.ts';
+import { AiFillStar } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom';
 
 export interface HomePageProps { }
 
 export interface HomePageDataType { }
 
 const HomePage: React.FC<HomePageProps> = (props) => {
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
-  const [data, setData] = useState();
   useEffect(() => {
-
-    if (!data) get('https://jsonplaceholder.typicode.com/todos/1').then((res) => setData(res.data));
-    ;
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then(data => {
+        console.log(data);
+        setData(data.results);
+      })
   }, [])
-
   useEffect(() => {
-
     if (data) console.log(data);
-
   }, [data])
-
+  const handleDetail = (e: string) => {
+    navigate(`/detail/${e}`);
+  };
   return (
     <div className={styles['container']}>
-    <div className={styles['root']}>
-      <div className={styles['top-slider']}>
-        <Swiper navigation={true} modules={[Navigation]} className={styles['swiper']}>
-          <SwiperSlide>
-            <div className={styles["item"]}>
-              <img src={Banner2} alt="banner" className={styles['background']} />
-              <div className={styles['content']}>
-                this is content
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-          <SwiperSlide>Slide 6</SwiperSlide>
-          <SwiperSlide>Slide 7</SwiperSlide>
-          <SwiperSlide>Slide 8</SwiperSlide>
-          <SwiperSlide>Slide 9</SwiperSlide>
-        </Swiper>
-      </div>
-      <div className={styles['row']}>
-        <div className={styles['col-left']}>
-          {/* <div className={styles['box']}>
-            <div className="box-body">
-              <div className="box-header">
-                <h2>Popular</h2>
-              </div>
-              <div className="swiper">
-                <Swiper
-                  slidesPerView={4}
-                  spaceBetween={16}
-                  slidesPerGroup={4}
-                  loop={true}
-                  loopFillGroupWithBlank={true}
-                  navigation={true}
-                  modules={[Pagination, Navigation]} className="mySwiper">
-                  <SwiperSlide>Slide 1</SwiperSlide>
-                  <SwiperSlide>Slide 2</SwiperSlide>
-                  <SwiperSlide>Slide 3</SwiperSlide>
-                  <SwiperSlide>Slide 4</SwiperSlide>
-                  <SwiperSlide>Slide 5</SwiperSlide>
-                  <SwiperSlide>Slide 6</SwiperSlide>
-                  <SwiperSlide>Slide 7</SwiperSlide>
-                  <SwiperSlide>Slide 8</SwiperSlide>
-                  <SwiperSlide>Slide 9</SwiperSlide>
-                </Swiper>
-              </div>
-            </div>
-          </div> */}
-          <Related/>
-          <Related/>
+      <div className={styles['root']}>
+        <div className={styles['top-slider']}>
+          <Swiper navigation={true} modules={[Navigation, Autoplay]} loop={true}
+            loopFillGroupWithBlank={true} autoplay={{ delay: 5000 }} className={styles['swiper']}>
+            {data.map((d) => (
+              <SwiperSlide>
+                <div className={styles["item"]}>
+                  <img src={API_IMG + d.backdrop_path} alt="banner" className={styles['background']} />
+                  <h3 className={styles['content']}>
+                    {d.original_name || d.original_title}
+                  </h3>
+                  <h5 className={styles['vote']}>
+                    Vote: {d.vote_average} / 10
+                    {/* <AiFillStar color='#ffc41f'/> */}
+                  </h5>
+                  <a onClick={() => {
+                    handleDetail(d.id);
+                  }} className={styles['button-watch']}>Watch Now
+                    <svg data-v-946d9054="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right"
+                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi-chevron-right b-icon bi"><g data-v-946d9054="">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg>
+                  </a>
+
+                </div>
+              </SwiperSlide>
+            ))};
+
+          </Swiper>
         </div>
-        <div className={styles['col-right']}>
-          <div className={styles['container-col-right']}>
-            <Recommend/>
+        <div className={styles['row']}>
+          <div className={styles['col-left']}>
+            <Trending />
+            <Popular />
+          </div>
+          <div className={styles['col-right']}>
+            <div className={styles['container-col-right']}>
+              <Recommend />
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   )
 };

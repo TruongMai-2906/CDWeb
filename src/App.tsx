@@ -19,11 +19,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import WatchFilm from "./pages/WatchFilm/WatchFilm.tsx";
 //@ts-ignore
 import ListFilm from "./pages/ListFilm/ListFilm.tsx";
+//@ts-ignore
 import TrendingList from "./pages/TrendingList/TrendingList.tsx";
 import PopularList from "./pages/PopularList/PopularList.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
+import { useState } from "react";
 function App() {
+  const [active, setState] = useState<string>("");
   return (
     <div className="App">
       <Router>

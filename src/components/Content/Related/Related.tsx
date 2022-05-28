@@ -7,8 +7,9 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from 'swiper';
 import { useNavigate } from 'react-router-dom';
-const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=bcc4ff10c2939665232d75d8bf0ec093";
-const API_IMG = "https://image.tmdb.org/t/p/w500/";
+//@ts-ignore
+import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
+
 export interface RelatedProps {
   original_title: string,
   title: string, 
@@ -69,22 +70,6 @@ export const Related: React.FC<RelatedProps> = (props) => {
           </Swiper>
         </>
       </div>
-      <div className={styles['the_tag_list']}>
-        <h3 className={styles['heading']}>Tags</h3>
-        <a href="https://fullphimzz.com/tag/banhtv/" title="BanhTV">#BanhTV</a>
-        <a href="https://fullphimzz.com/tag/bilutv/" title="BiluTV">#BiluTV</a>
-        <a href="https://fullphimzz.com/tag/fullphim/" title="Full Phim">#Full Phim</a>
-        <a href="https://fullphimzz.com/tag/hdonline/" title="HDOnline">#HDOnline</a>
-        <a href="https://fullphimzz.com/tag/motphim/" title="MotPhim">#MotPhim</a>
-        <a href="https://fullphimzz.com/tag/phim14/" title="Phim14">#Phim14</a>
-        <a href="https://fullphimzz.com/tag/phim3s/" title="Phim3S">#Phim3S</a>
-        <a href="https://fullphimzz.com/tag/phimbathu/" title="PhimBatHu">#PhimBatHu</a>
-        <a href="https://fullphimzz.com/tag/phimmoi-net/" title="PhimMoi.net">#PhimMoi.net</a>
-        <a href="https://fullphimzz.com/tag/spy-x-family/" title="Spy x Family">#Spy x Family</a>
-        <a href="https://fullphimzz.com/tag/tvhay/" title="TVHay">#TVHay</a>
-        <a href="https://fullphimzz.com/tag/vkool/" title="VKool">#VKool</a>
-        <a href="https://fullphimzz.com/tag/vuviphim/" title="VuViPhim">#VuViPhim</a>
-        <a href="https://fullphimzz.com/tag/zingtv/" title="ZingTV">#ZingTV</a></div>
     </>
   )
 }

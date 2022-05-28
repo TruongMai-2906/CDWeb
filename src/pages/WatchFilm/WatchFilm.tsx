@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+//@ts-ignore
 import styles from "./WatchFilm.module.scss";
+//@ts-ignore
 import Recommend from "../../components/Content/Recommend/Recommend.tsx";
+//@ts-ignore
 import Related from "../../components/Content/Related/Related.tsx";
 import ReactPlayer from "react-player";
+//@ts-ignore
 import { get } from '../../utilities/api.ts';
 
 export interface WatchFilmProps {}
