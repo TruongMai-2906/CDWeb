@@ -9,36 +9,51 @@ $color-text: #fff;
 .login-container {
   height: 580px;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #151d25;
   padding: 20px;
   .login-form {
     width: 40%;
     margin: auto;
   }
 }
-button[type="submit"]:hover {
+button:hover {
   background-color: #45a049;
 }
-button[type="submit"] {
+button {
   width: 100%;
   height: 50px;
   background-color: #4caf50;
   color: white;
-  margin: 8px 0;
+  margin: 20px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
-input[type="text"] {
+input {
   width: 100%;
   padding: 14px 20px;
   margin: 8px 0;
   display: inline-block;
   // border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
   box-sizing: border-box;
+  transition: all 0.5s ease;
 }
 label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  color: #fff;
+}
+input:focus {
+  width: 100%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 22px;
+  transition: all 0.5s ease;
+}
+h1{
+  color: #ff9601;
+  text-align: center;
 }

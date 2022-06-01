@@ -5,18 +5,28 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { postUserInfo,get } from "../../utilities/api.ts";
 import {url, User} from '../Register/Register.tsx'
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
 export interface LoginProps {}
 
 export interface LoginDataType {
-  usernameOrEmail: string;
+  username: string;
   password: string;
 }
 
 const Login: React.FC<LoginProps> = (props) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { handleSubmit, register } = useForm<LoginDataType>();
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Username is required'),
+    password: Yup.string()
+      .required('Password is required')
+  });
+  const { handleSubmit, register, formState: { errors } } = useForm<LoginDataType>({
+    resolver: yupResolver(validationSchema)
+  });
   const [redirect, setRedirect] = useState<boolean>(false)
   console.log("accessToken: ",localStorage.getItem("accessToken"));
   
@@ -37,14 +47,17 @@ const Login: React.FC<LoginProps> = (props) => {
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>User Name</label>
           <input
             type="text"
-            {...register("usernameOrEmail")}
+            {...register("username")}
             placeholder="Enter your user name"
             onChange={(e) => setUsername(e.target.value)}
+            className={`form-control ${errors.username ? 'is-invalid' : ''}`}
           />
+          <div className="invalid-feedback">{errors.username?.message}</div>
 
           <label>Password</label>
           <input
@@ -52,8 +65,10 @@ const Login: React.FC<LoginProps> = (props) => {
             {...register("password")}
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
+            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
           />
-          <Button htmlType="submit">Submit</Button>
+          <div className="invalid-feedback">{errors.password?.message}</div>
+          <Button htmlType="submit" type="primary">Submit</Button>
         </form>
       </div>
     </div>
