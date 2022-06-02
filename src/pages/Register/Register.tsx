@@ -34,8 +34,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
       .max(20, 'Username must not exceed 20 characters'),
     email: Yup.string()
       .required('Email is required')
-      .email('Email is invalid')
-      .matches(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/),
+      .email('Email is invalid'),
     password: Yup.string()
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
@@ -104,7 +103,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
       <div className={styles["register-form"]}>
       <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>Full Name</label>
+          <label>Full Name <span style={{color: "red"}}>*</span></label>
           <input
             type="text"
             {...register("name")}
@@ -113,7 +112,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           />
           <div className="invalid-feedback">{errors.name?.message}</div>
 
-          <label>User Name</label>
+          <label>User Name <span style={{color: "red"}}>*</span></label>
           <input
             type="text"
             {...register("username")}
@@ -123,7 +122,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           />
           {valid.field === "name" && <div style={{paddingLeft:"20px",color: "red"}}>{valid.message}</div>}
           <div className="invalid-feedback">{errors.username?.message}</div>
-          <label>Email</label>
+          <label>Email <span style={{color: "red"}}>*</span></label>
           <input
             type="text"
             name="email"
@@ -134,7 +133,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           />
           {validEmail.field === "email" && <div style={{paddingLeft:"20px",color: "red"}}>{validEmail.message}</div>}
           <div className="invalid-feedback">{errors.email?.message}</div>
-          <label>Password</label>
+          <label>Password <span style={{color: "red"}}>*</span></label>
           <input
             type="password"
             {...register("password")}
@@ -142,7 +141,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             className={`form-control ${errors.password ? 'is-invalid' : ''}`}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
-          <label>Confirm Password</label>
+          <label>Confirm Password <span style={{color: "red"}}>*</span></label>
           <input
             type="password"
             {...register("confirmPassword")}
