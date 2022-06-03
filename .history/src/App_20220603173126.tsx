@@ -25,8 +25,9 @@ import PopularList from "./pages/PopularList/PopularList.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
 import { useState } from "react";
+import Admin from "./components/Admin/Admin.tsx";
 import Layout from "./components/Layout/Layout.tsx";
-import Admin from "./pages/Admin/Admin.tsx";
+import AdminLayout from "./components/Layout/AdminLayout.tsx";
 function App() {
   const [active, setState] = useState<string>("");
   return (
@@ -34,24 +35,34 @@ function App() {
       <Router>
         < >
           <Routes>
+           <Layout>
            <Route path="/" element={
             <>
               <HomePage />
             </>}></Route>
-            <Route path="/detail" element={<Layout>
-              <Detail />
-            </Layout>}></Route>
-            <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
-            <Route path="/watch/:id" element={<Layout></Layout>} />
+            <Route path="/detail" element={<Detail />}></Route>
+            <Route path="/watch" element={<WatchFilm />} />
+            <Route path="/watch/:id" element={<WatchFilm />} />
             <Route path="/register" element={<Register />}></Route>
             <Route path="/listfilm" element={<ListFilm />}></Route>
             <Route path="/detail/:id" element={<Detail />}></Route>
             <Route path="/trending" element={<TrendingList />}></Route>
             <Route path="/popular" element={<PopularList />}></Route>
             <Route path="/login" element={<Login />}></Route>
+           </Layout>
+           <AdminLayout>
            <Route path="/admin" element={<><Admin /></>}></Route>
+           </AdminLayout>
+            
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
           </Routes>
         </>
+        {/* <AdminLayout> */}
+          <Routes>
+            
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+          </Routes>
+        {/* </AdminLayout> */}
       </Router>
     </div>
   );

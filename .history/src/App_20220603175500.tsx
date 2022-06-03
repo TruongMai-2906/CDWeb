@@ -26,7 +26,7 @@ import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
 import { useState } from "react";
 import Layout from "./components/Layout/Layout.tsx";
-import Admin from "./pages/Admin/Admin.tsx";
+import AdminLayout from "./pages/Admin/Admin.tsx";
 function App() {
   const [active, setState] = useState<string>("");
   return (
