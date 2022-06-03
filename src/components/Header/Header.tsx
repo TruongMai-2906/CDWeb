@@ -15,6 +15,7 @@ export interface UserInfoDataType {
   id?: number;
   name: string;
   username: string;
+  roles: string;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -22,6 +23,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     id: -1,
     name: "",
     username: "",
+    roles:""
   };
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
   useEffect(() => {
@@ -31,7 +33,6 @@ const Header: React.FC<HeaderProps> = (props) => {
     return await getUserInfo(`http://localhost:8080/api/user/me`).then((resp) =>
       setLogin(resp)
     );
-    // const json = await response.json();
   };
   return (
     <div className={styles["root"]}>

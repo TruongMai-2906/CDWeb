@@ -20,8 +20,8 @@ axiosClient.interceptors.response.use((response) => {
   throw error;
 });
 
-const get = (url: string) => {
-  return axios.get(url);
+const get = (url: string,option?:any) => {
+  return axios.get(url,{...option});
 }
 export const getUserInfo = (url: string) => {
   return axiosClient.get(url);

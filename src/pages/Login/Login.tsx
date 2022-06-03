@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./Login.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { postUserInfo,get } from "../../utilities/api.ts";
@@ -7,12 +7,22 @@ import {url, User} from '../Register/Register.tsx'
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { debounce } from "lodash";
 
 export interface LoginProps {}
 
 export interface LoginDataType {
   username: string;
   password: string;
+}
+export interface CurrentUserType {
+  id?: number;
+  username: string;
+  name: string;
+  roles: {
+    id:number;
+    name: string;
+  }[]
 }
 
 const Login: React.FC<LoginProps> = (props) => {
@@ -29,7 +39,6 @@ const Login: React.FC<LoginProps> = (props) => {
   });
   const [redirect, setRedirect] = useState<boolean>(false)
   console.log("accessToken: ",localStorage.getItem("accessToken"));
-  
   const navigate = useNavigate()
   const onSubmit: SubmitHandler<User> = async (data) => {
     const response = await postUserInfo(`${url}api/auth/signin`, data
@@ -38,11 +47,21 @@ const Login: React.FC<LoginProps> = (props) => {
       return;
     }
     );
-
     localStorage.setItem("accessToken", response.accessToken);
     localStorage.setItem("tokenType", response.tokenType);
-    console.log("signin:",response);
-    window.location.href="/"
+    const checkMe: {data: CurrentUserType} = await get(`${url}api/user/me`, {headers:{
+      authorization: `${response.tokenType} ${response.accessToken}`
+    }})
+    console.log("here");
+    
+    console.log("role",checkMe.data.roles[0].name);
+
+    if (checkMe.data.roles[0].name === "ROLE_ADMIN") {
+      window.location.href="/admin"
+    }else if(checkMe.data.roles[0].name === "ROLE_USER"){
+      window.location.href="/"
+    }
+    
   };
   return (
     <div className={styles["login-container"]}>
