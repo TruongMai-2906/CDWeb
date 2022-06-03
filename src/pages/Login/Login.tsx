@@ -7,11 +7,8 @@ import {url, User} from '../Register/Register.tsx'
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-<<<<<<< HEAD
 import { debounce } from "lodash";
-=======
 import Swal from 'sweetalert2/dist/sweetalert2.js';
->>>>>>> 3c7ecdaa0d28b7190cf03e76fd3a9df25033ce03
 
 export interface LoginProps {}
 
@@ -59,11 +56,9 @@ const Login: React.FC<LoginProps> = (props) => {
     );
     localStorage.setItem("accessToken", response.accessToken);
     localStorage.setItem("tokenType", response.tokenType);
-<<<<<<< HEAD
     const checkMe: {data: CurrentUserType} = await get(`${url}api/user/me`, {headers:{
       authorization: `${response.tokenType} ${response.accessToken}`
     }})
-    console.log("here");
     
     console.log("role",checkMe.data.roles[0].name);
 
@@ -73,16 +68,12 @@ const Login: React.FC<LoginProps> = (props) => {
       window.location.href="/"
     }
     
-=======
-    console.log("signin:",response);
-    window.location.href="/";
     Swal.fire({
       icon: 'success',
       title: 'Success',
       text: 'Login Successfully',
       // footer: '<a href="">Why do I have this issue?</a>'
     })
->>>>>>> 3c7ecdaa0d28b7190cf03e76fd3a9df25033ce03
   };
   return (
     <div className={styles["login-container"]}>

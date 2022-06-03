@@ -6,53 +6,61 @@ import Search from "antd/lib/input/Search";
 import { Menu, Dropdown, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { post, getUserInfo } from "../../utilities/api.ts";
-import { RiArrowDownSFill } from "react-icons/ri"
-import { BiHistory, BiLogIn } from "react-icons/bi"
-import { BsFillPersonLinesFill } from "react-icons/bs"
+import { RiArrowDownSFill } from "react-icons/ri";
+import { BiHistory, BiLogIn } from "react-icons/bi";
+import { BsFillPersonLinesFill } from "react-icons/bs";
 import Form from "antd/lib/form/Form";
-import tmdbApi, { category, movieType, tvType } from '../../utilities/tmdmApi.ts';
+import tmdbApi, {
+  category,
+  movieType,
+  tvType,
+} from "../../utilities/tmdmApi.ts";
 export interface HeaderProps {
   page: string;
   keyword: string;
   category: string;
 }
 
-export interface HeaderDataType {
-}
+export interface HeaderDataType {}
 export interface UserInfoDataType {
   id?: number;
   name: string;
   username: string;
-  roles: string;
+  roles: {
+    id: number;
+    name: string;
+  }[];
 }
 
-
 const Header: React.FC<HeaderProps> = (props) => {
-
   const defaultUser: UserInfoDataType = {
     id: -1,
     name: "",
     username: "",
-    roles:""
+    roles: [],
   };
-  const [login, setLogin] = useState<UserInfoDataType>(defaultUser)
-  useEffect(() => { onUserInfo() }, [])
+  const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
+  useEffect(() => {
+    onUserInfo();
+  }, []);
 
   const history = useNavigate();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const onUserInfo = async () => {
-    return await getUserInfo(`http://localhost:8080/api/user/me`).then((resp) =>
-      setLogin(resp)
-    );
+    const checkMe = await getUserInfo(
+      `http://localhost:8080/api/user/me`
+    ).then((data: UserInfoDataType) => {
+      setLogin(data);
+      console.log("me", data);
+    });
   };
   const logout = () => {
     window.localStorage.clear(); //clear all localstorage
     window.localStorage.removeItem("accessToken"); //remove one item
     window.location.reload();
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <div className={styles["root"]}>
@@ -62,18 +70,23 @@ const Header: React.FC<HeaderProps> = (props) => {
           <p className={styles["p-logo"]}>FilmHot</p>
         </Link>
         <div style={{ display: "flex" }}>
-          {login.id === -1 && <>
-            <Link to="/login" className={styles["item"]}>
-              <div className={styles["content"]}>Login</div>
-            </Link>
-            <Link to="/register" className={styles["item"]}>
-              <div className={styles["content"]}>Register</div>
-            </Link>
-          </>}
-          {login.id != -1 &&
-
+          {login.id === -1 && (
+            <>
+              <Link to="/login" className={styles["item"]}>
+                <div className={styles["content"]}>Login</div>
+              </Link>
+              <Link to="/register" className={styles["item"]}>
+                <div className={styles["content"]}>Register</div>
+              </Link>
+            </>
+          )}
+          {login.id != -1 && (
             <div style={{ display: "flex", color: "#fff" }}>
-              <div className={classNames(styles["icon-headerr"], styles["flex"])}>Hi {login.name}</div>
+              <div
+                className={classNames(styles["icon-headerr"], styles["flex"])}
+              >
+                Hi {login.name}
+              </div>
               <div style={{ margin: "0 5px" }}>
                 <BiHistory className={styles["icon-header"]} />
               </div>
@@ -81,10 +94,10 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <BiLogIn onClick={logout} className={styles["icon-header"]} />
               </div>
             </div>
-          }
+          )}
         </div>
       </div>
-      <div className={styles['nav-menu']}>
+      <div className={styles["nav-menu"]}>
         <div className={styles["navbar"]}>
           <Link to="/home" className={styles["item"]}>
             <div className={classNames(styles["content"])}>Home</div>
@@ -101,14 +114,19 @@ const Header: React.FC<HeaderProps> = (props) => {
           <Link to="/" className={styles["item"]}>
             <div className={styles["content"]}>Contact</div>
           </Link>
-
+          {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
+            <Link to="/admin" className={styles["item"]}>
+              <div className={styles["content"]}>Admin</div>
+            </Link>
+          )}
         </div>
         <div className={styles["search"]}>
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
             <div className="form-group">
-              <div className="input-group col-xs-12" >
+              <div className="input-group col-xs-12">
                 {/* <AiOutlineSearch /> */}
-                <input id="search"
+                <input
+                  id="search"
                   className={styles["form-control"]}
                   placeholder="Input search text"
                 />
@@ -117,9 +135,8 @@ const Header: React.FC<HeaderProps> = (props) => {
           </form>
         </div>
       </div>
-
     </div>
-  )
+  );
 };
 
 export default Header;
