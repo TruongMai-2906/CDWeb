@@ -38,8 +38,6 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   const [keyword, setKeywword] = useState(props.keyword ? props.keyword : '');
   const history = useNavigate();
-  const navigate = useNavigate()
-
   const goToSearch = useCallback(
     () => {
       if (keyword.trim().length > 0) {
@@ -67,9 +65,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   }
   const logout = () => {
     window.localStorage.clear(); //clear all localstorage
-    window.localStorage.removeItem("accessToken"); //remove one item
-    window.location.reload();
-    navigate("/")
+    window.localStorage.removeItem("my_item_key"); //remove one item
   }
 
   return (

@@ -53,7 +53,7 @@ const Login: React.FC<LoginProps> = (props) => {
     Swal.fire({
       icon: 'success',
       title: 'Success',
-      text: 'Login Successfully',
+      text: 'Register Successfully',
       // footer: '<a href="">Why do I have this issue?</a>'
     })
   };
@@ -61,7 +61,7 @@ const Login: React.FC<LoginProps> = (props) => {
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>User Name</label>
           <input
             id={styles['form-control']}

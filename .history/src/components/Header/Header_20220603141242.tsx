@@ -38,8 +38,6 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   const [keyword, setKeywword] = useState(props.keyword ? props.keyword : '');
   const history = useNavigate();
-  const navigate = useNavigate()
-
   const goToSearch = useCallback(
     () => {
       if (keyword.trim().length > 0) {
@@ -60,16 +58,13 @@ const Header: React.FC<HeaderProps> = (props) => {
       document.removeEventListener('keyup', enterEvent);
     };
   }, [keyword, goToSearch]);
-
+  
   const onUserInfo = async () => {
     return await getUserInfo(`http://localhost:8080/api/user/me`).then(resp => setLogin(resp))
     // const json = await response.json();
   }
   const logout = () => {
-    window.localStorage.clear(); //clear all localstorage
     window.localStorage.removeItem("accessToken"); //remove one item
-    window.location.reload();
-    navigate("/")
   }
 
   return (
@@ -92,11 +87,11 @@ const Header: React.FC<HeaderProps> = (props) => {
 
             <div style={{ display: "flex", color: "#fff" }}>
               <div className={classNames(styles["icon-headerr"], styles["flex"])}>Hi {login.name}</div>
-              <div style={{ margin: "0 5px" }}>
-                <BiHistory className={styles["icon-header"]} />
+              <div style={{ margin: "0 5px"}}>
+              <BiHistory className={styles["icon-header"]} />
               </div>
-              <div style={{ margin: " 0 5px" }}>
-                <BiLogIn onClick={logout} className={styles["icon-header"]} />
+              <div style={{margin: " 0 5px"}}>
+              <BiLogIn onClick={logout} className={styles["icon-header"]}/>
               </div>
             </div>
           }

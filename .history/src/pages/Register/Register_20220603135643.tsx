@@ -71,15 +71,13 @@ export const Register: React.FC<RegisterProps> = (props) => {
         text: 'Register Successfully',
         // footer: '<a href="">Why do I have this issue?</a>'
       })
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
     }
-   
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      footer: '<a href="">Why do I have this issue?</a>'
+    })
     navigate("/login")
   };
 
@@ -117,7 +115,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
     <div className={styles["register-container"]}>
       <div className={styles["register-form"]}>
         <h1>Register</h1>
-        <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>Full Name <span style={{ color: "red" }}>*</span></label>
           <input
             id={styles['form-control']}

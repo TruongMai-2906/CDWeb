@@ -71,15 +71,13 @@ export const Register: React.FC<RegisterProps> = (props) => {
         text: 'Register Successfully',
         // footer: '<a href="">Why do I have this issue?</a>'
       })
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
     }
-   
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      footer: '<a href="">Why do I have this issue?</a>'
+    })
     navigate("/login")
   };
 

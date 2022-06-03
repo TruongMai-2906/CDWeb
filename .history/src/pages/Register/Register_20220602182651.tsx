@@ -9,7 +9,6 @@ import { debounce } from 'lodash'
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 export interface User {
   name: string;
@@ -63,23 +62,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
   const onSubmit: SubmitHandler<User> = async (data) => {
     const response = await post(`${url}api/auth/signup`, data
     );
-    if (data) {
-      console.log(data);
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Register Successfully',
-        // footer: '<a href="">Why do I have this issue?</a>'
-      })
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
-    }
-   
+    console.log(data);
     navigate("/login")
   };
 
@@ -113,14 +96,15 @@ export const Register: React.FC<RegisterProps> = (props) => {
     }
   }
 
+
+
   return (
     <div className={styles["register-container"]}>
       <div className={styles["register-form"]}>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>Full Name <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("name")}
             placeholder="Your name.."
@@ -130,7 +114,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
 
           <label>User Name <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("username")}
             placeholder="Enter your user name"

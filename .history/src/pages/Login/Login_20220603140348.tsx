@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
+
 export interface LoginProps {}
 
 export interface LoginDataType {
@@ -33,35 +34,35 @@ const Login: React.FC<LoginProps> = (props) => {
   
   const navigate = useNavigate()
   const onSubmit: SubmitHandler<User> = async (data) => {
-    const response = await postUserInfo(`${url}api/auth/signin`, data)
-    .catch(error => {
-      console.log("Login fail");
+    const response = await postUserInfo(`${url}api/auth/signin`, data
+    )
+    if (data) {
+      console.log(data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Register Successfully',
+        // footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
         footer: '<a href="">Why do I have this issue?</a>'
       })
-      return;
-    }
     );
 
     localStorage.setItem("accessToken", response.accessToken);
     localStorage.setItem("tokenType", response.tokenType);
     console.log("signin:",response);
-    window.location.href="/";
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: 'Login Successfully',
-      // footer: '<a href="">Why do I have this issue?</a>'
-    })
+    window.location.href="/"
   };
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>User Name</label>
           <input
             id={styles['form-control']}

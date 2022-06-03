@@ -67,8 +67,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   }
   const logout = () => {
     window.localStorage.clear(); //clear all localstorage
-    window.localStorage.removeItem("accessToken"); //remove one item
-    window.location.reload();
+    window.localStorage.removeItem("my_item_key"); //remove one item
     navigate("/")
   }
 

@@ -7,7 +7,6 @@ import {url, User} from '../Register/Register.tsx'
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 export interface LoginProps {}
 
@@ -33,15 +32,9 @@ const Login: React.FC<LoginProps> = (props) => {
   
   const navigate = useNavigate()
   const onSubmit: SubmitHandler<User> = async (data) => {
-    const response = await postUserInfo(`${url}api/auth/signin`, data)
-    .catch(error => {
+    const response = await postUserInfo(`${url}api/auth/signin`, data
+    ).catch(error => {
       console.log("Login fail");
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
       return;
     }
     );
@@ -49,22 +42,15 @@ const Login: React.FC<LoginProps> = (props) => {
     localStorage.setItem("accessToken", response.accessToken);
     localStorage.setItem("tokenType", response.tokenType);
     console.log("signin:",response);
-    window.location.href="/";
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: 'Login Successfully',
-      // footer: '<a href="">Why do I have this issue?</a>'
-    })
+    window.location.href="/"
   };
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmit)} method="post">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>User Name</label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("username")}
             placeholder="Enter your user name"
@@ -75,7 +61,6 @@ const Login: React.FC<LoginProps> = (props) => {
 
           <label>Password</label>
           <input
-            id={styles['form-control']}
             type="password"
             {...register("password")}
             placeholder="Enter your password"
