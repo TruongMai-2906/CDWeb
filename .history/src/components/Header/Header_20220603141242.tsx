@@ -23,7 +23,6 @@ export interface UserInfoDataType {
   id?: number;
   name: string;
   username: string;
-  roles: string;
 }
 
 
@@ -33,25 +32,39 @@ const Header: React.FC<HeaderProps> = (props) => {
     id: -1,
     name: "",
     username: "",
-    roles:""
-  };
+  }
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser)
   useEffect(() => { onUserInfo() }, [])
 
+  const [keyword, setKeywword] = useState(props.keyword ? props.keyword : '');
   const history = useNavigate();
-  const navigate = useNavigate()
-
-
+  const goToSearch = useCallback(
+    () => {
+      if (keyword.trim().length > 0) {
+        history.call(`/${category[props.category]}/search/${keyword}`);
+      }
+    },
+    [keyword, props.category, history]
+  );
+  useEffect(() => {
+    const enterEvent = (e) => {
+      e.preventDefault();
+      if (e.keyCode === 13) {
+        goToSearch();
+      }
+    }
+    document.addEventListener('keyup', enterEvent);
+    return () => {
+      document.removeEventListener('keyup', enterEvent);
+    };
+  }, [keyword, goToSearch]);
+  
   const onUserInfo = async () => {
-    return await getUserInfo(`http://localhost:8080/api/user/me`).then((resp) =>
-      setLogin(resp)
-    );
-  };
+    return await getUserInfo(`http://localhost:8080/api/user/me`).then(resp => setLogin(resp))
+    // const json = await response.json();
+  }
   const logout = () => {
-    window.localStorage.clear(); //clear all localstorage
     window.localStorage.removeItem("accessToken"); //remove one item
-    window.location.reload();
-    navigate("/")
   }
 
   return (
@@ -74,11 +87,11 @@ const Header: React.FC<HeaderProps> = (props) => {
 
             <div style={{ display: "flex", color: "#fff" }}>
               <div className={classNames(styles["icon-headerr"], styles["flex"])}>Hi {login.name}</div>
-              <div style={{ margin: "0 5px" }}>
-                <BiHistory className={styles["icon-header"]} />
+              <div style={{ margin: "0 5px"}}>
+              <BiHistory className={styles["icon-header"]} />
               </div>
-              <div style={{ margin: " 0 5px" }}>
-                <BiLogIn onClick={logout} className={styles["icon-header"]} />
+              <div style={{margin: " 0 5px"}}>
+              <BiLogIn onClick={logout} className={styles["icon-header"]}/>
               </div>
             </div>
           }
@@ -111,6 +124,9 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <input id="search"
                   className={styles["form-control"]}
                   placeholder="Input search text"
+                  value={keyword}
+                  onChange={(e) => setKeywword(e.target.value)}
+                  onClick={goToSearch}
                 />
               </div>
             </div>
