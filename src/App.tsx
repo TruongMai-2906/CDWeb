@@ -33,24 +33,18 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header></Header>
+        {/* <Header></Header> */}
         < >
           <Routes>
-           <Route path="/" element={
-            <>
-              <HomePage />
-            </>}></Route>
-            <Route path="/detail" element={<Layout>
-              <Detail />
-            </Layout>}></Route>
+           <Route path="/" element={<Layout><HomePage /></Layout>}></Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
-            <Route path="/watch/:id" element={<WatchFilm />} />
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/listfilm" element={<ListFilm />}></Route>
-            <Route path="/detail/:id" element={<Detail />}></Route>
-            <Route path="/trending" element={<TrendingList />}></Route>
-            <Route path="/popular" element={<PopularList />}></Route>
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />
+            <Route path="/register" element={<Layout><Register /></Layout>}></Route>
+            <Route path="/listfilm" element={<Layout><ListFilm /></Layout>}></Route>
+            <Route path="/detail/:id" element={<Layout><Detail /></Layout>}></Route>
+            <Route path="/trending" element={<Layout><TrendingList /></Layout>}></Route>
+            <Route path="/popular" element={<Layout><PopularList /></Layout>}></Route>
+            <Route path="/login" element={<Layout><Login /></Layout>}></Route>
            <Route path="/admin" element={<AdminLayout><Admin /></AdminLayout>}></Route>
           </Routes>
         </>
