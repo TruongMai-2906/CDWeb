@@ -40,9 +40,15 @@ const Header: React.FC<HeaderProps> = (props) => {
     roles: [],
   };
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
+  if (login.id == -1) {
+    
+  }
   useEffect(() => {
-    onUserInfo();
+    if (login.id == 1) {
+      onUserInfo();
+    }
   }, []);
+  
 
   const history = useNavigate();
   const navigate = useNavigate();
@@ -52,7 +58,7 @@ const Header: React.FC<HeaderProps> = (props) => {
       `http://localhost:8080/api/user/me`
     ).then((data: UserInfoDataType) => {
       setLogin(data);
-      console.log("me", data);
+      // console.log("me", data);
     });
   };
   const logout = () => {

@@ -19,7 +19,7 @@ export const Recommend: React.FC<RecommendProps> = (props) => {
     fetch(API_URL)
       .then((res) => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setFilm(data.results.slice(0, 10));
       })
   }, [])

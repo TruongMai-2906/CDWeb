@@ -39,12 +39,11 @@ const Login: React.FC<LoginProps> = (props) => {
     resolver: yupResolver(validationSchema)
   });
   const [redirect, setRedirect] = useState<boolean>(false)
-  console.log("accessToken: ",localStorage.getItem("accessToken"));
   const navigate = useNavigate()
   const onSubmit: SubmitHandler<User> = async (data) => {
     const response = await postUserInfo(`${url}api/auth/signin`, data)
     .catch(error => {
-      console.log("Login fail");
+      // console.log("Login fail");
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -56,11 +55,14 @@ const Login: React.FC<LoginProps> = (props) => {
     );
     localStorage.setItem("accessToken", response.accessToken);
     localStorage.setItem("tokenType", response.tokenType);
+    
     const checkMe: {data: CurrentUserType} = await get(`${url}api/user/me`, {headers:{
       authorization: `${response.tokenType} ${response.accessToken}`
     }})
     
-    console.log("role",checkMe.data.roles[0].name);
+    
+    
+    // console.log("role",checkMe.data.roles[0].name);
 
     if (checkMe.data.roles[0].name === "ROLE_ADMIN") {
       window.location.href="/admin"
@@ -82,7 +84,6 @@ const Login: React.FC<LoginProps> = (props) => {
         <form onSubmit={handleSubmit(onSubmit)} method="post">
           <label>User Name</label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("username")}
             placeholder="Enter your user name"
@@ -93,7 +94,6 @@ const Login: React.FC<LoginProps> = (props) => {
 
           <label>Password</label>
           <input
-            id={styles['form-control']}
             type="password"
             {...register("password")}
             placeholder="Enter your password"

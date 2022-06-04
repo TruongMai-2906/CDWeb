@@ -64,7 +64,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
     const response = await post(`${url}api/auth/signup`, data
     );
     if (data) {
-      console.log(data);
+      // console.log(data);
       Swal.fire({
         icon: 'success',
         title: 'Success',
@@ -101,11 +101,11 @@ export const Register: React.FC<RegisterProps> = (props) => {
   //check valid email
   const checkValidEmail = async (email: string) => {
     const checkEmail: ResponseStatus = await get(`${url}api/auth/checkvalidemail?email=${email}`)
-    console.log("checkemail:", checkEmail.data.success);
+    // console.log("checkemail:", checkEmail.data.success);
     if (!checkEmail.data.success) {
       setDisable(true);
       setValidEmail({ field: "email", message: checkEmail.data.message });
-      console.log("validEmail:", validEmail);
+      // console.log("validEmail:", validEmail);
 
     } else {
       setValidEmail({ field: "", message: "" })
@@ -120,7 +120,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
         <form onSubmit={handleSubmit(onSubmit)} method="post">
           <label>Full Name <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("name")}
             placeholder="Your name.."
@@ -130,7 +129,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
 
           <label>User Name <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="text"
             {...register("username")}
             placeholder="Enter your user name"
@@ -141,7 +139,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.username?.message}</div>
           <label>Email <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="text"
             name="email"
             {...register("email")}
@@ -153,7 +150,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.email?.message}</div>
           <label>Password <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="password"
             {...register("password")}
             placeholder="Enter your password"
@@ -162,7 +158,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.password?.message}</div>
           <label>Confirm Password <span style={{ color: "red" }}>*</span></label>
           <input
-            id={styles['form-control']}
             type="password"
             {...register("confirmPassword")}
             placeholder="Enter your password"

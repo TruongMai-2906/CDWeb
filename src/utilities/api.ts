@@ -6,7 +6,7 @@ const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
   headers: {
     'Content-Type': 'application/json',
-    'authorization': `${localStorage.getItem("tokenType")} ${localStorage.getItem("accessToken")}`
+    'authorization': `${localStorage.getItem("tokenType")} ${localStorage.getItem("accessToken")}`,
   },
   paramsSerializer: params => queryString.stringify({ ...params, api_key: apiConfig.apikey })
 })

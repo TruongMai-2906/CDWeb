@@ -26,11 +26,11 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
    ;
   }, [])
 
-  useEffect( () => {
+  // useEffect( () => {
     
-    if (movieTrending) console.log("movie",movieTrending);
+  //   if (movieTrending) console.log("movie",movieTrending);
     
-  }, [movieTrending])
+  // }, [movieTrending])
   
   const handleDetail = (e: string) => {
     navigate(`/detail/${e}`);
