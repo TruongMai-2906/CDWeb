@@ -32,13 +32,13 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     fetch(API_URL)
       .then((res) => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setData(data.results);
       })
   }, [])
-  useEffect(() => {
-    if (data) console.log(data);
-  }, [data])
+  // useEffect(() => {
+  //   if (data) console.log(data);
+  // }, [data])
   const handleDetail = (e: string) => {
     navigate(`/detail/${e}`);
   };
