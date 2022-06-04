@@ -32,6 +32,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <Header></Header>
         < >
           <Routes>
            <Route path="/" element={
@@ -42,7 +43,7 @@ function App() {
               <Detail />
             </Layout>}></Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
-            <Route path="/watch/:id" element={<Layout></Layout>} />
+            <Route path="/watch/:id" element={<WatchFilm />} />
             <Route path="/register" element={<Register />}></Route>
             <Route path="/listfilm" element={<ListFilm />}></Route>
             <Route path="/detail/:id" element={<Detail />}></Route>

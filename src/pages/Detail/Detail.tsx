@@ -48,7 +48,7 @@ export interface DetailDataType {
 const Detail: React.FC<DetailProps> = (props) => {
   const { category, id } = useParams();
   const [films, setFilm] = useState<DetailDataType>();
-  console.log("useParam", id);
+  // console.log("useParam", id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Detail: React.FC<DetailProps> = (props) => {
       .then((res) => res.json())
       .then((data) => {
         setFilm(data);
-        console.log("data-detail", data);
+        // console.log("data-detail", data);
       });
   }, []);
 

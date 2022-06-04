@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //@ts-ignore
 import styles from "./WatchFilm.module.scss";
 //@ts-ignore
@@ -8,16 +8,28 @@ import Related from "../../components/Content/Related/Related.tsx";
 import ReactPlayer from "react-player";
 //@ts-ignore
 import { get } from '../../utilities/api.ts';
+import { useParams } from "react-router-dom";
+import {url} from '../Register/Register.tsx'
 
 export interface WatchFilmProps {}
 
-export interface WatchFilmDataType {}
+export interface WatchFilmDataType {
+  slug: number,
+  url: string
+}
 
 const WatchFilm: React.FC<WatchFilmProps> = (props) => {
+  const { category, id } = useParams();
+  // console.log("slug",id);
+  const [urlMovie, setUrlMovie] = useState<WatchFilmDataType>()
 
-  const [url, setUrl] = useState({
-    url:"https://vimeo.com/712482878"
-  })
+  useEffect(() => {
+    fetch(`${url}api/movie/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUrlMovie(data);
+      });
+  }, []);
   const [state, setState] = useState({
     playing: true,
   });
@@ -33,7 +45,7 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
                 <div className={styles["text"]}>
                   {/* React Player */}
                   <ReactPlayer
-                    url="https://vimeo.com/712482878"
+                    url={urlMovie?.url}
                     controls
                     width="100%"
                     height="520px"
