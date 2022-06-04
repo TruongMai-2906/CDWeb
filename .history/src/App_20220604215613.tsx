@@ -27,7 +27,6 @@ import Register from "./pages/Register/Register.tsx";
 import { useState } from "react";
 import Layout from "./components/Layout/Layout.tsx";
 import Admin from "./pages/Admin/Admin.tsx";
-import AdminLayout from "./components/Layout/AdminLayout.tsx"
 function App() {
   const [active, setState] = useState<string>("");
   return (
@@ -51,7 +50,7 @@ function App() {
             <Route path="/trending" element={<TrendingList />}></Route>
             <Route path="/popular" element={<PopularList />}></Route>
             <Route path="/login" element={<Login />}></Route>
-           <Route path="/admin" element={<AdminLayout><Admin /></AdminLayout>}></Route>
+           <Route path="/admin" element={<><Admin /></>}></Route>
           </Routes>
         </>
       </Router>
