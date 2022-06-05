@@ -59,6 +59,8 @@ const Login: React.FC<LoginProps> = (props) => {
     const checkMe: {data: CurrentUserType} = await get(`${url}api/user/me`, {headers:{
       authorization: `${response.tokenType} ${response.accessToken}`
     }})
+    const a = localStorage.setItem("userInfo", JSON.stringify(checkMe.data.roles[0].name))
+    console.log(a);
     
     
     

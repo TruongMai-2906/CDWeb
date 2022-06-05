@@ -40,26 +40,22 @@ const Header: React.FC<HeaderProps> = (props) => {
     roles: [],
   };
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
-  if (login.id == -1) {
-    
-  }
   useEffect(() => {
-    if (login.id == 1) {
+    if (login.id == -1) {
       onUserInfo();
     }
   }, []);
-  
 
   const history = useNavigate();
   const navigate = useNavigate();
 
   const onUserInfo = async () => {
-    const checkMe = await getUserInfo(
-      `http://localhost:8080/api/user/me`
-    ).then((data: UserInfoDataType) => {
-      setLogin(data);
-      // console.log("me", data);
-    });
+    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
+      (data: UserInfoDataType) => {
+        setLogin(data);
+        // console.log("me", data);
+      }
+    );
   };
   const logout = () => {
     window.localStorage.clear(); //clear all localstorage

@@ -24,12 +24,13 @@ import TrendingList from "./pages/TrendingList/TrendingList.tsx";
 import PopularList from "./pages/PopularList/PopularList.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "./components/Layout/Layout.tsx";
 import Admin from "./pages/Admin/Admin.tsx";
 import AdminLayout from "./components/Layout/AdminLayout.tsx"
 function App() {
   const [active, setState] = useState<string>("");
+  const auth = localStorage.getItem("userInfo")
   return (
     <div className="App">
       <Router>
@@ -45,7 +46,7 @@ function App() {
             <Route path="/trending" element={<Layout><TrendingList /></Layout>}></Route>
             <Route path="/popular" element={<Layout><PopularList /></Layout>}></Route>
             <Route path="/login" element={<Layout><Login /></Layout>}></Route>
-           <Route path="/admin" element={<AdminLayout><Admin /></AdminLayout>}></Route>
+            {auth == `"ROLE_ADMIN"` && <Route path="/admin" element={<AdminLayout><Admin /></AdminLayout>}></Route>}
           </Routes>
         </>
       </Router>
