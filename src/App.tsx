@@ -28,6 +28,8 @@ import { useEffect, useState } from "react";
 import Layout from "./components/Layout/Layout.tsx";
 import Admin from "./pages/Admin/Admin.tsx";
 import AdminLayout from "./components/Layout/AdminLayout.tsx"
+import UserSetting from "./pages/UserSetting/UserSetting.tsx";
+import Profile from "./components/Content/Profile/Profile.tsx";
 function App() {
   const [active, setState] = useState<string>("");
   const auth = localStorage.getItem("userInfo")
@@ -38,6 +40,9 @@ function App() {
         < >
           <Routes>
            <Route path="/" element={<Layout><HomePage /></Layout>}></Route>
+           <Route path="/user/account" element={<Layout><UserSetting /></Layout>}>
+                <Route path="profile/:id" element={<Profile/>}></Route>
+           </Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/register" element={<Layout><Register /></Layout>}></Route>

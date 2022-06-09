@@ -10,6 +10,7 @@ import { RiArrowDownSFill } from "react-icons/ri";
 import { BiHistory, BiLogIn } from "react-icons/bi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import Form from "antd/lib/form/Form";
+import {MdOutlineManageAccounts} from 'react-icons/md'
 import tmdbApi, {
   category,
   movieType,
@@ -40,20 +41,30 @@ const Header: React.FC<HeaderProps> = (props) => {
     roles: [],
   };
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
+  const [userId, setUserId] = useState<string>()
   useEffect(() => {
     if (login.id == -1) {
       onUserInfo();
+      checkUserId()
     }
   }, []);
 
   const history = useNavigate();
   const navigate = useNavigate();
 
+  const checkUserId = async () => {
+    const checkId = await getUserInfo(`http://localhost:8080/api/user/me`).then(
+      (data: {id:string}) =>{
+        setUserId(data.id)
+      }
+    )
+  }
+  console.log("id la:", userId);
+  
   const onUserInfo = async () => {
     const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoDataType) => {
         setLogin(data);
-        // console.log("me", data);
       }
     );
   };
@@ -63,6 +74,11 @@ const Header: React.FC<HeaderProps> = (props) => {
     window.location.reload();
     navigate("/");
   };
+  const handleDetail = (e: string) => {
+    navigate(`/user/account/profile/${e}`);
+  };
+ 
+  
 
   return (
     <div className={styles["root"]}>
@@ -92,6 +108,9 @@ const Header: React.FC<HeaderProps> = (props) => {
               <div style={{ margin: "0 5px" }}>
                 <BiHistory className={styles["icon-header"]} />
               </div>
+              <a style={{ margin: "0 5px" }} onClick={()=>{handleDetail(userId)}}>
+                <MdOutlineManageAccounts className={styles["icon-header"]} />
+              </a>
               <div style={{ margin: " 0 5px" }}>
                 <BiLogIn onClick={logout} className={styles["icon-header"]} />
               </div>
