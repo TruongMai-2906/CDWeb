@@ -10,9 +10,35 @@ $color-text: #fff;
   height: 580px;
   background-color: #151d25;
   padding: 20px;
+
   .login-form {
-    width: 40%;
+    width: 85%;
     margin: auto;
+
+    h1 {
+      color: #fff;
+    }
+
+    label {
+      margin-bottom: 0.3rem;
+    }
+
+    input {
+      margin-bottom: 1rem;
+    }
+
+    @include at($desktop) {
+      width: 40%;
+
+      input {
+        margin-bottom: 0;
+      }
+
+      label {
+        margin-bottom: 0;
+      }
+    }
+
   }
 }
 #form-control{

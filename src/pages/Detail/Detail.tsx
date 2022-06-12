@@ -65,7 +65,7 @@ const Detail: React.FC<DetailProps> = (props) => {
   };
   return (
     <div id={styles["main-content"]}>
-      <div id={styles["block"]}>
+      {films && <div id={styles["block"]}>
         <div id={styles["left-content"]}>
           <div className={styles["container"]} id={styles["detail-page"]}>
             <div className={styles["film-infor"]}>
@@ -209,7 +209,7 @@ const Detail: React.FC<DetailProps> = (props) => {
           </div>
         </div>
         <Recommend />
-      </div>
+      </div>}
     </div>
   );
 };

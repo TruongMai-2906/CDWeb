@@ -3,6 +3,12 @@
 @import "src/assets/styles/variable";
 
 #right-content {
+  display: none;
+
+  @include at($desktop) {
+    display: block;
+  }
+
   .list-movie {
     padding: 1rem 0 6px 6px;
 

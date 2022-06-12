@@ -45,14 +45,17 @@ $bg-color: rgb(100,100,100);
   -webkit-box-orient: vertical;
   position: relative;
   // width: 70%;
-  max-height: 100px;
   overflow: hidden;
   transition: max-height .5s ease;
 }
 
 #left-content {
   padding: 1rem 0;
-  width: 74%;
+  width: 100%;
+
+  @include at($desktop) {
+    width: 74%;
+  }
 
   .container {
     margin: 1rem;
@@ -81,6 +84,7 @@ $bg-color: rgb(100,100,100);
         }
 
         .avatar {
+          display: none;
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center center;
@@ -97,19 +101,30 @@ $bg-color: rgb(100,100,100);
           color: #dcdcdc;
           font-size: 14px;
           line-height: 20px;
+
+          @include at($desktop) {
+            display: block;
+          }
         }
 
         .text-top {
-          position: absolute;
-          bottom: 10px;
-          left: 280px;
+          
+          @include at($desktop) {
+            position: absolute;
+            bottom: 10px;
+            left: 280px;
+          }
 
           .name {
             font-size: 28px;
             font-weight: 900;
-            margin: 0 0 8px;
+            margin: 0.5rem 0 8px;
             color: #fff;
             text-shadow: 0 2px 1px #333;
+
+            @include at($desktop) {
+              margin: 0 0 8px;
+            }
           }
 
           h2 {
@@ -122,9 +137,16 @@ $bg-color: rgb(100,100,100);
 
           .list-button {
             display: flex;
-            padding: 0 8px 0 0px;
-            margin: 0px;
+            justify-content: center;
+            padding: 0;
+            margin: 1.5rem 0;
             list-style: none;
+
+            @include at($desktop) {
+              justify-content: flex-start;
+              padding: 0 8px 0 0px;
+              margin: 0;
+            }
 
             li {
               padding: 0 5px;
@@ -146,13 +168,17 @@ $bg-color: rgb(100,100,100);
         height: 70px;
         width: 70px;
         position: absolute;
-        top: 50%;
+        top: 25%;
         left: 50%;
         margin: -25px 0 0 -25px;
         border-radius: 50%;
         transition: all .3s ease-in-out;
         cursor: pointer;
         opacity: .7;
+
+        @include at($desktop) {
+          top: 50%;
+        }
 
         &:hover {
           transform: scale(1.5);
@@ -186,10 +212,14 @@ $bg-color: rgb(100,100,100);
 
         .film-content {
           line-height: 1.5em;
-          padding: 0 10px;
+          padding: 1rem 10px 0;
           background: $color-item;
           border: 1px solid #1d2731a6;
           border-radius: 6px;
+
+          @include at($desktop) {
+            padding: 0 10px;
+          }
 
           .item-content-toggle {
             position: relative;
@@ -241,8 +271,16 @@ $bg-color: rgb(100,100,100);
 
               .column {
                 float: left;
-                width: 33.33%;
+                width: 100%;
                 padding: 10px;
+
+                li {
+                  margin: 0.5rem 0;
+                }
+
+                @include at($desktop) {
+                  width: 33.33%;
+                }
               }
             }
           }

@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 //@ts-ignore
 import { API_IMG, API_URL_POPULAR } from '../../../utilities/apiUrl.ts';
+import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
 
 export interface PopularProps { }
 
@@ -20,6 +21,7 @@ export interface ListFilmDataType { }
 
 const Popular: React.FC<PopularProps> = (props) => {
     const [moviePopular, setMoviePopular] = useState<Movies[]>();
+    const mobile = useCheckMobileScreen(768);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,9 +38,9 @@ const Popular: React.FC<PopularProps> = (props) => {
                 <h3 className={styles['heading']}>Popular movies</h3>
                 <>
                     <Swiper
-                        slidesPerView={4}
+                        slidesPerView={mobile ? 3 : 4}
                         spaceBetween={16}
-                        slidesPerGroup={4}
+                        slidesPerGroup={mobile ? 1 : 4}
                         loop={true}
                         loopFillGroupWithBlank={true}
                         navigation={true}

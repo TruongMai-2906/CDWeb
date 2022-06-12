@@ -9,6 +9,7 @@ import { Navigation, Pagination } from 'swiper';
 import { useNavigate } from 'react-router-dom';
 //@ts-ignore
 import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
+import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
 
 export interface RelatedProps {
   original_title: string,
@@ -16,7 +17,8 @@ export interface RelatedProps {
   poster_path: string
 }
 export const Related: React.FC<RelatedProps> = (props) => {
-  const [films, setFilm] = useState([])
+  const [films, setFilm] = useState([]);
+  const mobile = useCheckMobileScreen(768);
   const navigate = useNavigate();
   useEffect(() => {
     fetch(API_URL)
@@ -36,9 +38,9 @@ export const Related: React.FC<RelatedProps> = (props) => {
         <h3 className={styles['heading']}>Related movies</h3>
         <>
           <Swiper
-            slidesPerView={4}
+            slidesPerView={mobile ? 3 : 4}
             spaceBetween={16}
-            slidesPerGroup={4}
+            slidesPerGroup={mobile ? 1 : 4}
             loop={true}
             loopFillGroupWithBlank={true}
             // pagination={{

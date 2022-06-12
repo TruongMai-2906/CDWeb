@@ -35,7 +35,12 @@ body {
 
 #left-content {
   padding: 1rem 0;
-  width: 74%;
+  width: 100%;
+
+  @include at($desktop) {
+    width: 74%;
+  }
+
   .container {
     margin: 1rem;
     width: auto;

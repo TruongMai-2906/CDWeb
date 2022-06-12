@@ -68,7 +68,11 @@ body {
 
 .col-left {
   padding: 0 0 1rem 0;
-  width: 74%;
+  width: 100%;
+
+  @include at($desktop) {
+    width: 74%;
+  }
 }
 
 .col-right {}
@@ -93,14 +97,25 @@ body {
   box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 40%);
 
   .button-watch {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1.2rem;
+    right: 1rem;
     color: #fff;
     border-radius: 20px;
-    padding: 0.5rem 1rem;
+
+    @include at($desktop) {
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      bottom: 2rem;
+      right: 2rem;
+    }
+
+    svg {
+      margin-left: 5px;
+      transform: translateY(-1px);
+    }
   }
 
   .content {
@@ -108,16 +123,27 @@ body {
     color: $color-h3;
     font-weight: 700;
     text-align: left;
-    bottom: 3.5rem;
-    left: 2rem;
+    bottom: 3rem;
+    left: 1rem;
     vertical-align: middle;
+
+    @include at($desktop) {
+      bottom: 3.5rem;
+      left: 2rem;
+    }
   }
 
   .vote {
     position: absolute;
     color: #fff;
-    bottom: 2rem;
-    left: 2rem;
+    bottom: 1.2rem;
+    left: 1rem;
+    margin: 0;
+
+    @include at($desktop) {
+      bottom: 2rem;
+      left: 2rem;
+    }
   }
 }
 

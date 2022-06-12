@@ -11,6 +11,7 @@ import { BiHistory, BiLogIn } from "react-icons/bi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import Form from "antd/lib/form/Form";
 import {MdOutlineManageAccounts} from 'react-icons/md'
+import {GrClose} from 'react-icons/gr';
 import tmdbApi, {
   category,
   movieType,
@@ -41,11 +42,19 @@ const Header: React.FC<HeaderProps> = (props) => {
     roles: [],
   };
   const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
-  const [userId, setUserId] = useState<string>()
+  const [userId, setUserId] = useState<string>();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    console.log("here");
+    
+  };
+
   useEffect(() => {
     if (login.id == -1) {
       onUserInfo();
-      checkUserId()
+      checkUserId();
     }
   }, []);
 
@@ -87,7 +96,10 @@ const Header: React.FC<HeaderProps> = (props) => {
           <img src={logo} alt="Logo" className={styles["logo"]}></img>
           <p className={styles["p-logo"]}>FilmHot</p>
         </Link>
-        <div style={{ display: "flex" }}>
+        <div className={styles["hamburger"]} onClick={handleToggle}>
+          <div className="icon" />
+        </div>
+        <div className={styles["login-container"]}>
           {login.id === -1 && (
             <>
               <Link to="/login" className={styles["item"]}>
@@ -118,7 +130,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           )}
         </div>
       </div>
-      <div className={styles["nav-menu"]}>
+      <div className={classNames(styles["nav-menu"], isOpen ? styles["nav-menu"] : "")}>
         <div className={styles["navbar"]}>
           <Link to="/" className={styles["item"]}>
             <div className={classNames(styles["content"])}>Home</div>
@@ -156,6 +168,38 @@ const Header: React.FC<HeaderProps> = (props) => {
           </form>
         </div>
       </div>
+      {isOpen && 
+        <div className={styles["navbar-mobile"]}>
+          <div className={styles["close-btn"]}><GrClose onClick={handleToggle} className={styles["close"]} /></div>
+          <div className={styles["navbar-mobile-container"]}>
+            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={classNames(styles["content-mobile"])}>Home</div>
+            </Link>
+            <Link to="/listfilm" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>List Film</div>
+            </Link>
+            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>Hot</div>
+            </Link>
+            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>About Us</div>
+            </Link>
+            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>Contact</div>
+            </Link>
+            <Link to="/login" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>Login</div>
+            </Link>
+            <Link to="/register" className={styles["item-mobile"]} onClick={handleToggle}>
+              <div className={styles["content-mobile"]}>Register</div>
+            </Link>
+            {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
+              <Link to="/admin" className={styles["item-mobile"]} onClick={handleToggle}>
+                <div className={styles["content-mobile"]}>Admin</div>
+              </Link>
+            )}
+          </div>
+        </div>}
     </div>
   );
 };

@@ -30,6 +30,8 @@ import Admin from "./pages/Admin/Admin.tsx";
 import AdminLayout from "./components/Layout/AdminLayout.tsx"
 import UserSetting from "./pages/UserSetting/UserSetting.tsx";
 import Profile from "./components/Content/Profile/Profile.tsx";
+
+import "./App.scss";
 function App() {
   const [active, setState] = useState<string>("");
   const auth = localStorage.getItem("userInfo")

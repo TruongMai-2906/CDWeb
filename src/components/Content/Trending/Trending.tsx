@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 //@ts-ignore
 import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
+import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
 
 export interface TrendingProps { }
 
@@ -21,6 +22,7 @@ export interface ListFilmDataType { }
 
 const Trending: React.FC<TrendingProps> = (props) => {
     const [movieTrending, setMovieTrending] = useState<Movies[]>();
+    const mobile = useCheckMobileScreen(768);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,9 +45,9 @@ const Trending: React.FC<TrendingProps> = (props) => {
                 <h3 className={styles['heading']}>Trending movies</h3>
                 <>
                     <Swiper
-                        slidesPerView={4}
+                        slidesPerView={mobile ? 3 : 4}
                         spaceBetween={16}
-                        slidesPerGroup={4}
+                        slidesPerGroup={mobile ? 1 : 4}
                         loop={true}
                         loopFillGroupWithBlank={true}
                         navigation={true}

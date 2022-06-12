@@ -11,8 +11,32 @@ $color-text: #fff;
   background-color: #151d25;
   padding: 20px;
   .register-form {
-    width: 40%;
+    width: 85%;
     margin: auto;
+
+    h1 {
+      color: #fff;
+    }
+
+    label {
+      margin-bottom: 0.3rem;
+    }
+
+    input {
+      margin-bottom: 1rem;
+    }
+
+    @include at($desktop) {
+      width: 40%;
+
+      label {
+        margin-bottom: 0;
+      }
+      
+      input {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 .form-control{
