@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 //@ts-ignore
 import styles from "./WatchFilm.module.scss";
 //@ts-ignore
@@ -9,9 +9,9 @@ import ReactPlayer from "react-player";
 //@ts-ignore
 import { get } from '../../utilities/api.ts';
 import { useParams } from "react-router-dom";
-import {url} from '../Register/Register.tsx'
+import { url } from '../Register/Register.tsx'
 
-export interface WatchFilmProps {}
+export interface WatchFilmProps { }
 
 export interface WatchFilmDataType {
   slug: number,
@@ -35,6 +35,16 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
   });
   const { playing } = state;
 
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const playerRef = useRef<ReactPlayer>(null);
+  const [duration, setDuration] = useState<any>();
+  const [progress, setProgress] = useState<any>();
+  const [secondsElapsed, setSecondsElapsed] = useState<any>();
+  useEffect(() => {
+    console.log(playerRef)
+  }, [playerRef])
+  console.log(secondsElapsed);
+  console.log(duration)
   return (
     <>
       <div id={styles["main-content"]}>
@@ -45,14 +55,26 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
                 <div className={styles["text"]}>
                   {/* React Player */}
                   <ReactPlayer
+                    ref={playerRef}
                     url={urlMovie?.url}
                     controls
                     width="100%"
                     height="520px"
                     playing={playing}
+                    onDuration={(duration) => {
+                      setDuration({ duration });
+                    }}
+                    onProgress={(progress) => {
+                      if (!duration) {
+                        return
+                      }
+                      const secondsElapsed = progress.played * duration.duration
+                      if (secondsElapsed !== secondsElapsed) {
+                        setSecondsElapsed(secondsElapsed);
+                      }
+                    }}
                   />
                   {/* End React Player */}
-
                 </div>
               </div>
               <div className={styles["comment"]}>

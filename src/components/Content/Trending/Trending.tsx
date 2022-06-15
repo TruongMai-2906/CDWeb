@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 //@ts-ignore
 import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
+//@ts-ignore
 import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
 
 export interface TrendingProps { }
@@ -24,12 +25,14 @@ const Trending: React.FC<TrendingProps> = (props) => {
     const [movieTrending, setMovieTrending] = useState<Movies[]>();
     const mobile = useCheckMobileScreen(768);
     const navigate = useNavigate();
-
     useEffect(() => {
-        if (!movieTrending) get(API_URL).then((res) => setMovieTrending(res.data.results));
-        ;
-    }, [])
-
+        fetch(API_URL)
+          .then((res) => res.json())
+          .then(data => {
+            // console.log(data);
+            setMovieTrending(data);
+          })
+      }, [])
     // useEffect(() => {
 
     //     if (movieTrending) console.log("movie", movieTrending);
@@ -45,11 +48,10 @@ const Trending: React.FC<TrendingProps> = (props) => {
                 <h3 className={styles['heading']}>Trending movies</h3>
                 <>
                     <Swiper
-                        slidesPerView={mobile ? 3 : 4}
+                        slidesPerView={mobile ? 2 : 3}
                         spaceBetween={16}
-                        slidesPerGroup={mobile ? 1 : 4}
+                        slidesPerGroup={mobile ? 1 : 3}
                         loop={true}
-                        loopFillGroupWithBlank={true}
                         navigation={true}
                         modules={[Pagination, Navigation]}
                         className={styles['mySwiper']}
@@ -58,15 +60,15 @@ const Trending: React.FC<TrendingProps> = (props) => {
                             <SwiperSlide key={movieItem.id} className={styles['items']}>
                                 <div className={styles['box']}>
                                     <a href="" onClick={() => {
-                                        handleDetail(movieItem.id);
+                                        handleDetail(movieItem.slug);
                                     }}>
-                                        <img className={styles['img-film']} src={API_IMG + movieItem.poster_path} alt={movieItem.title} />
+                                        <img className={styles['img-film']} src={movieItem.posterUrl} alt={movieItem.title} />
                                         <div className={styles['film-title-box']}>
                                             <div className={styles['film-title']}>
-                                                <div className={styles['entry-title']}>{movieItem.original_title||movieItem.original_name}
-                                                    <span className={styles['tooltip']}>{movieItem.original_title||movieItem.original_name}</span>
+                                                <div className={styles['entry-title']}>{movieItem.title}
+                                                    <span className={styles['tooltip']}>{movieItem.title}</span>
                                                 </div>
-                                                <div className={styles['original-title']}>{movieItem.original_title||movieItem.original_name}</div>
+                                                <div className={styles['original-title']}>{movieItem.title}</div>
                                             </div>
                                         </div>
                                     </a>

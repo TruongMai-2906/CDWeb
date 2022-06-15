@@ -49,7 +49,7 @@ function App() {
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/register" element={<Layout><Register /></Layout>}></Route>
             <Route path="/listfilm" element={<Layout><ListFilm /></Layout>}></Route>
-            <Route path="/detail/:id" element={<Layout><Detail /></Layout>}></Route>
+            <Route path="/detail/:slug" element={<Layout><Detail /></Layout>}></Route>
             <Route path="/trending" element={<Layout><TrendingList /></Layout>}></Route>
             <Route path="/popular" element={<Layout><PopularList /></Layout>}></Route>
             <Route path="/login" element={<Layout><Login /></Layout>}></Route>

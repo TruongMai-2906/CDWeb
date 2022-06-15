@@ -19,6 +19,7 @@
       background-size: 200% 100%;
       background-image: linear-gradient(to right, #151d25 0, #11151500 51%, #060808 50%);
       transition: .8s;
+      padding-right: 10px;
       position: relative;
 
       a {
@@ -63,8 +64,8 @@
     }
 
     .img-film {
-      height: 5rem;
-      min-width: 4rem;
+      height: 4rem;
+      max-width: 5rem;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
@@ -88,7 +89,7 @@
 
     .entry-title,
     .original-title {
-      font-size: 15px;
+      font-size: 0.8rem;
       color: #dcdcdc;
       overflow: hidden;
       text-overflow: ellipsis;

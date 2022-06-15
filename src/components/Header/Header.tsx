@@ -78,10 +78,10 @@ const Header: React.FC<HeaderProps> = (props) => {
     );
   };
   const logout = () => {
+    navigate("/");
     window.localStorage.clear(); //clear all localstorage
     window.localStorage.removeItem("accessToken"); //remove one item
     window.location.reload();
-    navigate("/");
   };
   const handleDetail = (e: string) => {
     navigate(`/user/account/profile/${e}`);
@@ -138,7 +138,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           <Link to="/listfilm" className={styles["item"]}>
             <div className={styles["content"]}>List Film</div>
           </Link>
-          <Link to="/" className={styles["item"]}>
+          {/* <Link to="/" className={styles["item"]}>
             <div className={styles["content"]}>Hot</div>
           </Link>
           <Link to="/" className={styles["item"]}>
@@ -146,7 +146,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           </Link>
           <Link to="/" className={styles["item"]}>
             <div className={styles["content"]}>Contact</div>
-          </Link>
+          </Link> */}
           {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
             <Link to="/admin" className={styles["item"]}>
               <div className={styles["content"]}>Admin</div>
@@ -178,15 +178,15 @@ const Header: React.FC<HeaderProps> = (props) => {
             <Link to="/listfilm" className={styles["item-mobile"]} onClick={handleToggle}>
               <div className={styles["content-mobile"]}>List Film</div>
             </Link>
-            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+            {/* <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
               <div className={styles["content-mobile"]}>Hot</div>
             </Link>
             <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
               <div className={styles["content-mobile"]}>About Us</div>
-            </Link>
-            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
-              <div className={styles["content-mobile"]}>Contact</div>
-            </Link>
+            </Link> */}
+            <a className={styles["item-mobile"]} onClick={()=>{handleDetail(userId)}}>
+              <div className={styles["content-mobile"]}>Account</div>
+            </a>
             <Link to="/login" className={styles["item-mobile"]} onClick={handleToggle}>
               <div className={styles["content-mobile"]}>Login</div>
             </Link>

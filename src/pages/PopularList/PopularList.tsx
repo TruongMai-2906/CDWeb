@@ -16,11 +16,14 @@ export interface PopularListDataType { }
 const PopularList: React.FC<PopularListProps> = (props) => {
   const [moviePopular, setMoviePopular] = useState<Movies[]>();
   const navigate = useNavigate();
-
   useEffect(() => {
-    if (!moviePopular)
-      get(API_URL).then((res) => setMoviePopular(res.data.results));
-  }, []);
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then(data => {
+        console.log(data);
+        setMoviePopular(data.slice(0,8));
+      })
+  }, [])
 
   const handleDetail = (e: string) => {
     navigate(`/detail/${e}`);
@@ -35,22 +38,22 @@ const PopularList: React.FC<PopularListProps> = (props) => {
       <div className={styles["container"]}>
         {moviePopular?.map((movieItem) => (
           <div
-            key={movieItem.id}
+            key={movieItem.slug}
             className={styles["items"]}
             onClick={() => {
-              handleDetail(movieItem.id);
+              handleDetail(movieItem.slug);
             }}
           >
             <div className={styles["box"]}>
               <img
                 className={styles["img-film"]}
-                src={API_IMG + movieItem.poster_path}
+                src={movieItem.posterUrl}
                 alt={movieItem.title}
               />
               <div className={styles["film-title-box"]}>
                 <div className={styles["film-title"]}>
                   <div className={styles["entry-title"]}>
-                    {movieItem.title || movieItem.name}
+                    {movieItem.title}
                   </div>
                 </div>
               </div>

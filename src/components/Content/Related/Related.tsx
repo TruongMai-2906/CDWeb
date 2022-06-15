@@ -23,9 +23,9 @@ export const Related: React.FC<RelatedProps> = (props) => {
   useEffect(() => {
     fetch(API_URL)
       .then((res) => res.json())
-      .then(data => {
-        console.log(data);
-        setFilm(data.results);
+      .then(films => {
+        console.log(films);
+        setFilm(films);
       })
   }, [])
   const handleDetail = (e: string) => {
@@ -38,25 +38,21 @@ export const Related: React.FC<RelatedProps> = (props) => {
         <h3 className={styles['heading']}>Related movies</h3>
         <>
           <Swiper
-            slidesPerView={mobile ? 3 : 4}
+            slidesPerView={mobile ? 2 : 3}
             spaceBetween={16}
-            slidesPerGroup={mobile ? 1 : 4}
+            slidesPerGroup={mobile ? 1 : 3}
             loop={true}
-            loopFillGroupWithBlank={true}
-            // pagination={{
-            //   clickable: true,
-            // }}
             navigation={true}
             modules={[Pagination, Navigation]}
             className={styles['mySwiper']}
           >
-            {films.map((film) => (
+            {films.map((film:any) => (
               <SwiperSlide key={film} className={styles['items']}>
                 <div className={styles['box']}>
                   <a href="" onClick={() => {
-                handleDetail(film.id);
+                handleDetail(film.slug);
               }}>
-                    <img className={styles['img-film']} src={API_IMG+film.poster_path} alt={film.title} />
+                    <img className={styles['img-film']} src={film.posterUrl} alt={film.title} />
                     <div className={styles['film-title-box']}>
                       <div className={styles['film-title']}>
                         <div className={styles['entry-title']}>{film.title}

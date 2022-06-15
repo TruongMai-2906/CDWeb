@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss'
 
 export interface User {
   name: string;
@@ -79,7 +80,6 @@ export const Register: React.FC<RegisterProps> = (props) => {
         footer: '<a href="">Why do I have this issue?</a>'
       })
     }
-   
     navigate("/login")
   };
 

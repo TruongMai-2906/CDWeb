@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // @ts-ignore
 import tmdbApi from "../../utilities/tmdmApi.ts";
@@ -16,52 +16,76 @@ import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 import Related from "../../components/Content/Related/Related.tsx";
 import { Movies } from "../ListFilm/Movie";
 import { IoIosArrowDown } from 'react-icons/io'
+import ReactPlayer from "react-player";
+import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
+// import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
+import { scroller } from "react-scroll";
 
 // Api_URL
 const API_URL = (e: string) => {
-  return `https://api.themoviedb.org/3/movie/${e}?api_key=e8b29375ae37912b8558a83eca6ec2d0&language=en-US`;
+  return `http://localhost:8080/api/movie/${e}`;
 };
-const API_SEARCH =
-  "https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093";
-const API_IMG = "https://image.tmdb.org/t/p/w500/";
 
 export interface DetailProps { }
 
 export interface DetailDataType {
   id: string;
-  original_title: string;
-  poster_path: string;
-  backdrop_path: string;
+  slug: string;
+  title: string;
+  posterUrl: string;
+  backdropUrl: string;
   genres: {
     name: string;
   }[];
-  release_date: string;
+  releaseDate: string;
   overview: string;
-  production_companies: {
+  productionCompanies: {
     name: string;
   }[];
-  production_countries: {
-    name: string
+  productionCountries: {
+    name: string;
   }[]
+  // slug: number,
+  url: string
 }
 
 const Detail: React.FC<DetailProps> = (props) => {
-  const { category, id } = useParams();
+  const { category, slug } = useParams();
   const [films, setFilm] = useState<DetailDataType>();
   // console.log("useParam", id);
   const navigate = useNavigate();
+  const [urlMovie, setUrlMovie] = useState<WatchFilmDataType>()
 
   useEffect(() => {
-    fetch(API_URL(id))
+    fetch(API_URL(slug))
       .then((res) => res.json())
-      .then((data) => {
-        setFilm(data);
+      .then((films) => {
+        setFilm(films);
         // console.log("data-detail", data);
       });
   }, []);
 
+  const [state, setState] = useState({
+    playing: true,
+  });
+  const { playing } = state;
+
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const playerRef = useRef<ReactPlayer>(null);
+  const [duration, setDuration] = useState<any>();
+  const [progress, setProgress] = useState<any>();
+  const [secondsElapsed, setSecondsElapsed] = useState<any>();
+
   const handleDetail = (e: string) => {
     navigate(`/watch/${e}`);
+  };
+
+  const scrollToSection = () => {
+    scroller.scrollTo(styles["trailer"], {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
+    });
   };
   return (
     <div id={styles["main-content"]}>
@@ -71,7 +95,7 @@ const Detail: React.FC<DetailProps> = (props) => {
             <div className={styles["film-infor"]}>
               <div className={styles["image"]}>
                 <img
-                  src={API_IMG + films?.backdrop_path}
+                  src={films?.backdropUrl}
                   className={styles["image-banner"]}
                   alt=""
                 />
@@ -79,20 +103,21 @@ const Detail: React.FC<DetailProps> = (props) => {
                   className={styles["avatar"]}
                   itemProp="image"
                   alt=""
-                  src={API_IMG + films?.poster_path}
+                  src={films?.posterUrl}
                 />{" "}
                 <a href=""
                   onClick={() => {
-                    handleDetail(films?.id);
+                    handleDetail(films?.slug);
                   }}
                   className={styles["icon-play"]}></a>
                 <div className={styles["text-top"]}>
-                  <h1 className={styles["name"]}>{films?.original_title}</h1>
+                  <h1 className={styles["name"]}>{films?.title}</h1>
                   <ul className={styles["list-button"]}>
                     <li>
                       <a
+                        onClick={scrollToSection}
                         className="btn btn-download btn-info"
-                        title={films?.original_title}
+                        title={films?.title}
                       >
                         <FaYoutube color="white" style={{ margin: "0 3px" }} />
                         Trailer
@@ -100,18 +125,19 @@ const Detail: React.FC<DetailProps> = (props) => {
                     </li>
                     <li>
                       <div
-                        key={films?.id}
+                        key={films?.slug}
                         onClick={() => {
-                          handleDetail(films?.id);
+                          handleDetail(films?.slug);
                         }}
                         className="btn-see btn btn-danger"
-                        title={films?.original_title}
+                        title={films?.title}
                       >
                         <FaPlayCircle /> Watch Now
                       </div>
                     </li>
                   </ul>
                 </div>
+              <div className={styles["overlay"]}></div>
               </div>
               <div className={styles["text"]}>
                 <div
@@ -145,27 +171,23 @@ const Detail: React.FC<DetailProps> = (props) => {
                             {films?.genres.map((gen) => gen.name)}
                           </a>
                         </li>
-                        <li>
-                          <label>Release Year: </label>{" "}
-                          <a href=""> {films?.release_date}</a>
-                        </li>
+                        
                       </div>
 
                       <div className={styles["column"]}>
                         <li>
-                          <label>Director: </label>
+                          <label>Company: </label>
                           <span>
                             <a href="" title="Han Cheol Soo">
-                              <span> {films?.production_companies.map((company) => company.name)}</span>
+                              <span> {films?.productionCompanies.map((company) => company.name)}</span>
                             </a>
-                            ,
                           </span>
                         </li>
                         <li>
                           <label>Country: </label>{" "}
                           <a href="" title="Phim Âu Mỹ">
                             {" "}
-                            {films?.production_countries.map((country) => country.name)}
+                            {films?.productionCountries.map((country) => country.name)}
                           </a>
                         </li>
                       </div>
@@ -173,8 +195,12 @@ const Detail: React.FC<DetailProps> = (props) => {
                         <li>
                           <label>Actor: </label>{" "}
                           <a href="" title="">
-                            {films?.production_companies.map((company) => company.name)}
+                            {films?.productionCompanies.map((company) => company.name + ", ")}
                           </a>
+                        </li>
+                        <li>
+                          <label>Release Year: </label>{" "}
+                          <a href=""> {films?.releaseDate}</a>
                         </li>
                       </div>
                     </ul>
@@ -185,9 +211,9 @@ const Detail: React.FC<DetailProps> = (props) => {
                     <h3 className={styles["heading"]}>Content </h3>
                     <div id={styles["film-content"]}>
                       <input className={styles["toggle-box"]} id={styles['post']} type="checkbox" />
-                        <p className={styles['overview']}>{films?.overview}</p>
-                        <div className={styles["item-content-toggle"]}>
-                          {/* <label
+                      <p className={styles['overview']}>{films?.overview}</p>
+                      <div className={styles["item-content-toggle"]}>
+                        {/* <label
                             data-for={styles['post']}
                             id={styles["myBtn"]}
                             className={styles["show-more"]}
@@ -196,11 +222,42 @@ const Detail: React.FC<DetailProps> = (props) => {
                           >
                             Extend<IoIosArrowDown />
                           </label> */}
-                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className={styles["trailer"]}>
+                  <div className={styles["content-film"]}>
+                    <h3 className={styles["heading"]}>Trailer {films?.title} </h3>
+                    <div id={styles["film-content"]}>
+                      <input className={styles["toggle-box"]} id={styles['post']} type="checkbox" />
+                      <ReactPlayer
+                        // ref={playerRef}
+                        autoplay={false}
+                        url={films?.url}
+                        controls
+                        width="100%"
+                        height="520px"
+                        playing={playing}
+                        autoPl
+                        onDuration={(duration) => {
+                          setDuration({ duration });
+                        }}
+                        onProgress={(progress) => {
+                          if (!duration) {
+                            return
+                          }
+                          const secondsElapsed = progress.played * duration.duration
+                          if (secondsElapsed !== secondsElapsed) {
+                            setSecondsElapsed(secondsElapsed);
+                          }
+                        }}
+                      />
+
+                    </div>
+                  </div>
+                </div>
+                <div id={styles["related"]}>
                   <Related />
                 </div>
                 <div className="clear" />

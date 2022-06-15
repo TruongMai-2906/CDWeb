@@ -1,8 +1,8 @@
-export interface Movies{
+export interface Movies {
+    slug: string;
     id: string
     name: string
     title: string
-    poster_path: string
-    original_title: string
-    original_name: string
+    posterUrl: string
+    backdropUrl: string
 }

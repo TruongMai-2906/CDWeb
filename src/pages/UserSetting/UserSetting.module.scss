@@ -86,8 +86,12 @@
           .item-navbar{
             line-height: 1rem;
             .item-span{
+              color: #000;
                 font-weight: 500;
                 margin-right: 0.3125rem;
+                &:hover{
+                  color :rgba(35,73,111,1)
+                }
             }
           }
         }

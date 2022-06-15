@@ -6,9 +6,9 @@ import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
 import styles from '../Recommend/Recommend.module.scss';
 
 export interface RecommendProps {
-  original_title: string,
+  slug: string,
   title: string,
-  poster_path: string
+  posterUrl: string
 }
 
 export const Recommend: React.FC<RecommendProps> = (props) => {
@@ -20,7 +20,7 @@ export const Recommend: React.FC<RecommendProps> = (props) => {
       .then((res) => res.json())
       .then(data => {
         // console.log(data);
-        setFilm(data.results.slice(0, 10));
+        setFilm(data);
       })
   }, [])
 
@@ -30,20 +30,20 @@ export const Recommend: React.FC<RecommendProps> = (props) => {
   return (
     <div id={styles['right-content']}>
       <div className="title">
-        <h3 className={styles['heading']}>Đề xuất cho bạn</h3>
+        <h3 className={styles['heading']}>Recommend For You</h3>
       </div>
       <ul className={styles['list-movie']}>
-        {films.map((film, index) => (
-          <li key={film.id} {...film}
+        {films.map((film:any, index) => (
+          <li key={film.slug} {...film}
             onClick={() => {
-              handleDetail(film.id);
+              handleDetail(film.slug);
             }}>
             <div className={styles['box']}>
               <a href="">
-                <img className={styles['img-film']} src={API_IMG + film.poster_path} alt={film.original_title} />
+                <img className={styles['img-film']} src={film.posterUrl} alt={film.title} />
                 <div className={styles['film-title-box']}>
                   <div className={styles['film-title']}>
-                    <h3 className={styles['entry-title']}>{film.original_title}</h3>
+                    <h3 className={styles['entry-title']}>{film.title}</h3>
                     <div className={styles['original-title']}>{film.title}</div>
                   </div>
                 </div>

@@ -20,10 +20,19 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
   const [moviePopular, setMoviePopular] = useState<Movies[]>();
   const navigate = useNavigate();
 
-  useEffect( () => {
-    if (!movieTrending) get(API_URL).then((res) => setMovieTrending(res.data.results.slice(0,8)));
-    if (!moviePopular) get(API_URL).then((res) => setMoviePopular(res.data.results.slice(0,8)));
-   ;
+  // useEffect( () => {
+  //   if (!movieTrending) get(API_URL).then((res) => setMovieTrending(res.data.results.slice(0,8)));
+  //   if (!moviePopular) get(API_URL).then((res) => setMoviePopular(res.data.results.slice(0,8)));
+  //  ;
+  // }, [])
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then(data => {
+        // console.log(data);
+        setMovieTrending(data.slice(0,8));
+        setMoviePopular(data.slice(0,8));
+      })
   }, [])
 
   // useEffect( () => {
@@ -42,22 +51,22 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
         <div className={styles["container"]}>
           {movieTrending?.map((movieItem) => (
             <div
-              key={movieItem.id}
+              key={movieItem.slug}
               className={styles["items"]}
               onClick={() => {
-                handleDetail(movieItem.id);
+                handleDetail(movieItem.slug);
               }}
             >
               <div className={styles["box"]}>
                 <img
                   className={styles["img-film"]}
-                  src={API_IMG + movieItem.poster_path}
+                  src={movieItem.posterUrl}
                   alt={movieItem.title}
                 />
                 <div className={styles["film-title-box"]}>
                   <div className={styles["film-title"]}>
                     <div className={styles["entry-title"]}>
-                      {movieItem.title || movieItem.name}
+                      {movieItem.title}
                     </div>
                   </div>
                 </div>
@@ -71,22 +80,22 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
         <div className={styles["container"]}>
           {moviePopular?.map((movieItem) => (
             <div
-              key={movieItem.id}
+              key={movieItem.slug}
               className={styles["items"]}
               onClick={() => {
-                handleDetail(movieItem.id);
+                handleDetail(movieItem.slug);
               }}
             >
               <div className={styles["box"]}>
                 <img
                   className={styles["img-film"]}
-                  src={API_IMG + movieItem.poster_path}
+                  src={movieItem.posterUrl}
                   alt={movieItem.title}
                 />
                 <div className={styles["film-title-box"]}>
                   <div className={styles["film-title"]}>
                     <div className={styles["entry-title"]}>
-                      {movieItem.title || movieItem.name}
+                      {movieItem.title}
                     </div>
                   </div>
                 </div>

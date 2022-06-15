@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 //@ts-ignore
 import { API_IMG, API_URL_POPULAR } from '../../../utilities/apiUrl.ts';
 import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
+import { API_URL } from '../../../utilities/apiUrl.ts';
 
 export interface PopularProps { }
 
@@ -25,8 +26,12 @@ const Popular: React.FC<PopularProps> = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!moviePopular) get(API_URL_POPULAR).then((res) => setMoviePopular(res.data.results));
-        ;
+        fetch(API_URL)
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                setMoviePopular(data);
+            })
     }, [])
 
     const handleDetail = (e: string) => {
@@ -38,22 +43,22 @@ const Popular: React.FC<PopularProps> = (props) => {
                 <h3 className={styles['heading']}>Popular movies</h3>
                 <>
                     <Swiper
-                        slidesPerView={mobile ? 3 : 4}
+                        slidesPerView={mobile ? 2 : 3}
                         spaceBetween={16}
-                        slidesPerGroup={mobile ? 1 : 4}
+                        slidesPerGroup={mobile ? 1 : 3}
                         loop={true}
-                        loopFillGroupWithBlank={true}
                         navigation={true}
                         modules={[Pagination, Navigation]}
                         className={styles['mySwiper']}
+                        
                     >
                         {moviePopular?.map((movieItem) => (
-                            <SwiperSlide key={movieItem.id} className={styles['items']}>
+                            <SwiperSlide key={movieItem.slug} className={styles['items']}>
                                 <div className={styles['box']}>
                                     <a href="" onClick={() => {
-                                        handleDetail(movieItem.id);
+                                        handleDetail(movieItem.slug);
                                     }}>
-                                        <img className={styles['img-film']} src={API_IMG + movieItem.poster_path} alt={movieItem.title} />
+                                        <img className={styles['img-film']} src={movieItem.posterUrl} alt={movieItem.title} />
                                         <div className={styles['film-title-box']}>
                                             <div className={styles['film-title']}>
                                                 <div className={styles['entry-title']}>{movieItem.title}

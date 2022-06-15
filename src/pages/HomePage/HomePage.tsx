@@ -32,13 +32,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     fetch(API_URL)
       .then((res) => res.json())
       .then(data => {
-        // console.log(data);
-        setData(data.results);
+        console.log("data", data);
+        setData(data);
       })
   }, [])
-  // useEffect(() => {
-  //   if (data) console.log(data);
-  // }, [data])
+
   const handleDetail = (e: string) => {
     navigate(`/detail/${e}`);
   };
@@ -48,29 +46,28 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         <div className={styles['top-slider']}>
           <Swiper navigation={true} modules={[Navigation, Autoplay]} loop={true}
             loopFillGroupWithBlank={true} autoplay={{ delay: 5000 }} className={styles['swiper']}>
-            {data.map((d) => (
+            {data.map((d: any) => (
               <SwiperSlide>
                 <div className={styles["item"]}>
-                  <img src={API_IMG + d.backdrop_path} alt="banner" className={styles['background']} />
+                  <img src={d.backdropUrl} alt="banner" className={styles['background']} />
                   <h3 className={styles['content']}>
-                    {d.original_name || d.original_title}
+                    {d.title}
                   </h3>
-                  <h5 className={styles['vote']}>
-                    Vote: {d.vote_average} / 10
+                  {/* <h5 className={styles['vote']}>
+                    {/* Vote: {d.vote_average} / 10 */}
                     {/* <AiFillStar color='#ffc41f'/> */}
-                  </h5>
+                  {/* </h5> */} 
                   <a onClick={() => {
-                    handleDetail(d.id);
+                    handleDetail(d.slug);
                   }} className={styles['button-watch']}>Watch Now
                     <svg data-v-946d9054="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right"
                       xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi-chevron-right b-icon bi"><g data-v-946d9054="">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg>
                   </a>
-
+                  <div className={styles["overlay"]}></div>
                 </div>
               </SwiperSlide>
             ))};
-
           </Swiper>
         </div>
         <div className={styles['row']}>
