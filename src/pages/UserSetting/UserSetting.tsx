@@ -27,7 +27,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             <div className={styles["avatar-name"]}>
               <div className={styles["avatar-name-text"]}>trung926</div>
               <div>
-                <Link to="profile" className={styles["edit-profile"]}>
+                <Link to={`profile/${id}`} className={styles["edit-profile"]}>
                   Sửa hồ sơ
                 </Link>
               </div>
@@ -46,7 +46,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             </div>
             <div className={styles["stardust-dropdown"]}>
               <div className={styles["stardust-dropdown__item-header"]}>
-                <Link to={`wishlist/${id}`}
+                <Link to="wishlist?action=show"
                   className={styles["navbar-link"]}
                 >
                   <CgHeart className={styles["icon-navbar"]} />
@@ -58,7 +58,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             </div>
             <div className={styles["stardust-dropdown"]}>
               <div className={styles["stardust-dropdown__item-header"]}>
-                <Link to={`history/${id}`} className={styles["navbar-link"]}>
+                <Link to="history?action=show" className={styles["navbar-link"]}>
                   <AiOutlineHistory className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
                     <span className={styles["item-span"]}>History Watch</span>
