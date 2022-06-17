@@ -46,7 +46,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             </div>
             <div className={styles["stardust-dropdown"]}>
               <div className={styles["stardust-dropdown__item-header"]}>
-                <Link to={`wishlist/${id}`}
+                <Link to={`wishlist?action=show`}
                   className={styles["navbar-link"]}
                 >
                   <CgHeart className={styles["icon-navbar"]} />
