@@ -127,7 +127,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
-                      <input
+                      <input 
                         type="email"
                         {...register("email")}
                         defaultValue={userInfo.email}
