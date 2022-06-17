@@ -9,6 +9,7 @@ import { Button } from "antd";
 export interface ProfileProps {}
 
 export interface ProfileDataType {
+  username: string;
   name: string;
   email: string;
   gender: string;
@@ -50,11 +51,11 @@ const Profile: React.FC<ProfileProps> = (props) => {
   useEffect(() => {
     onUserInfo(); 
   }, []);
-  const [name, setName] = useState<string>()
   const onUserInfo = async () => {
     const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoData) => {
         setUserInfo(data);
+        setValue("username",data.username)
         setValue("name",data.name)
         setValue("email",data.email)
         setValue("gender",data.gender)
@@ -75,11 +76,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
       <div className={styles["profile-content"]}>
         <div className={styles["profile-form"]}>
           <form
-            onSubmit={(e) => {
-              handleSubmit(onSubmit)(e)
-              // you will have to catch those error and handle them
-              .catch(() => {});
-            }}
+            onSubmit={handleSubmit(onSubmit)}
             method="put"
             style={{ display: "block", marginTop: "0em" }}
           >
@@ -89,8 +86,15 @@ const Profile: React.FC<ProfileProps> = (props) => {
                   <label htmlFor="">Username</label>
                 </div>
                 <div className={styles["form-input"]}>
-                  <div className={styles["username-inputfield"]}>
-                    <div className={styles["username-text"]}>{userInfo.username}</div>
+                  <div className={styles["input-with-validator-wrapper"]}>
+                    <div className={styles["input-with-validator"]}>
+                      <input
+                        type="text"
+                        {...register("username")}
+                        defaultValue={userInfo.username}
+                        disabled
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -127,6 +131,7 @@ const Profile: React.FC<ProfileProps> = (props) => {
                         type="email"
                         {...register("email")}
                         defaultValue={userInfo.email}
+                        disabled
                       />
                     </div>
                   </div>
