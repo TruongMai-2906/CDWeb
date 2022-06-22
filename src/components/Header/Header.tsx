@@ -3,20 +3,23 @@ import styles from "./Header.module.scss";
 import logo from "../../assets/images/home/icon.png";
 import classNames from "classnames";
 import Search from "antd/lib/input/Search";
-import { Menu, Dropdown, Space } from "antd";
+import { Menu, Dropdown, Space, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { post, getUserInfo } from "../../utilities/api.ts";
+import { post, getUserInfo, get } from "../../utilities/api.ts";
 import { RiArrowDownSFill } from "react-icons/ri";
-import { BiHistory, BiLogIn } from "react-icons/bi";
+import { BiHistory, BiLogIn, BiSearch } from "react-icons/bi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import Form from "antd/lib/form/Form";
-import {MdOutlineManageAccounts} from 'react-icons/md'
-import {GrClose} from 'react-icons/gr';
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { GrClose } from "react-icons/gr";
+import { Movie } from "../../pages/ListFilm/Movie.ts";
 import tmdbApi, {
   category,
   movieType,
   tvType,
 } from "../../utilities/tmdmApi.ts";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { debounce } from "lodash";
 export interface HeaderProps {
   page: string;
   keyword: string;
@@ -35,6 +38,26 @@ export interface UserInfoDataType {
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
+  const [keyword, setKeyword] = useState<String>()
+
+  const [movie, setMovie] = useState<Movie>()
+  const debounceSearch = useCallback(debounce( (nextValue) =>  get(`http://localhost:8080/api/movie/ShowAndsearch?keyword=${nextValue}`), 100), [])
+  const search = async (keyword: string) => {
+    if(keyword){
+      const response = await debounceSearch(keyword)
+      console.log("res",response.data.data.products);
+      
+      setMovie(response.data.data.products)
+    }else{
+      setMovie([]);
+    }
+  
+    
+  };
+  
+  
+
+
   const defaultUser: UserInfoDataType = {
     id: -1,
     name: "",
@@ -48,7 +71,6 @@ const Header: React.FC<HeaderProps> = (props) => {
   const handleToggle = () => {
     setIsOpen(!isOpen);
     console.log("here");
-    
   };
 
   useEffect(() => {
@@ -63,13 +85,12 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   const checkUserId = async () => {
     const checkId = await getUserInfo(`http://localhost:8080/api/user/me`).then(
-      (data: {id:string}) =>{
-        setUserId(data.id)
+      (data: { id: string }) => {
+        setUserId(data.id);
       }
-    )
-  }
-  console.log("id la:", userId);
-  
+    );
+  };
+  // console.log("id la:", userId);
   const onUserInfo = async () => {
     const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoDataType) => {
@@ -86,8 +107,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const handleDetail = (e: string) => {
     navigate(`/user/account/profile/${e}`);
   };
- 
-  
+  const userIdLc = localStorage.getItem("userId")
 
   return (
     <div className={styles["root"]}>
@@ -120,7 +140,12 @@ const Header: React.FC<HeaderProps> = (props) => {
               <div style={{ margin: "0 5px" }}>
                 <BiHistory className={styles["icon-header"]} />
               </div>
-              <a style={{ margin: "0 5px" }} onClick={()=>{handleDetail(userId)}}>
+              <a
+                style={{ margin: "0 5px" }}
+                onClick={() => {
+                  handleDetail(userIdLc);
+                }}
+              >
                 <MdOutlineManageAccounts className={styles["icon-header"]} />
               </a>
               <div style={{ margin: " 0 5px" }}>
@@ -130,7 +155,12 @@ const Header: React.FC<HeaderProps> = (props) => {
           )}
         </div>
       </div>
-      <div className={classNames(styles["nav-menu"], isOpen ? styles["nav-menu"] : "")}>
+      <div
+        className={classNames(
+          styles["nav-menu"],
+          isOpen ? styles["nav-menu"] : ""
+        )}
+      >
         <div className={styles["navbar"]}>
           <Link to="/" className={styles["item"]}>
             <div className={classNames(styles["content"])}>Home</div>
@@ -155,27 +185,51 @@ const Header: React.FC<HeaderProps> = (props) => {
         </div>
         <div className={styles["search"]}>
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
-            <div className="form-group">
-              <div className="input-group col-xs-12">
-                {/* <AiOutlineSearch /> */}
-                <input
-                  id="search"
+            <div className={styles["form-group"]}>
+              <div className={styles["input-group col-xs-12"]}>
+                <Input
                   className={styles["form-control"]}
                   placeholder="Input search text"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    
+                    search(e.target.value)}}
                 />
+                <button className={styles["search-button"]}>
+                  <BiSearch className={styles["search-icon"]} style={{background:"none",color:"#000"}} aria-hidden="true"></BiSearch>
+                </button>
+                
+                <div className={styles["search-back"]}>
+                {movie?.map((e)=> 
+                  <div className={styles["search-entry"]}>
+                    {e.title}
+                  </div>
+                   )}
+                </div>
+               
               </div>
             </div>
           </form>
         </div>
       </div>
-      {isOpen && 
+      {isOpen && (
         <div className={styles["navbar-mobile"]}>
-          <div className={styles["close-btn"]}><GrClose onClick={handleToggle} className={styles["close"]} /></div>
+          <div className={styles["close-btn"]}>
+            <GrClose onClick={handleToggle} className={styles["close"]} />
+          </div>
           <div className={styles["navbar-mobile-container"]}>
-            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
+            <Link
+              to="/"
+              className={styles["item-mobile"]}
+              onClick={handleToggle}
+            >
               <div className={classNames(styles["content-mobile"])}>Home</div>
             </Link>
-            <Link to="/listfilm" className={styles["item-mobile"]} onClick={handleToggle}>
+            <Link
+              to="/listfilm"
+              className={styles["item-mobile"]}
+              onClick={handleToggle}
+            >
               <div className={styles["content-mobile"]}>List Film</div>
             </Link>
             {/* <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
@@ -184,22 +238,40 @@ const Header: React.FC<HeaderProps> = (props) => {
             <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
               <div className={styles["content-mobile"]}>About Us</div>
             </Link> */}
-            <a className={styles["item-mobile"]} onClick={()=>{handleDetail(userId)}}>
+            <a
+              className={styles["item-mobile"]}
+              onClick={() => {
+                handleDetail(userIdLc);
+              }}
+            >
               <div className={styles["content-mobile"]}>Account</div>
             </a>
-            <Link to="/login" className={styles["item-mobile"]} onClick={handleToggle}>
+            <Link
+              to="/login"
+              className={styles["item-mobile"]}
+              onClick={handleToggle}
+            >
               <div className={styles["content-mobile"]}>Login</div>
             </Link>
-            <Link to="/register" className={styles["item-mobile"]} onClick={handleToggle}>
+            <Link
+              to="/register"
+              className={styles["item-mobile"]}
+              onClick={handleToggle}
+            >
               <div className={styles["content-mobile"]}>Register</div>
             </Link>
             {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
-              <Link to="/admin" className={styles["item-mobile"]} onClick={handleToggle}>
+              <Link
+                to="/admin"
+                className={styles["item-mobile"]}
+                onClick={handleToggle}
+              >
                 <div className={styles["content-mobile"]}>Admin</div>
               </Link>
             )}
           </div>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };

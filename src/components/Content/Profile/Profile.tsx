@@ -42,9 +42,8 @@ const Profile: React.FC<ProfileProps> = (props) => {
     setValue,
     formState: { isDirty }
   } = useForm<ProfileDataType>();
-  const { category, id } = useParams();
   const onSubmit: SubmitHandler<ProfileDataType> = async (data) => {
-    const response = await put(`http://localhost:8080/api/user/update/${id}`, data);
+    const response = await put(`http://localhost:8080/api/user/update/${localStorage.getItem("userId")}`, data);
     alert("Update user info success")
   };
 

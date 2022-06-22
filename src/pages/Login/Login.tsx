@@ -60,6 +60,7 @@ const Login: React.FC<LoginProps> = (props) => {
       authorization: `${response.tokenType} ${response.accessToken}`
     }})
     const a = localStorage.setItem("userInfo", JSON.stringify(checkMe.data.roles[0].name))
+    localStorage.setItem("userId", JSON.stringify(checkMe.data.id))
     console.log(a);
     
     

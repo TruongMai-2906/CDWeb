@@ -8,7 +8,7 @@ import apiConfig from "../../utilities/apiConfig.ts";
 import styles from "./Detail.module.scss";
 import { Link } from "react-router-dom";
 import { FaYoutube, FaPlayCircle, FaArrowDown } from "react-icons/fa";
-import { AiFillLike } from "react-icons/ai";
+import { AiFillLike, AiFillHeart } from "react-icons/ai";
 import classNames from "classnames";
 // @ts-ignore
 import Recommend from "../../components/Content/Recommend/Recommend.tsx";
@@ -19,6 +19,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import ReactPlayer from "react-player";
 import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
 // import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
+import { post } from "../../utilities/api.ts";
 import { scroller } from "react-scroll";
 
 // Api_URL
@@ -87,6 +88,12 @@ const Detail: React.FC<DetailProps> = (props) => {
       smooth: "easeInOutQuart",
     });
   };
+  
+  const addMovieToWishList = async () => {
+    const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
+    console.log("add wl",addWishList);
+    
+  }
   return (
     <div id={styles["main-content"]}>
       {films && <div id={styles["block"]}>
@@ -156,6 +163,9 @@ const Detail: React.FC<DetailProps> = (props) => {
                       <div className={styles["fb-like"]}>
                         <AiFillLike color="#fff" />
                         Share
+                      </div>
+                      <div className={styles["wishlist"]} onClick={addMovieToWishList}>
+                        <AiFillHeart color="red" />
                       </div>
                     </div>
                     <ul className={styles["entry-meta"]}>

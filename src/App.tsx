@@ -30,8 +30,9 @@ import Admin from "./pages/Admin/Admin.tsx";
 import AdminLayout from "./components/Layout/AdminLayout.tsx"
 import UserSetting from "./pages/UserSetting/UserSetting.tsx";
 import Profile from "./components/Content/Profile/Profile.tsx";
-
+import WishList from "./components/Content/WishList/WishList.tsx";
 import "./App.scss";
+
 function App() {
   const [active, setState] = useState<string>("");
   const auth = localStorage.getItem("userInfo")
@@ -44,6 +45,7 @@ function App() {
            <Route path="/" element={<Layout><HomePage /></Layout>}></Route>
            <Route path="/user/account" element={<Layout><UserSetting /></Layout>}>
                 <Route path="profile/:id" element={<Profile/>}></Route>
+                <Route path="wishlist" element={<WishList/>}></Route>
            </Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />

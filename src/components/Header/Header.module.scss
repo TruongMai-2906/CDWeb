@@ -6,8 +6,46 @@
   box-shadow: 0px 9px 11px 0px rgb(0 0 0 / 30%);
   background: $color-background;
   background-size: 200% 100%;
-  background-image: linear-gradient(to right, #234a71 0, #101519 40%, #151d25 100%);
-  transition: .5s;
+  background-image: linear-gradient(
+    to right,
+    #234a71 0,
+    #101519 40%,
+    #151d25 100%
+  );
+  transition: 0.5s;
+  position: relative;
+}
+.search-button {
+  position: absolute;
+    right: 9%;
+    height: 100%;
+    top: 22px;
+    color: #fff;
+    width: 0%;
+    border: none;
+    background: none;
+    outline: none !important;
+    cursor: pointer;
+}
+.search-button:hover {
+  background: none;
+  color: #00acc1;
+}
+.search-back{
+  position: absolute;
+  width: 28%;
+  border-radius: 10px;
+  background-color: #2f3441;
+  
+  z-index: 10;
+}
+.search-entry{
+  padding: 10px 20px;
+  width: 100%;
+  color: #fff;
+  border-top: none;
+}
+.input-group{
   position: relative;
 }
 
@@ -19,7 +57,7 @@
   font-size: 13px;
   font-weight: 700;
 }
-// .flex{display: flex;}  
+// .flex{display: flex;}
 .icon-header {
   display: flex;
   width: 1.5rem;
@@ -42,8 +80,8 @@
 .search {
   display: none;
   width: 32%;
-  margin-top: 0.5rem;
-  :focus{
+  margin-top: 1%;
+  :focus {
     margin: 0;
   }
 
@@ -59,15 +97,14 @@
   color: #fff;
   font-size: 13px;
   border-radius: 20px !important;
-  transition: .7s all;
+  transition: 0.7s all;
   padding: 10px 20px;
   background: #2f3441 5px 2px no-repeat;
-
 }
 
 .form-control:focus {
   border-radius: 3px !important;
-  transition: .7s all;
+  transition: 0.7s all;
   border: 1px solid #00acc1;
   outline: none;
 }
@@ -137,7 +174,7 @@
   flex-direction: column;
   gap: 2rem;
   padding: 1rem 2rem;
-  
+
   @include at($desktop) {
     display: none;
   }
@@ -164,7 +201,7 @@
 }
 
 .nav-menu {
-  background: #101821, ;
+  background: #101821;
   display: flex;
   flex: 1 1 80%;
   padding: 0 6%;
@@ -184,7 +221,7 @@
     z-index: 10000;
   }
 
-  &:hover>.content {
+  &:hover > .content {
     transition: 500ms;
     color: $color-p-white;
   }
@@ -210,7 +247,7 @@
   &::before,
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     // left: 5px;
     width: 2.5rem;
     height: 3px;
@@ -223,7 +260,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     top: 10px;
   }
 
@@ -269,11 +306,11 @@
     font-size: 20px;
   }
 
-  .app-menu>li {
+  .app-menu > li {
     padding: 0 15px;
   }
 
-  .app-menu>li>a {
+  .app-menu > li > a {
     padding: 0 15px;
     margin: 0 -15px;
   }

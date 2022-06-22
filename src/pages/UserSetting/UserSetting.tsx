@@ -10,7 +10,6 @@ export interface UserSettingProps {}
 export interface UserSettingDataType {}
 
 const UserSetting: React.FC<UserSettingProps> = (props) => {
-  const { category, id } = useParams();
   return (
     <div style={{ background: "#E7E6E6" }}>
       <div className={styles["container-setting"]}>
@@ -27,7 +26,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             <div className={styles["avatar-name"]}>
               <div className={styles["avatar-name-text"]}>trung926</div>
               <div>
-                <Link to={`profile/${id}`} className={styles["edit-profile"]}>
+                <Link to={`profile/${localStorage.getItem("userId")}`} className={styles["edit-profile"]}>
                   Sửa hồ sơ
                 </Link>
               </div>
@@ -36,7 +35,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
           <div className={styles["navbar"]}>
             <div className={styles["stardust-dropdown"]}>
               <div className={styles["stardust-dropdown__item-header"]}>
-                <Link to={`profile/${id}`} className={styles["navbar-link"]}>
+                <Link to={`profile/${localStorage.getItem("userId")}`} className={styles["navbar-link"]}>
                   <CgProfile className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
                     <span className={styles["item-span"]}>Profile</span>
@@ -68,7 +67,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
             </div>
             <div className={styles["stardust-dropdown"]}>
               <div className={styles["stardust-dropdown__item-header"]}>
-                <Link to={`changpass/${id}`} className={styles["navbar-link"]}>
+                <Link to={`changpass/${localStorage.getItem("userId")}`} className={styles["navbar-link"]}>
                   <RiExchangeBoxLine className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
                     <span className={styles["item-span"]}>Change Password</span>
