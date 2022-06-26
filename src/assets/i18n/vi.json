@@ -1,0 +1,56 @@
+{
+  "header": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "navbar": {
+      "home": "Trang chủ",
+      "listfilm": "Phim"
+    }
+  },
+  "setting": {
+    "editprofile": "Sửa hồ sơ",
+    "profile": "Thông tin tài khoản",
+    "wishlist": "Yêu thích",
+    "historywatch": "Lịch sử xem",
+    "changpass": "Đổi mật khẩu",
+    "logout": "Đăng xuất",
+    "profilecontent": {
+      "title": "Thông tin tài khoản",
+      "description": "Quản lý thông tin hồ sơ tài khoản",
+      "username": "Tài khoản",
+      "name": "Tên",
+      "email": "Email",
+      "gender": "Giới tính",
+      "address": "Địa chỉ",
+      "phone": "Số điện thoại",
+      "save": "Lưu"
+    }
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "username": "Tài khoản",
+    "password": "Mật khẩu"
+  },
+  "register": {
+    "title": "Đăng ký",
+    "name": "Tên",
+    "username": "Tài khoản",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmpassword": "Nhập lại mật khẩu"
+  },
+  "related":"Liên quan",
+  "recommend": "Đề xuất",
+  "detail": {
+    "watch": "Xem ngay",
+    "like": "Thích",
+    "share": "Chia sẻ",
+    "play": "Chất lượng",
+    "type": "Thể loại",
+    "company": "Công ty",
+    "country": "Quốc gia",
+    "actor": "Diễn viên",
+    "releasedate": "Năm xuất bản",
+    "content": "Nội dung"
+  }
+}

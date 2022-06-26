@@ -70,6 +70,7 @@
                 overflow: hidden;
                 transform: center left;
                 position: relative;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
                 @include at($desktop) {
                     max-width: 400px;

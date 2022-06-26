@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Profile.module.scss";
-import {put} from "../../../utilities/api.ts";
+import { put } from "../../../utilities/api.ts";
 import { useForm, SubmitHandler, useFormState } from "react-hook-form";
 import { getUserInfo } from "../../../utilities/api.ts";
 import { useParams } from "react-router-dom";
 import { Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 export interface ProfileProps {}
 
@@ -16,8 +17,8 @@ export interface ProfileDataType {
   address: string;
   phone: string;
 }
-interface UserInfoData{
-  username: string,
+interface UserInfoData {
+  username: string;
   name: string;
   email: string;
   gender: string;
@@ -26,8 +27,9 @@ interface UserInfoData{
 }
 
 const Profile: React.FC<ProfileProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const defaultUser: UserInfoData = {
-    username:"",
+    username: "",
     name: "",
     email: "",
     gender: "",
@@ -40,26 +42,29 @@ const Profile: React.FC<ProfileProps> = (props) => {
     register,
     getValues,
     setValue,
-    formState: { isDirty }
+    formState: { isDirty },
   } = useForm<ProfileDataType>();
   const onSubmit: SubmitHandler<ProfileDataType> = async (data) => {
-    const response = await put(`http://localhost:8080/api/user/update/${localStorage.getItem("userId")}`, data);
-    alert("Update user info success")
+    const response = await put(
+      `http://localhost:8080/api/user/update/${localStorage.getItem("userId")}`,
+      data
+    );
+    alert("Update user info success");
   };
 
   useEffect(() => {
-    onUserInfo(); 
+    onUserInfo();
   }, []);
   const onUserInfo = async () => {
     const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoData) => {
         setUserInfo(data);
-        setValue("username",data.username)
-        setValue("name",data.name)
-        setValue("email",data.email)
-        setValue("gender",data.gender)
-        setValue("address",data.address)
-        setValue("phone",data.phone)
+        setValue("username", data.username);
+        setValue("name", data.name);
+        setValue("email", data.email);
+        setValue("gender", data.gender);
+        setValue("address", data.address);
+        setValue("phone", data.phone);
         console.log("data", data);
       }
     );
@@ -67,9 +72,9 @@ const Profile: React.FC<ProfileProps> = (props) => {
   return (
     <div className={styles["root"]}>
       <div className={styles["profile-title"]}>
-        <h1>My Profile</h1>
+        <h1> {t("setting.profilecontent.title")}</h1>
         <div className={styles["title-detail"]}>
-          Manage profile information for account security
+          {t("setting.profilecontent.description")}
         </div>
       </div>
       <div className={styles["profile-content"]}>
@@ -82,12 +87,15 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Username</label>
+                  <label htmlFor="">
+                    {t("setting.profilecontent.username")}
+                  </label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
                       <input
+                        className={styles["input-content"]}
                         type="text"
                         {...register("username")}
                         defaultValue={userInfo.username}
@@ -102,12 +110,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Name</label>
+                  <label htmlFor="">{t("setting.profilecontent.name")}</label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
                       <input
+                        className={styles["input-content"]}
                         type="text"
                         {...register("name")}
                         defaultValue={userInfo.name}
@@ -121,12 +130,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Email</label>
+                  <label htmlFor="">{t("setting.profilecontent.email")}</label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
-                      <input 
+                      <input
+                        className={styles["input-content"]}
                         type="email"
                         {...register("email")}
                         defaultValue={userInfo.email}
@@ -141,12 +151,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Gender</label>
+                  <label htmlFor="">{t("setting.profilecontent.gender")}</label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
                       <input
+                        className={styles["input-content"]}
                         type="text"
                         {...register("gender")}
                         defaultValue={userInfo.gender}
@@ -160,12 +171,15 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Address</label>
+                  <label htmlFor="">
+                    {t("setting.profilecontent.address")}
+                  </label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
                       <input
+                        className={styles["input-content"]}
                         type="text"
                         {...register("address")}
                         defaultValue={userInfo.address}
@@ -179,12 +193,13 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-label"]}>
-                  <label htmlFor="">Phone</label>
+                  <label htmlFor="">{t("setting.profilecontent.phone")}</label>
                 </div>
                 <div className={styles["form-input"]}>
                   <div className={styles["input-with-validator-wrapper"]}>
                     <div className={styles["input-with-validator"]}>
                       <input
+                        className={styles["input-content"]}
                         type="text"
                         {...register("phone")}
                         defaultValue={userInfo.phone}
@@ -198,7 +213,9 @@ const Profile: React.FC<ProfileProps> = (props) => {
             <div className={styles["form-item"]}>
               <div className={styles["form-content"]}>
                 <div className={styles["form-input"]}>
-                  <Button htmlType="submit">Save</Button>
+                  <Button htmlType="submit">
+                    {t("setting.profilecontent.save")}
+                  </Button>
                 </div>
               </div>
             </div>

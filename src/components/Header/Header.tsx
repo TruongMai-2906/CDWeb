@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/home/icon.png";
 import classNames from "classnames";
@@ -13,6 +13,7 @@ import Form from "antd/lib/form/Form";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { GrClose } from "react-icons/gr";
 import { Movie } from "../../pages/ListFilm/Movie.ts";
+import { IoIosArrowDown } from "react-icons/io";
 import tmdbApi, {
   category,
   movieType,
@@ -20,6 +21,8 @@ import tmdbApi, {
 } from "../../utilities/tmdmApi.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { debounce } from "lodash";
+import { useTranslation } from "react-i18next";
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 export interface HeaderProps {
   page: string;
   keyword: string;
@@ -38,25 +41,65 @@ export interface UserInfoDataType {
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
-  const [keyword, setKeyword] = useState<String>()
-
-  const [movie, setMovie] = useState<Movie>()
-  const debounceSearch = useCallback(debounce( (nextValue) =>  get(`http://localhost:8080/api/movie/ShowAndsearch?keyword=${nextValue}`), 100), [])
-  const search = async (keyword: string) => {
-    if(keyword){
-      const response = await debounceSearch(keyword)
-      console.log("res",response.data.data.products);
-      
-      setMovie(response.data.data.products)
-    }else{
-      setMovie([]);
-    }
-  
-    
+  const [keyword, setKeyword] = useState<String>();
+  const [movie, setMovie] = useState<Movie>();
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState<string>("Eng");
+  const lngs = {
+    en: { nativeName: "Eng" },
+    vi: { nativeName: "Vie" },
   };
-  
-  
+  const menu = (
+    <Menu
+    items={[
+      {
+        key: '1',
+        label: (
+          <button
+              className={styles["language-button"]}
+              onClick={() => {
+                i18n.changeLanguage("en");
+                setLanguage(lngs.en.nativeName);
+              }}
+            >
+              {" "}
+              {lngs.en.nativeName}
+            </button>
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <button
+              className={styles["language-button"]}
+              onClick={() => {
+                i18n.changeLanguage("vi");
+                setLanguage(lngs.vi.nativeName);
+              }}
+            >
+              {" "}
+              {lngs.vi.nativeName}
+            </button>
+        )
+      }
+    ]}
+    />
+  );
 
+  const debounceChange = useMemo(
+    () =>
+      debounce(async (searchValue) => {
+        if (searchValue === "") {
+          setMovie([]);
+        } else {
+          const search = await get(
+            `http://localhost:8080/api/movie/ShowAndsearch?keyword=${searchValue}`
+          );
+          setMovie(search.data.data.products);
+        }
+      }, 500),
+    [movie]
+  );
 
   const defaultUser: UserInfoDataType = {
     id: -1,
@@ -107,7 +150,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const handleDetail = (e: string) => {
     navigate(`/user/account/profile/${e}`);
   };
-  const userIdLc = localStorage.getItem("userId")
+  const userIdLc = localStorage.getItem("userId");
 
   return (
     <div className={styles["root"]}>
@@ -119,40 +162,53 @@ const Header: React.FC<HeaderProps> = (props) => {
         <div className={styles["hamburger"]} onClick={handleToggle}>
           <div className="icon" />
         </div>
-        <div className={styles["login-container"]}>
-          {login.id === -1 && (
-            <>
-              <Link to="/login" className={styles["item"]}>
-                <div className={styles["content"]}>Login</div>
-              </Link>
-              <Link to="/register" className={styles["item"]}>
-                <div className={styles["content"]}>Register</div>
-              </Link>
-            </>
-          )}
-          {login.id != -1 && (
-            <div style={{ display: "flex", color: "#fff" }}>
-              <div
-                className={classNames(styles["icon-headerr"], styles["flex"])}
-              >
-                Hi {login.name}
-              </div>
-              <div style={{ margin: "0 5px" }}>
-                <BiHistory className={styles["icon-header"]} />
-              </div>
-              <a
-                style={{ margin: "0 5px" }}
-                onClick={() => {
-                  handleDetail(userIdLc);
-                }}
-              >
-                <MdOutlineManageAccounts className={styles["icon-header"]} />
+        <div style={{ display: "flex" }}>
+          
+          <div className={styles["change-language"]}>
+          <Dropdown overlay={menu}>
+              <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
+                <Space >
+                  {language}
+                  <IoIosArrowDown className={styles["language-arrow"]}/>
+                </Space>
               </a>
-              <div style={{ margin: " 0 5px" }}>
-                <BiLogIn onClick={logout} className={styles["icon-header"]} />
+          </Dropdown>
+          </div>
+          <div className={styles["login-container"]}>
+            {login.id === -1 && (
+              <>
+                <Link to="/login" className={styles["item"]}>
+                  <div className={styles["content"]}>{t("header.login")}</div>
+                </Link>
+                <Link to="/register" className={styles["item"]}>
+                  <div className={styles["content"]}>{t("header.register")}</div>
+                </Link>
+              </>
+            )}
+            {login.id != -1 && (
+              <div style={{ display: "flex", color: "#fff" }}>
+                <div
+                  className={classNames(styles["icon-headerr"], styles["flex"])}
+                >
+                  {login.name}
+                </div>
+                <div style={{ margin: "0 5px" }}>
+                  <BiHistory className={styles["icon-header"]} />
+                </div>
+                <a
+                  style={{ margin: "0 5px" }}
+                  onClick={() => {
+                    handleDetail(userIdLc);
+                  }}
+                >
+                  <MdOutlineManageAccounts className={styles["icon-header"]} />
+                </a>
+                <div style={{ margin: " 0 5px" }}>
+                  <BiLogIn onClick={logout} className={styles["icon-header"]} />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <div
@@ -163,10 +219,10 @@ const Header: React.FC<HeaderProps> = (props) => {
       >
         <div className={styles["navbar"]}>
           <Link to="/" className={styles["item"]}>
-            <div className={classNames(styles["content"])}>Home</div>
+            <div className={classNames(styles["content"])}>{t("header.navbar.home")}</div>
           </Link>
           <Link to="/listfilm" className={styles["item"]}>
-            <div className={styles["content"]}>List Film</div>
+            <div className={styles["content"]}>{t("header.navbar.listfilm")}</div>
           </Link>
           {/* <Link to="/" className={styles["item"]}>
             <div className={styles["content"]}>Hot</div>
@@ -186,27 +242,26 @@ const Header: React.FC<HeaderProps> = (props) => {
         <div className={styles["search"]}>
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
             <div className={styles["form-group"]}>
-              <div className={styles["input-group col-xs-12"]}>
+              <div
+                className={styles["input-group col-xs-12"]}
+                style={{ position: "relative" }}
+              >
                 <Input
-                  className={styles["form-control"]}
+                  className={styles["input-search"]}
                   placeholder="Input search text"
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    
-                    search(e.target.value)}}
+                  onChange={(e) => debounceChange(e.target.value)}
                 />
-                <button className={styles["search-button"]}>
-                  <BiSearch className={styles["search-icon"]} style={{background:"none",color:"#000"}} aria-hidden="true"></BiSearch>
-                </button>
-                
+                <Link to="/listfilm" className={styles["search-button"]}>
+                  <BiSearch
+                    className={styles["search-icon"]}
+                    aria-hidden="true"
+                  ></BiSearch>
+                </Link>
                 <div className={styles["search-back"]}>
-                {movie?.map((e)=> 
-                  <div className={styles["search-entry"]}>
-                    {e.title}
-                  </div>
-                   )}
+                  {movie?.map((e) => (
+                    <div className={styles["search-entry"]}>{e.title}</div>
+                  ))}
                 </div>
-               
               </div>
             </div>
           </form>

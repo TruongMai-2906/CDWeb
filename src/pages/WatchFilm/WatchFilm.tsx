@@ -22,7 +22,9 @@ const WatchFilm: React.FC<WatchFilmProps> = (props) => {
   const { category, id } = useParams();
   // console.log("slug",id);
   const [urlMovie, setUrlMovie] = useState<WatchFilmDataType>()
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   useEffect(() => {
     fetch(`${url}api/movie/${id}`)
       .then((res) => res.json())

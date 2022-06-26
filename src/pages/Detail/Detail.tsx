@@ -14,14 +14,14 @@ import classNames from "classnames";
 import Recommend from "../../components/Content/Recommend/Recommend.tsx";
 // @ts-ignore
 import Related from "../../components/Content/Related/Related.tsx";
-import { Movies } from "../ListFilm/Movie";
+import { Movies } from "../ListFilm/Movie.ts";
 import { IoIosArrowDown } from 'react-icons/io'
 import ReactPlayer from "react-player";
 import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
 // import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
-import { post } from "../../utilities/api.ts";
+import { post, del } from "../../utilities/api.ts";
 import { scroller } from "react-scroll";
-
+import { useTranslation } from "react-i18next";
 // Api_URL
 const API_URL = (e: string) => {
   return `http://localhost:8080/api/movie/${e}`;
@@ -51,18 +51,20 @@ export interface DetailDataType {
 }
 
 const Detail: React.FC<DetailProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const { category, slug } = useParams();
   const [films, setFilm] = useState<DetailDataType>();
-  // console.log("useParam", id);
   const navigate = useNavigate();
   const [urlMovie, setUrlMovie] = useState<WatchFilmDataType>()
+  const [wishListStatus, setWishLishStatus] = useState<boolean>(false)
+  const [wishListData, setWishList] = useState<Movies[]>();
+  const [slugWishList, setSlugWishList] = useState<string>();
 
   useEffect(() => {
     fetch(API_URL(slug))
       .then((res) => res.json())
       .then((films) => {
         setFilm(films);
-        // console.log("data-detail", data);
       });
   }, []);
 
@@ -88,12 +90,37 @@ const Detail: React.FC<DetailProps> = (props) => {
       smooth: "easeInOutQuart",
     });
   };
-  
-  const addMovieToWishList = async () => {
-    const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
-    console.log("add wl",addWishList);
-    
+  const addMovieHistory = async ()=>{
+    const addHistory = await post(`http://localhost:8080/api/history/addHistory/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
+    console.log("his",addHistory);
   }
+  const onMovieToWishList = async ()=>{
+    if(wishListStatus){
+      const wishList = await post(
+        `http://localhost:8080/api/wishlist/findAll?action=remove&favProductId=${slug}`,
+        { id: parseInt(localStorage.getItem("userId") || "-1") }
+      );
+      setWishLishStatus(false)
+    }else{
+      const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
+    setWishLishStatus(true)
+    }
+  }
+  useEffect(() => {
+    const checkWishLish = async () => {
+      const wishList = await post(
+        `http://localhost:8080/api/wishlist/findAll?action=show`,
+        { id: parseInt(localStorage.getItem("userId") || "-1") }
+      );
+      setWishList(wishList.data);
+      wishList.data?.map((e)=>{
+      if (e.movie.slug === slug) {
+        setWishLishStatus(true)
+      }
+    })
+    };
+    checkWishLish()
+  }, []);
   return (
     <div id={styles["main-content"]}>
       {films && <div id={styles["block"]}>
@@ -134,12 +161,13 @@ const Detail: React.FC<DetailProps> = (props) => {
                       <div
                         key={films?.slug}
                         onClick={() => {
+                          addMovieHistory()
                           handleDetail(films?.slug);
                         }}
                         className="btn-see btn btn-danger"
                         title={films?.title}
                       >
-                        <FaPlayCircle /> Watch Now
+                        <FaPlayCircle /> {t('detail.watch')}
                       </div>
                     </li>
                   </ul>
@@ -158,24 +186,24 @@ const Detail: React.FC<DetailProps> = (props) => {
                     <div className={styles["btn-groups"]}>
                       <div className={styles["fb-like"]}>
                         <AiFillLike color="#fff" />
-                        Like 86
+                        {t('detail.like')}
                       </div>
                       <div className={styles["fb-like"]}>
                         <AiFillLike color="#fff" />
-                        Share
+                        {t('detail.share')}
                       </div>
-                      <div className={styles["wishlist"]} onClick={addMovieToWishList}>
-                        <AiFillHeart color="red" />
+                      <div className={styles["wishlist"]} onClick={onMovieToWishList}>
+                        <AiFillHeart color={wishListStatus ? "red" : "#fff"} />
                       </div>
                     </div>
                     <ul className={styles["entry-meta"]}>
                       <div className={styles["column"]}>
                         <li>
-                          <label>Playing: </label>
+                          <label>{t('detail.play')}: </label>
                           <span style={{ color: "red" }}> HD Vietsub</span>
                         </li>
                         <li>
-                          <label>Type: </label>{" "}
+                          <label>{t('detail.type')}: </label>{" "}
                           <a href="" title="">
                             {" "}
                             {films?.genres.map((gen) => gen.name)}
@@ -186,7 +214,7 @@ const Detail: React.FC<DetailProps> = (props) => {
 
                       <div className={styles["column"]}>
                         <li>
-                          <label>Company: </label>
+                          <label>{t('detail.company')}: </label>
                           <span>
                             <a href="" title="Han Cheol Soo">
                               <span> {films?.productionCompanies.map((company) => company.name)}</span>
@@ -194,7 +222,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                           </span>
                         </li>
                         <li>
-                          <label>Country: </label>{" "}
+                          <label>{t('detail.country')}: </label>{" "}
                           <a href="" title="Phim Âu Mỹ">
                             {" "}
                             {films?.productionCountries.map((country) => country.name)}
@@ -203,13 +231,13 @@ const Detail: React.FC<DetailProps> = (props) => {
                       </div>
                       <div className={styles["column"]}>
                         <li>
-                          <label>Actor: </label>{" "}
+                          <label>{t('detail.actor')}: </label>{" "}
                           <a href="" title="">
                             {films?.productionCompanies.map((company) => company.name + ", ")}
                           </a>
                         </li>
                         <li>
-                          <label>Release Year: </label>{" "}
+                          <label>{t('detail.releasedate')}: </label>{" "}
                           <a href=""> {films?.releaseDate}</a>
                         </li>
                       </div>
@@ -218,7 +246,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                 </div>
                 <div className={styles["content"]}>
                   <div className={styles["content-film"]}>
-                    <h3 className={styles["heading"]}>Content </h3>
+                    <h3 className={styles["heading"]}>{t('detail.content')} </h3>
                     <div id={styles["film-content"]}>
                       <input className={styles["toggle-box"]} id={styles['post']} type="checkbox" />
                       <p className={styles['overview']}>{films?.overview}</p>
@@ -243,13 +271,12 @@ const Detail: React.FC<DetailProps> = (props) => {
                       <input className={styles["toggle-box"]} id={styles['post']} type="checkbox" />
                       <ReactPlayer
                         // ref={playerRef}
-                        autoplay={false}
+                        autoPlay={false}
                         url={films?.url}
                         controls
                         width="100%"
                         height="520px"
                         playing={playing}
-                        autoPl
                         onDuration={(duration) => {
                           setDuration({ duration });
                         }}

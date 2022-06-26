@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss'
+import { useTranslation } from "react-i18next";
 
 export interface User {
   name: string;
@@ -28,6 +29,7 @@ export interface ResponseStatus {
 export const url: string = "http://localhost:8080/";
 export interface RegisterProps { }
 export const Register: React.FC<RegisterProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
     username: Yup.string()
@@ -116,52 +118,51 @@ export const Register: React.FC<RegisterProps> = (props) => {
   return (
     <div className={styles["register-container"]}>
       <div className={styles["register-form"]}>
-        <h1>Register</h1>
+        <h1>{t('register.title')}</h1>
         <form onSubmit={handleSubmit(onSubmit)} method="post">
-          <label>Full Name <span style={{ color: "red" }}>*</span></label>
+          <label>{t('register.name')} <span style={{ color: "red" }}>*</span></label>
           <input
             type="text"
             {...register("name")}
             placeholder="Your name.."
-            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.name ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.name?.message}</div>
 
-          <label>User Name <span style={{ color: "red" }}>*</span></label>
+          <label>{t('register.username')} <span style={{ color: "red" }}>*</span></label>
           <input
             type="text"
             {...register("username")}
             placeholder="Enter your user name"
             onChange={(e) => checkValidName(e.target.value)}
-            className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.username ? 'is-invalid' : ''} `}
           />
           {valid.field === "name" && <div style={{ paddingLeft: "20px", color: "red" }}>{valid.message}</div>}
           <div className="invalid-feedback">{errors.username?.message}</div>
-          <label>Email <span style={{ color: "red" }}>*</span></label>
+          <label>{t('register.email')} <span style={{ color: "red" }}>*</span></label>
           <input
             type="text"
-            name="email"
             {...register("email")}
             placeholder="Enter your email"
             onChange={(e) => checkValidEmail(e.target.value)}
-            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.email ? 'is-invalid' : ''} `}
           />
           {validEmail.field === "email" && <div style={{ paddingLeft: "20px", color: "red" }}>{validEmail.message}</div>}
           <div className="invalid-feedback">{errors.email?.message}</div>
-          <label>Password <span style={{ color: "red" }}>*</span></label>
+          <label>{t('register.password')} <span style={{ color: "red" }}>*</span></label>
           <input
             type="password"
             {...register("password")}
             placeholder="Enter your password"
-            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.password ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
-          <label>Confirm Password <span style={{ color: "red" }}>*</span></label>
+          <label>{t('register.confirmpassword')} <span style={{ color: "red" }}>*</span></label>
           <input
             type="password"
             {...register("confirmPassword")}
             placeholder="Enter your password"
-            className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
           <Button htmlType="submit" type="primary" disabled={disable}>Submit</Button>

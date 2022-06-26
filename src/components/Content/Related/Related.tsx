@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 //@ts-ignore
 import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
 import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
+import { useTranslation } from "react-i18next";
 
 export interface RelatedProps {
   original_title: string,
@@ -17,6 +18,7 @@ export interface RelatedProps {
   poster_path: string
 }
 export const Related: React.FC<RelatedProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [films, setFilm] = useState([]);
   const mobile = useCheckMobileScreen(768);
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export const Related: React.FC<RelatedProps> = (props) => {
     fetch(API_URL)
       .then((res) => res.json())
       .then(films => {
-        console.log(films);
+        // console.log(films);
         setFilm(films);
       })
   }, [])
@@ -35,7 +37,7 @@ export const Related: React.FC<RelatedProps> = (props) => {
   return (
     <>
       <div id={styles['related-movies']}>
-        <h3 className={styles['heading']}>Related movies</h3>
+        <h3 className={styles['heading']}>{t('related')}</h3>
         <>
           <Swiper
             slidesPerView={mobile ? 2 : 3}

@@ -4,12 +4,14 @@ import styles from "./UserSetting.module.scss";
 import { CgProfile, CgHeart } from "react-icons/cg";
 import { AiOutlineHistory, AiOutlineLogout } from "react-icons/ai";
 import { RiExchangeBoxLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export interface UserSettingProps {}
 
 export interface UserSettingDataType {}
 
 const UserSetting: React.FC<UserSettingProps> = (props) => {
+   const { t, i18n } = useTranslation();
   return (
     <div style={{ background: "#E7E6E6" }}>
       <div className={styles["container-setting"]}>
@@ -27,7 +29,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
               <div className={styles["avatar-name-text"]}>trung926</div>
               <div>
                 <Link to={`profile/${localStorage.getItem("userId")}`} className={styles["edit-profile"]}>
-                  Sửa hồ sơ
+                  {t('setting.editprofile')}
                 </Link>
               </div>
             </div>
@@ -38,7 +40,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 <Link to={`profile/${localStorage.getItem("userId")}`} className={styles["navbar-link"]}>
                   <CgProfile className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
-                    <span className={styles["item-span"]}>Profile</span>
+                    <span className={styles["item-span"]}>{t('setting.profile')}</span>
                   </div>
                 </Link>
               </div>
@@ -50,7 +52,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 >
                   <CgHeart className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
-                    <span className={styles["item-span"]}>WishList</span>
+                    <span className={styles["item-span"]}>{t('setting.wishlist')}</span>
                   </div>
                 </Link>
               </div>
@@ -60,7 +62,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 <Link to="history?action=show" className={styles["navbar-link"]}>
                   <AiOutlineHistory className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
-                    <span className={styles["item-span"]}>History Watch</span>
+                    <span className={styles["item-span"]}>{t('setting.historywatch')}</span>
                   </div>
                 </Link>
               </div>
@@ -70,7 +72,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 <Link to={`changpass/${localStorage.getItem("userId")}`} className={styles["navbar-link"]}>
                   <RiExchangeBoxLine className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
-                    <span className={styles["item-span"]}>Change Password</span>
+                    <span className={styles["item-span"]}>{t('setting.changpass')}</span>
                   </div>
                 </Link>
               </div>
@@ -80,7 +82,7 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 <a className={styles["navbar-link"]} href="/user/coin">
                   <AiOutlineLogout className={styles["icon-navbar"]} />
                   <div className={styles["item-navbar"]}>
-                    <span className={styles["item-span"]}>Logout</span>
+                    <span className={styles["item-span"]}>{t('setting.logout')}</span>
                   </div>
                 </a>
               </div>

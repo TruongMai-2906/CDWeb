@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { debounce } from "lodash";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { useTranslation } from "react-i18next";
 
 export interface LoginProps {}
 
@@ -27,6 +28,7 @@ export interface CurrentUserType {
 }
 
 const Login: React.FC<LoginProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const validationSchema = Yup.object().shape({
@@ -83,9 +85,9 @@ const Login: React.FC<LoginProps> = (props) => {
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
-        <h1>Login</h1>
+        <h1>{t('login.title')}</h1>
         <form onSubmit={handleSubmit(onSubmit)} method="post">
-          <label>User Name</label>
+          <label>{t('login.username')}</label>
           <input
             type="text"
             {...register("username")}
@@ -95,7 +97,7 @@ const Login: React.FC<LoginProps> = (props) => {
           />
           <div className="invalid-feedback">{errors.username?.message}</div>
 
-          <label>Password</label>
+          <label>{t('login.password')}</label>
           <input
             type="password"
             {...register("password")}

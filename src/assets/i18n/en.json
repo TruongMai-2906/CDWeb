@@ -1,0 +1,56 @@
+{
+  "header": {
+    "login": "Login",
+    "register": "Register",
+    "navbar": {
+      "home": "Home",
+      "listfilm": "List Film"
+    }
+  },
+  "setting": {
+    "editprofile": "Edit Profile",
+    "profile": "Profile",
+    "wishlist": "Wish List",
+    "historywatch": "Hisory Watch",
+    "changpass": "Change Password",
+    "logout": "Logout",
+    "profilecontent": {
+      "title": "My Profile",
+      "description": "Manage profile information for account security",
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "gender": "Gender",
+      "address": "Address",
+      "phone": "Phone",
+      "save": "save"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "username": "User name",
+    "password": "Password"
+  },
+  "register": {
+    "title": "Register",
+    "name": "Full name",
+    "username": "User name",
+    "email": "Email",
+    "password": "Password",
+    "confirmpassword": "Confirm password"
+  },
+  "related":"Related Movie",
+  "recommend": "Recommend For You",
+  "detail": {
+    "watch": "Watch Now",
+    "like": "Like",
+    "share": "Share",
+    "play": "Playing",
+    "type": "Type",
+    "company": "Company",
+    "country": "Country",
+    "actor": "Actor",
+    "releasedate": "Release Date",
+    "content": "Content"
+  }
+}

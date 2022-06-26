@@ -20,6 +20,14 @@ const WishList: React.FC<WishListProps> = (props) => {
     setWishList(wishList.data);
     console.log("wishlist", wishList.data);
   };
+  const removeMovieToWishList = async (slug: string) => {
+    const wishList = await post(
+      `http://localhost:8080/api/wishlist/findAll?action=remove&favProductId=${slug}`,
+      { id: parseInt(localStorage.getItem("userId") || "-1") }
+    );
+    window.location.href="http://localhost:3000/user/account/wishlist?action=show"
+  };
+  
   wishListData?.reverse().map((item, index) => console.log(item.movie.title));
   return (
     <div className={styles["root"]}>
@@ -29,7 +37,7 @@ const WishList: React.FC<WishListProps> = (props) => {
           Manage wish list information
         </div>
       </div>
-      {wishListData?.slice(0).reverse().map((item) => (
+      {wishListData && wishListData?.slice(0).reverse().map((item) => (
       
         <div className={styles["courses-container"]}>
           <div className={styles["course"]}>
@@ -41,7 +49,7 @@ const WishList: React.FC<WishListProps> = (props) => {
             />
             <div className={styles["course-info"]}>
               <h3>{item.movie.title}</h3>
-              <button className={styles["btn"]}>Remove</button>
+              <button className={styles["btn"]} onClick={()=> removeMovieToWishList(item.movie.slug)}>Remove</button>
             </div>
           </div>
         </div>

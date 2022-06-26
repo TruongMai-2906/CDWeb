@@ -95,6 +95,7 @@ $color-text: #fff;
     overflow: hidden;
     transform: center left;
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     &:hover {
       transform: scale(1.1);
@@ -132,6 +133,7 @@ $color-text: #fff;
     }
     .img-film {
       display: block;
+      object-fit: cover;
       max-width: 150px;
       max-height: 200px;
       width: 100%;
@@ -158,6 +160,7 @@ $color-text: #fff;
   overflow: hidden;
   transform: center left;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
   &:hover {
     transform: scale(1.1);
@@ -167,6 +170,7 @@ $color-text: #fff;
   }
   .img-film {
     display: block;
+    object-fit: cover;
     max-width: 200px;
     max-height: 300px;
     width: 100%;

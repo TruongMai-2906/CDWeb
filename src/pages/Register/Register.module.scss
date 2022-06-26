@@ -24,7 +24,7 @@ $color-text: #fff;
       margin-bottom: 0.3rem;
     }
 
-    input {
+    .form-control {
       transition: 0.7s all;
       margin-bottom: 1rem;
     }
@@ -36,7 +36,7 @@ $color-text: #fff;
         margin-bottom: 0;
       }
 
-      input {
+      .form-control {
         margin-bottom: 0;
       }
     }
@@ -62,7 +62,7 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-input {
+.form-control {
   width: 100%;
   padding: 14px 20px;
   margin: 8px 0;

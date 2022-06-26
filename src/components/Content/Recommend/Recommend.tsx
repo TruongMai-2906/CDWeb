@@ -1,9 +1,11 @@
+import { t } from 'i18next';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 //@ts-ignore
 import { API_IMG, API_URL } from '../../../utilities/apiUrl.ts';
 // @ts-ignore
 import styles from '../Recommend/Recommend.module.scss';
+import { useTranslation } from "react-i18next";
 
 export interface RecommendProps {
   slug: string,
@@ -12,6 +14,7 @@ export interface RecommendProps {
 }
 
 export const Recommend: React.FC<RecommendProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [films, setFilm] = useState([])
   const navigate = useNavigate();
 
@@ -30,10 +33,10 @@ export const Recommend: React.FC<RecommendProps> = (props) => {
   return (
     <div id={styles['right-content']}>
       <div className="title">
-        <h3 className={styles['heading']}>Recommend For You</h3>
+        <h3 className={styles['heading']}>{t('recommend')}</h3>
       </div>
       <ul className={styles['list-movie']}>
-        {films.map((film:any, index) => (
+        {films.slice(0, 10).map((film:any, index) => (
           <li key={film.slug} {...film}
             onClick={() => {
               handleDetail(film.slug);
