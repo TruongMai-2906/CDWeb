@@ -245,7 +245,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
             <div className={styles["form-group"]}>
               <div
-                className={styles["input-group col-xs-12"]}
+                className={classNames(styles["input-group"], styles["col-xs-12"])}
                 style={{ position: "relative" }}
               >
                 <Input
