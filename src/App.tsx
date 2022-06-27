@@ -32,6 +32,7 @@ import UserSetting from "./pages/UserSetting/UserSetting.tsx";
 import Profile from "./components/Content/Profile/Profile.tsx";
 import WishList from "./components/Content/WishList/WishList.tsx";
 import "./App.scss";
+import History from "./components/Content/History/History.tsx";
 
 function App() {
   const [active, setState] = useState<string>("");
@@ -46,6 +47,7 @@ function App() {
            <Route path="/user/account" element={<Layout><UserSetting /></Layout>}>
                 <Route path="profile/:id" element={<Profile/>}></Route>
                 <Route path="wishlist" element={<WishList/>}></Route>
+                <Route path="history" element={<History/>}></Route>
            </Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./WishList.module.scss";
 import { post } from "../../../utilities/api.ts";
 import { Movies } from "../../../pages/ListFilm/Movie.ts";
+import { useTranslation } from "react-i18next";
 
 export interface WishListProps {}
 
 export interface WishListDataType {}
 
 const WishList: React.FC<WishListProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [wishListData, setWishList] = useState<Movies[]>();
   useEffect(() => {
     addMovieToWishList();
@@ -32,9 +34,9 @@ const WishList: React.FC<WishListProps> = (props) => {
   return (
     <div className={styles["root"]}>
       <div className={styles["profile-title"]}>
-        <h1>Wish List</h1>
+        <h1>{t("setting.wishlistcontent.title")}</h1>
         <div className={styles["title-detail"]}>
-          Manage wish list information
+        {t("setting.wishlistcontent.description")}
         </div>
       </div>
       {wishListData && wishListData?.slice(0).reverse().map((item) => (

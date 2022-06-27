@@ -71,7 +71,36 @@
           display: flex;
           align-items: center;
           margin-bottom: 0.9375rem;
-          color: #0d6efd;
+          color: #f1b53b;
+          .icon-navbar{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            line-height: 1.25rem;
+            text-align: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 0.625rem;
+          }
+          .item-navbar{
+            line-height: 1rem;
+            .item-span{
+                font-weight: 500;
+                margin-right: 0.3125rem;
+            }
+          }
+        }
+        .not-navbar-link {
+          text-transform: capitalize;
+          transition: color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+          text-decoration: none;
+          color: rgba(0, 0, 0, 0.87);
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.9375rem;
+          color: #1980ff;
           .icon-navbar{
             display: flex;
             align-items: center;
