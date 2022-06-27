@@ -24,6 +24,14 @@
       "address": "Địa chỉ",
       "phone": "Số điện thoại",
       "save": "Lưu"
+    },
+    "wishlistcontent": {
+      "title": "Yêu thích",
+      "description": "Danh sách các phim đã yêu thích"
+    },
+    "historycontent": {
+      "title": "Lịch sử xem phim",
+      "description": "Xem danh sách các phim đã xem"
     }
   },
   "login": {
