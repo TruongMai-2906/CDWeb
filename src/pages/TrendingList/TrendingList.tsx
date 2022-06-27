@@ -8,6 +8,9 @@ import {API_URL, API_IMG} from '../../utilities/apiUrl.ts';
 import { get } from '../../utilities/api.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiRightArrowAlt } from 'react-icons/bi';
+import { useTranslation } from "react-i18next";
+import { t } from 'i18next';
+
 
 export interface TrendingListProps {}
 
@@ -30,7 +33,7 @@ const TrendingList: React.FC<TrendingListProps> = (props) => {
   return(
     <div className={styles["root"]}>
     <div className={styles["trending"]}>
-    <Link to="/"><h4 className={styles["trending-text"]}>Trending <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
+    <Link to="/"><h4 className={styles["trending-text"]}>{t('trending')} <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
       <div className={styles["container"]}>
         {movieTrending?.map((movieItem) => (
           <div

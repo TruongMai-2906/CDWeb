@@ -74,7 +74,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
         text: 'Register Successfully',
         // footer: '<a href="">Why do I have this issue?</a>'
       })
-    }else{
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -122,6 +122,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
         <form onSubmit={handleSubmit(onSubmit)} method="post">
           <label>{t('register.name')} <span style={{ color: "red" }}>*</span></label>
           <input
+            id={styles["form-control"]}
             type="text"
             {...register("name")}
             placeholder="Your name.."
@@ -131,6 +132,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
 
           <label>{t('register.username')} <span style={{ color: "red" }}>*</span></label>
           <input
+            id={styles["form-control"]}
             type="text"
             {...register("username")}
             placeholder="Enter your user name"
@@ -141,6 +143,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.username?.message}</div>
           <label>{t('register.email')} <span style={{ color: "red" }}>*</span></label>
           <input
+            id={styles["form-control"]}
             type="text"
             {...register("email")}
             placeholder="Enter your email"
@@ -151,6 +154,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.email?.message}</div>
           <label>{t('register.password')} <span style={{ color: "red" }}>*</span></label>
           <input
+            id={styles["form-control"]}
             type="password"
             {...register("password")}
             placeholder="Enter your password"
@@ -159,6 +163,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
           <div className="invalid-feedback">{errors.password?.message}</div>
           <label>{t('register.confirmpassword')} <span style={{ color: "red" }}>*</span></label>
           <input
+            id={styles["form-control"]}
             type="password"
             {...register("confirmPassword")}
             placeholder="Enter your password"

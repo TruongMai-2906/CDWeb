@@ -60,5 +60,16 @@
     "actor": "Actor",
     "releasedate": "Release Date",
     "content": "Content"
+  },
+  "trending-list":{
+    "trending-movies":"Trending movies"
+  },
+  "trending":"Trending",
+  "popular-list":{
+    "popular-movies":"Popular movies"
+  },
+  "popular":"Popular",
+  "homepage":{
+    "watchnow":"Watch Now"
   }
 }

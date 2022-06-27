@@ -276,7 +276,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                         controls
                         width="100%"
                         height="520px"
-                        playing={playing}
+                        playing={false}
                         onDuration={(duration) => {
                           setDuration({ duration });
                         }}

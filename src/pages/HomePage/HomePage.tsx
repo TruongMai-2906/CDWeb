@@ -19,12 +19,14 @@ import Popular from '../../components/Content/Popular/Popular.tsx';
 import { API_IMG, API_URL } from '../../utilities/apiUrl.ts';
 import { AiFillStar } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export interface HomePageProps { }
 
 export interface HomePageDataType { }
 
 const HomePage: React.FC<HomePageProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -59,7 +61,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
                   {/* </h5> */} 
                   <a onClick={() => {
                     handleDetail(d.slug);
-                  }} className={styles['button-watch']}>Watch Now
+                  }} className={styles['button-watch']}>{t('homepage.watchnow')} 
                     <svg data-v-946d9054="" viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="chevron right"
                       xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi-chevron-right b-icon bi"><g data-v-946d9054="">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></g></svg>

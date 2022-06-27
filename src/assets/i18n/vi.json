@@ -60,5 +60,16 @@
     "actor": "Diễn viên",
     "releasedate": "Năm xuất bản",
     "content": "Nội dung"
+  },
+  "trending-list":{
+    "trending-movies":"Phim hàng đầu"
+  },
+  "trending":"Hàng đầu",
+  "popular-list":{
+    "popular-movies":"Phim phổ biến"
+  },
+  "popular":"Phổ biến",
+  "homepage":{
+    "watchnow":"Xem ngay"
   }
 }

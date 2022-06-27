@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { debounce } from "lodash";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useTranslation } from "react-i18next";
+import classNames from "classnames";
 
 export interface LoginProps {}
 
@@ -93,7 +94,7 @@ const Login: React.FC<LoginProps> = (props) => {
             {...register("username")}
             placeholder="Enter your user name"
             onChange={(e) => setUsername(e.target.value)}
-            className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+            className={classNames(`form-control ${errors.username ? 'is-invalid' : ''}`, styles["form-control"])}
           />
           <div className="invalid-feedback">{errors.username?.message}</div>
 
@@ -103,7 +104,7 @@ const Login: React.FC<LoginProps> = (props) => {
             {...register("password")}
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
-            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+            className={classNames(`form-control ${errors.password ? 'is-invalid' : ''}`, styles["form-control"])}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
           <Button htmlType="submit" type="primary">Submit</Button>
