@@ -1,10 +1,12 @@
-import React from "react";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import styles from "./UserSetting.module.scss";
 import { CgProfile, CgHeart } from "react-icons/cg";
 import { AiOutlineHistory, AiOutlineLogout } from "react-icons/ai";
 import { RiExchangeBoxLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+import { UserInfoDataType } from "../../components/Header/Header.tsx";
+import { getUserInfo} from "../../utilities/api.ts";
 
 export interface UserSettingProps {}
 
@@ -12,6 +14,41 @@ export interface UserSettingDataType {}
 
 const UserSetting: React.FC<UserSettingProps> = (props) => {
   const { t, i18n } = useTranslation();
+  const defaultUser: UserInfoDataType = {
+    id: -1,
+    name: "",
+    username: "",
+    roles: [],
+  };
+  const [login, setLogin] = useState<UserInfoDataType>(defaultUser);
+  const [userId, setUserId] = useState<string>();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (login.id == -1) {
+      onUserInfo();
+      checkUserId();
+    }
+  }, []);
+  const checkUserId = async () => {
+    const checkId = await getUserInfo(`http://localhost:8080/api/user/me`).then(
+      (data: { id: string }) => {
+        setUserId(data.id);
+      }
+    );
+  };
+  const onUserInfo = async () => {
+    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
+      (data: UserInfoDataType) => {
+        setLogin(data);
+      }
+    );
+  };
+  const logout = () => {
+    navigate("/");
+    window.localStorage.clear(); //clear all localstorage
+    window.localStorage.removeItem("accessToken"); //remove one item
+    window.location.reload();
+  };
   return (
     <nav>
       <div style={{ background: "#E7E6E6" }}>
@@ -27,7 +64,9 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
                 </div>
               </a>
               <div className={styles["avatar-name"]}>
-                <div className={styles["avatar-name-text"]}>trung926</div>
+              {login.id != -1 && (
+                <div className={styles["avatar-name-text"]}>{login.name}</div>
+              )}
                 <div>
                   <Link
                     to={`profile/${localStorage.getItem("userId")}`}
@@ -105,14 +144,14 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
               </div>
               <div className={styles["stardust-dropdown"]}>
                 <div className={styles["stardust-dropdown__item-header"]}>
-                  <a className={styles["not-navbar-link"]} href="/user/coin">
-                    <AiOutlineLogout className={styles["icon-navbar"]} />
-                    <div className={styles["item-navbar"]}>
+                  <div className={styles["not-navbar-link"]} onClick={logout}>
+                    <AiOutlineLogout className={styles["icon-navbar"]}/>
+                    <div className={styles["item-navbar"]} >
                       <span className={styles["item-span"]}>
                         {t("setting.logout")}
                       </span>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>

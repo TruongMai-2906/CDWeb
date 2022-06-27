@@ -13,7 +13,7 @@
   .avatar {
     flex: 1;
     display: block;
-    width: 180px;
+    width: 190px;
     .avatar-wrapper {
       display: flex;
       padding: 15px 0;
@@ -51,6 +51,9 @@
           margin-bottom: 5px;
           color: #333;
         }
+        .edit-profile{
+          color: #5363F3;
+        }
       }
     }
   }
@@ -71,7 +74,7 @@
           display: flex;
           align-items: center;
           margin-bottom: 0.9375rem;
-          color: #f1b53b;
+          color: #EF9127;
           .icon-navbar{
             display: flex;
             align-items: center;
@@ -100,7 +103,7 @@
           display: flex;
           align-items: center;
           margin-bottom: 0.9375rem;
-          color: #1980ff;
+          color: #5363F3;
           .icon-navbar{
             display: flex;
             align-items: center;

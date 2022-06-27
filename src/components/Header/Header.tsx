@@ -133,13 +133,13 @@ const Header: React.FC<HeaderProps> = (props) => {
       }
     );
   };
-  // console.log("id la:", userId);
   const onUserInfo = async () => {
-    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
+    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`)
+    if (checkMe) {
       (data: UserInfoDataType) => {
         setLogin(data);
       }
-    );
+    }
   };
   const logout = () => {
     navigate("/");
@@ -192,13 +192,15 @@ const Header: React.FC<HeaderProps> = (props) => {
                 >
                   {login.name}
                 </div>
-                <div style={{ margin: "0 5px" }}>
-                  <BiHistory className={styles["icon-header"]} />
-                </div>
+                <Link  to="/user/account/history?action=show">
+                  <div style={{ margin: "0 5px" }}>
+                    <BiHistory className={styles["icon-header"]} />
+                  </div>
+                </Link>
                 <a
                   style={{ margin: "0 5px" }}
                   onClick={() => {
-                    handleDetail(userIdLc);
+                    handleDetail(userIdLc!);
                   }}
                 >
                   <MdOutlineManageAccounts className={styles["icon-header"]} />
@@ -296,7 +298,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             <a
               className={styles["item-mobile"]}
               onClick={() => {
-                handleDetail(userIdLc);
+                handleDetail(userIdLc!);
               }}
             >
               <div className={styles["content-mobile"]}>Account</div>
