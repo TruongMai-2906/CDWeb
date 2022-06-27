@@ -8,12 +8,15 @@ import { Movies } from "../ListFilm/Movie";
 import styles from "./PopularList.module.scss";
 //@ts-ignore
 import { get } from "../../utilities/api.ts";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export interface PopularListProps { }
 
 export interface PopularListDataType { }
 
 const PopularList: React.FC<PopularListProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [moviePopular, setMoviePopular] = useState<Movies[]>();
   const navigate = useNavigate();
   useEffect(() => {
@@ -32,7 +35,7 @@ const PopularList: React.FC<PopularListProps> = (props) => {
     <div className={styles["trending"]}>
       <Link to="/">
         <h4 className={styles["trending-text"]}>
-          Popular <BiRightArrowAlt></BiRightArrowAlt>
+        {t('popular')}  <BiRightArrowAlt></BiRightArrowAlt>
         </h4>
       </Link>
       <div className={styles["container"]}>

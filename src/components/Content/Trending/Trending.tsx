@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Movies } from '../../../pages/ListFilm/Movie';
 //@ts-ignore
-import { get } from '../../../utilities/api.ts';
-//@ts-ignore
+import { t } from 'i18next';
+import { useTranslation } from "react-i18next";
 
 import styles from '../Related/Related.module.scss';
 import "swiper/css";
@@ -22,6 +22,7 @@ export interface TrendingProps { }
 export interface ListFilmDataType { }
 
 const Trending: React.FC<TrendingProps> = (props) => {
+    const { t, i18n } = useTranslation();
     const [movieTrending, setMovieTrending] = useState<Movies[]>();
     const mobile = useCheckMobileScreen(768);
     const navigate = useNavigate();
@@ -33,11 +34,6 @@ const Trending: React.FC<TrendingProps> = (props) => {
             setMovieTrending(data);
           })
       }, [])
-    // useEffect(() => {
-
-    //     if (movieTrending) console.log("movie", movieTrending);
-
-    // }, [movieTrending])
 
     const handleDetail = (e: string) => {
         navigate(`/detail/${e}`);
@@ -45,7 +41,7 @@ const Trending: React.FC<TrendingProps> = (props) => {
     return (
         <>
             <div id={styles['related-movies']}>
-                <h3 className={styles['heading']}>Trending movies</h3>
+                <h3 className={styles['heading']}>{t('trending-list.trending-movies')}</h3>
                 <>
                     <Swiper
                         slidesPerView={mobile ? 2 : 3}

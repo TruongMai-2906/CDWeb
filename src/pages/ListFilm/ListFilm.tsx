@@ -10,12 +10,15 @@ import {BiRightArrowAlt} from "react-icons/bi"
 import { get } from '../../utilities/api.ts';
 //@ts-ignore
 import { API_IMG, API_URL } from "../../utilities/apiUrl.ts";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 export interface ListFilmProps {}
 
 export interface ListFilmDataType {}
 
 const ListFilm: React.FC<ListFilmProps> = (props) => {
+  const { t, i18n } = useTranslation();
   const [movieTrending, setMovieTrending] = useState<Movies[]>();
   const [moviePopular, setMoviePopular] = useState<Movies[]>();
   const navigate = useNavigate();
@@ -47,7 +50,7 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
   return (
     <div className={styles["root"]}>
       <div className={styles["trending"]}>
-      <Link to="/trending"><h4 className={styles["trending-text"]}>Trending <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
+      <Link to="/trending"><h4 className={styles["trending-text"]}>{t('trending')} <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
         <div className={styles["container"]}>
           {movieTrending?.map((movieItem) => (
             <div
@@ -76,7 +79,7 @@ const ListFilm: React.FC<ListFilmProps> = (props) => {
         </div>
       </div>
       <div className={styles["trending"]}>
-      <Link to="/popular"><h4 className={styles["trending-text"]}>Popular <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
+      <Link to="/popular"><h4 className={styles["trending-text"]}>{t('popular')}  <BiRightArrowAlt></BiRightArrowAlt></h4></Link>
         <div className={styles["container"]}>
           {moviePopular?.map((movieItem) => (
             <div

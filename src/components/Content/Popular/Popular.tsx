@@ -15,12 +15,16 @@ import "swiper/css/pagination";
 import { API_IMG, API_URL_POPULAR } from '../../../utilities/apiUrl.ts';
 import { useCheckMobileScreen } from '../../../utilities/customHook.ts';
 import { API_URL } from '../../../utilities/apiUrl.ts';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
+
 
 export interface PopularProps { }
 
 export interface ListFilmDataType { }
 
 const Popular: React.FC<PopularProps> = (props) => {
+    const { t, i18n } = useTranslation();
     const [moviePopular, setMoviePopular] = useState<Movies[]>();
     const mobile = useCheckMobileScreen(768);
     const navigate = useNavigate();
@@ -40,7 +44,7 @@ const Popular: React.FC<PopularProps> = (props) => {
     return (
         <>
             <div id={styles['related-movies']}>
-                <h3 className={styles['heading']}>Popular movies</h3>
+                <h3 className={styles['heading']}>{t('popular-list.popular-movies')}</h3>
                 <>
                     <Swiper
                         slidesPerView={mobile ? 2 : 3}
