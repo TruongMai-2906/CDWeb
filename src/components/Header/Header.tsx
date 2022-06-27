@@ -29,7 +29,7 @@ export interface HeaderProps {
   category: string;
 }
 
-export interface HeaderDataType { }
+export interface HeaderDataType {}
 export interface UserInfoDataType {
   id?: number;
   name: string;
@@ -51,11 +51,11 @@ const Header: React.FC<HeaderProps> = (props) => {
   };
   const menu = (
     <Menu
-      items={[
-        {
-          key: '1',
-          label: (
-            <button
+    items={[
+      {
+        key: '1',
+        label: (
+          <button
               className={styles["language-button"]}
               onClick={() => {
                 i18n.changeLanguage("en");
@@ -65,12 +65,12 @@ const Header: React.FC<HeaderProps> = (props) => {
               {" "}
               {lngs.en.nativeName}
             </button>
-          ),
-        },
-        {
-          key: '2',
-          label: (
-            <button
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <button
               className={styles["language-button"]}
               onClick={() => {
                 i18n.changeLanguage("vi");
@@ -80,9 +80,9 @@ const Header: React.FC<HeaderProps> = (props) => {
               {" "}
               {lngs.vi.nativeName}
             </button>
-          )
-        }
-      ]}
+        )
+      }
+    ]}
     />
   );
 
@@ -133,13 +133,13 @@ const Header: React.FC<HeaderProps> = (props) => {
       }
     );
   };
+  // console.log("id la:", userId);
   const onUserInfo = async () => {
-    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`)
-    if (checkMe) {
+    const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoDataType) => {
         setLogin(data);
       }
-    }
+    );
   };
   const logout = () => {
     navigate("/");
@@ -163,16 +163,16 @@ const Header: React.FC<HeaderProps> = (props) => {
           <div className="icon" />
         </div>
         <div style={{ display: "flex" }}>
-
+          
           <div className={styles["change-language"]}>
-            <Dropdown overlay={menu}>
+          <Dropdown overlay={menu}>
               <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
                 <Space >
                   {language}
-                  <IoIosArrowDown className={styles["language-arrow"]} />
+                  <IoIosArrowDown className={styles["language-arrow"]}/>
                 </Space>
               </a>
-            </Dropdown>
+          </Dropdown>
           </div>
           <div className={styles["login-container"]}>
             {login.id === -1 && (
@@ -245,7 +245,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
             <div className={styles["form-group"]}>
               <div
-                className={classNames(styles["input-group"], styles["col-xs-12"])}
+                className={styles["input-group col-xs-12"]}
                 style={{ position: "relative" }}
               >
                 <Input
