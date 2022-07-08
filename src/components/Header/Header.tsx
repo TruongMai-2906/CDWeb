@@ -49,6 +49,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     en: { nativeName: "Eng" },
     vi: { nativeName: "Vie" },
   };
+  const [isShow, setIsShow] = useState<boolean>(false)
   const menu = (
     <Menu
     items={[
@@ -96,6 +97,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             `http://localhost:8080/api/movie/ShowAndsearch?keyword=${searchValue}`
           );
           setMovie(search.data.data.products);
+          setIsShow(true);
         }
       }, 500),
     [movie]
@@ -240,6 +242,7 @@ const Header: React.FC<HeaderProps> = (props) => {
               <div className={styles["content"]}>Admin</div>
             </Link>
           )}
+          
         </div>
         <div className={styles["search"]}>
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
@@ -252,6 +255,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                   className={styles["input-search"]}
                   placeholder="Input search text"
                   onChange={(e) => debounceChange(e.target.value)}
+                  onDoubleClick={(e)=> setIsShow(false)}
                 />
                 <Link to="/listfilm" className={styles["search-button"]}>
                   <BiSearch
@@ -259,7 +263,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                     aria-hidden="true"
                   ></BiSearch>
                 </Link>
-                <div className={styles["search-back"]}>
+                <div className={classNames(styles["search-back"],isShow ? styles["show"]: "" )}>
                   {movie?.map((e) => (
                     <div className={styles["search-entry"]}>{e.title}</div>
                   ))}
@@ -326,7 +330,18 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <div className={styles["content-mobile"]}>Admin</div>
               </Link>
             )}
+            <div className={styles["change-language"]}>
+              <Dropdown overlay={menu}>
+                  <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
+                    <Space >
+                      {language}
+                      <IoIosArrowDown className={styles["language-arrow"]}/>
+                    </Space>
+                  </a>
+              </Dropdown>
+            </div>
           </div>
+          
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 export interface Movies{
+    posterUrl: string | undefined;
     id: string;
     slug:string;
     name: string;
@@ -7,4 +8,5 @@ export interface Movies{
     backdropUrl: string;
     original_title: string;
     original_name: string;
+    releaseDate: string;
 }
