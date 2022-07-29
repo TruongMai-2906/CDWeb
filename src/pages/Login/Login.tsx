@@ -1,10 +1,13 @@
 import { Button, Input } from "antd";
 import React, { useCallback, useState } from "react";
+//@ts-ignore
 import styles from "./Login.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
+//@ts-ignore
 import { postUserInfo,get } from "../../utilities/api.ts";
+//@ts-ignore
 import {url, User} from '../Register/Register.tsx'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { debounce } from "lodash";
@@ -66,10 +69,6 @@ const Login: React.FC<LoginProps> = (props) => {
     localStorage.setItem("userId", JSON.stringify(checkMe.data.id))
     console.log(a);
     
-    
-    
-    // console.log("role",checkMe.data.roles[0].name);
-
     if (checkMe.data.roles[0].name === "ROLE_ADMIN") {
       window.location.href="/admin"
     }else if(checkMe.data.roles[0].name === "ROLE_USER"){
@@ -107,6 +106,7 @@ const Login: React.FC<LoginProps> = (props) => {
             className={classNames(`form-control ${errors.password ? 'is-invalid' : ''}`, styles["form-control"])}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
+          <Link to="/forgotpassword">Forgot Password?</Link>
           <Button htmlType="submit" type="primary">Submit</Button>
         </form>
       </div>

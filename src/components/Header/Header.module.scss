@@ -28,8 +28,14 @@
 }
 
 .language-text {
-  margin-right: 5px;
-  margin-bottom: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+
+
+  @include at($desktop) {
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
 }
 
 .search-icon {
@@ -52,9 +58,11 @@
   overflow: auto;
   display: none;
 }
-.show{
+
+.show {
   display: block;
 }
+
 .search-back::-webkit-scrollbar {
   width: 10px;
   background-color: #f1f1f1;
@@ -113,10 +121,11 @@
 
 .form-group {
   margin: 0;
+
   .input-group {
     position: relative;
     transition: 0.7s all;
-  
+
     .input-search {
       background-color: #2f3441;
       border-radius: 20px !important;
@@ -127,7 +136,7 @@
       border-radius: 20px !important;
       transition: 0.7s all;
       padding: 10px 20px;
-  
+
       &:focus {
         border-radius: 3px !important;
         transition: .7s all;
@@ -375,17 +384,25 @@
 }
 
 .change-language {
-  display: flex;
-  position: relative;
-  margin: 1rem 0.5rem;
-  color: #fff;
+  display: none;
+
+  @include at($desktop) {
+    display: flex;
+    position: relative;
+    margin: 0.8rem 0.5rem;
+    color: #fff;
+  }
 }
 
 .language-button {
   width: 5rem;
-  height: 2rem;
+  height: 0.5rem;
   font-size: 1rem;
+  text-align: left;
+  color: #000;
   background: none;
+  padding: 0;
+  margin: 0;
 }
 
 .language-button:hover {
@@ -399,4 +416,12 @@
 
 .language-arrow {
   padding: 1px;
+}
+
+.wrapper-header {
+  display: none;
+
+  @include at($desktop) {
+    display: flex;
+  }
 }

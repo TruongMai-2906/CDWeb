@@ -2,34 +2,23 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/home/icon.png";
 import classNames from "classnames";
-import Search from "antd/lib/input/Search";
 import { Menu, Dropdown, Space, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { post, getUserInfo, get } from "../../utilities/api.ts";
-import { RiArrowDownSFill } from "react-icons/ri";
 import { BiHistory, BiLogIn, BiSearch } from "react-icons/bi";
-import { BsFillPersonLinesFill } from "react-icons/bs";
-import Form from "antd/lib/form/Form";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { GrClose } from "react-icons/gr";
-import { Movie } from "../../pages/ListFilm/Movie.ts";
+import { Movies } from "../../pages/ListFilm/Movie";
 import { IoIosArrowDown } from "react-icons/io";
-import tmdbApi, {
-  category,
-  movieType,
-  tvType,
-} from "../../utilities/tmdmApi.ts";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { debounce } from "lodash";
 import { useTranslation } from "react-i18next";
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 export interface HeaderProps {
   page: string;
   keyword: string;
   category: string;
 }
 
-export interface HeaderDataType {}
+export interface HeaderDataType { }
 export interface UserInfoDataType {
   id?: number;
   name: string;
@@ -42,21 +31,21 @@ export interface UserInfoDataType {
 
 const Header: React.FC<HeaderProps> = (props) => {
   const [keyword, setKeyword] = useState<String>();
-  const [movie, setMovie] = useState<Movie>();
+  const [movie, setMovie] = useState<Movies>();
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState<string>("Eng");
   const lngs = {
-    en: { nativeName: "Eng" },
-    vi: { nativeName: "Vie" },
+    en: { nativeName: "English" },
+    vi: { nativeName: "Tiếng Việt" },
   };
   const [isShow, setIsShow] = useState<boolean>(false)
   const menu = (
     <Menu
-    items={[
-      {
-        key: '1',
-        label: (
-          <button
+      items={[
+        {
+          key: '1',
+          label: (
+            <button
               className={styles["language-button"]}
               onClick={() => {
                 i18n.changeLanguage("en");
@@ -66,12 +55,12 @@ const Header: React.FC<HeaderProps> = (props) => {
               {" "}
               {lngs.en.nativeName}
             </button>
-        ),
-      },
-      {
-        key: '2',
-        label: (
-          <button
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <button
               className={styles["language-button"]}
               onClick={() => {
                 i18n.changeLanguage("vi");
@@ -81,9 +70,9 @@ const Header: React.FC<HeaderProps> = (props) => {
               {" "}
               {lngs.vi.nativeName}
             </button>
-        )
-      }
-    ]}
+          )
+        }
+      ]}
     />
   );
 
@@ -152,6 +141,10 @@ const Header: React.FC<HeaderProps> = (props) => {
   const handleDetail = (e: string) => {
     navigate(`/user/account/profile/${e}`);
   };
+  const handleDetailFilm = (e: string) => {
+    navigate(`/detail/${e}`);
+    window.location.reload();
+  };
   const userIdLc = localStorage.getItem("userId");
 
   return (
@@ -164,17 +157,16 @@ const Header: React.FC<HeaderProps> = (props) => {
         <div className={styles["hamburger"]} onClick={handleToggle}>
           <div className="icon" />
         </div>
-        <div style={{ display: "flex" }}>
-          
+        <div className={styles["wrapper-header"]}>
           <div className={styles["change-language"]}>
-          <Dropdown overlay={menu}>
+            <Dropdown overlay={menu}>
               <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
                 <Space >
                   {language}
-                  <IoIosArrowDown className={styles["language-arrow"]}/>
+                  <IoIosArrowDown className={styles["language-arrow"]} />
                 </Space>
               </a>
-          </Dropdown>
+            </Dropdown>
           </div>
           <div className={styles["login-container"]}>
             {login.id === -1 && (
@@ -194,7 +186,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 >
                   {login.name}
                 </div>
-                <Link  to="/user/account/history?action=show">
+                <Link to="/user/account/history?action=show">
                   <div style={{ margin: "0 5px" }}>
                     <BiHistory className={styles["icon-header"]} />
                   </div>
@@ -228,21 +220,6 @@ const Header: React.FC<HeaderProps> = (props) => {
           <Link to="/listfilm" className={styles["item"]}>
             <div className={styles["content"]}>{t("header.navbar.listfilm")}</div>
           </Link>
-          {/* <Link to="/" className={styles["item"]}>
-            <div className={styles["content"]}>Hot</div>
-          </Link>
-          <Link to="/" className={styles["item"]}>
-            <div className={styles["content"]}>About Us</div>
-          </Link>
-          <Link to="/" className={styles["item"]}>
-            <div className={styles["content"]}>Contact</div>
-          </Link> */}
-          {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
-            <Link to="/admin" className={styles["item"]}>
-              <div className={styles["content"]}>Admin</div>
-            </Link>
-          )}
-          
         </div>
         <div className={styles["search"]}>
           <form id="search-form-pc" name="halimForm" role="search" method="GET">
@@ -255,7 +232,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                   className={styles["input-search"]}
                   placeholder="Input search text"
                   onChange={(e) => debounceChange(e.target.value)}
-                  onDoubleClick={(e)=> setIsShow(false)}
+                  onDoubleClick={(e) => setIsShow(false)}
                 />
                 <Link to="/listfilm" className={styles["search-button"]}>
                   <BiSearch
@@ -263,9 +240,13 @@ const Header: React.FC<HeaderProps> = (props) => {
                     aria-hidden="true"
                   ></BiSearch>
                 </Link>
-                <div className={classNames(styles["search-back"],isShow ? styles["show"]: "" )}>
-                  {movie?.map((e) => (
-                    <div className={styles["search-entry"]}>{e.title}</div>
+                <div className={classNames(styles["search-back"], isShow ? styles["show"] : "")}>
+                  {movie?.map((e: { title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined, slug:string }) => (
+                    <div className={styles["search-entry"]}>
+                      <a onClick={() => {
+                        handleDetailFilm(e.slug);
+                      }}>{e.title}</a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -293,12 +274,16 @@ const Header: React.FC<HeaderProps> = (props) => {
             >
               <div className={styles["content-mobile"]}>List Film</div>
             </Link>
-            {/* <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
-              <div className={styles["content-mobile"]}>Hot</div>
-            </Link>
-            <Link to="/" className={styles["item-mobile"]} onClick={handleToggle}>
-              <div className={styles["content-mobile"]}>About Us</div>
-            </Link> */}
+            <div className={styles["change-language"]}>
+              <Dropdown overlay={menu}>
+                <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
+                  <Space >
+                    {language}
+                    <IoIosArrowDown className={styles["language-arrow"]} />
+                  </Space>
+                </a>
+              </Dropdown>
+            </div>
             <a
               className={styles["item-mobile"]}
               onClick={() => {
@@ -319,29 +304,19 @@ const Header: React.FC<HeaderProps> = (props) => {
               className={styles["item-mobile"]}
               onClick={handleToggle}
             >
-              <div className={styles["content-mobile"]}>Register</div>
+              <div className={classNames(styles["content-mobile"], styles["item-mobile"])}>Register</div>
             </Link>
-            {login.id != -1 && login.roles[0].name == "ROLE_ADMIN" && (
-              <Link
-                to="/admin"
-                className={styles["item-mobile"]}
-                onClick={handleToggle}
-              >
-                <div className={styles["content-mobile"]}>Admin</div>
-              </Link>
-            )}
-            <div className={styles["change-language"]}>
+            <Link to={""} className={classNames(styles["language-text"],styles["item-mobile"])}>
               <Dropdown overlay={menu}>
-                  <a className={styles["language-text"]} onClick={(e) => e.preventDefault()}>
-                    <Space >
-                      {language}
-                      <IoIosArrowDown className={styles["language-arrow"]}/>
-                    </Space>
-                  </a>
+                <a className={classNames(styles["language-text"],styles["item-mobile"])} onClick={(e) => e.preventDefault()}>
+                  <Space >
+                    {language}
+                    <IoIosArrowDown className={styles["language-arrow"]} />
+                  </Space>
+                </a>
               </Dropdown>
-            </div>
+            </Link>
           </div>
-          
         </div>
       )}
     </div>

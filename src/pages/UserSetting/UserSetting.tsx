@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
+//@ts-ignore
 import styles from "./UserSetting.module.scss";
 import { CgProfile, CgHeart } from "react-icons/cg";
 import { AiOutlineHistory, AiOutlineLogout } from "react-icons/ai";
 import { RiExchangeBoxLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+//@ts-ignore
 import { UserInfoDataType } from "../../components/Header/Header.tsx";
+//@ts-ignore
 import { getUserInfo} from "../../utilities/api.ts";
 
 export interface UserSettingProps {}
@@ -129,14 +132,14 @@ const UserSetting: React.FC<UserSettingProps> = (props) => {
               <div className={styles["stardust-dropdown"]}>
                 <div className={styles["stardust-dropdown__item-header"]}>
                   <NavLink
-                    to={`changpass/${localStorage.getItem("userId")}`}
+                    to={`changepass/${localStorage.getItem("userId")}`}
                     className={({ isActive }) => 
                       (isActive ? styles["navbar-link"] : styles["not-navbar-link"])}
                   >
                     <RiExchangeBoxLine className={styles["icon-navbar"]} />
                     <div className={styles["item-navbar"]}>
                       <span className={styles["item-span"]}>
-                        {t("setting.changpass")}
+                        {t("setting.changepass.title")}
                       </span>
                     </div>
                   </NavLink>

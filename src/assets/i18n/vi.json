@@ -12,7 +12,6 @@
     "profile": "Thông tin tài khoản",
     "wishlist": "Yêu thích",
     "historywatch": "Lịch sử xem",
-    "changpass": "Đổi mật khẩu",
     "logout": "Đăng xuất",
     "profilecontent": {
       "title": "Thông tin tài khoản",
@@ -24,6 +23,13 @@
       "address": "Địa chỉ",
       "phone": "Số điện thoại",
       "save": "Lưu"
+    },
+    "changepass": {
+      "title": "Đổi mật khẩu",
+      "description": "Thay đổi mật khẩu của bạn",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "newPassword": "Mật khẩu mới"
     },
     "wishlistcontent": {
       "title": "Yêu thích",

@@ -4,6 +4,7 @@ import { Input, Select, Checkbox, Button, Form } from "antd";
 import styles from "./Register.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormProvider } from "rc-field-form";
+//@ts-ignore
 import { post, get } from "../../utilities/api.ts";
 import { debounce } from 'lodash'
 import { useNavigate } from "react-router-dom";

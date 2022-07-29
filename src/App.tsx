@@ -33,6 +33,9 @@ import Profile from "./components/Content/Profile/Profile.tsx";
 import WishList from "./components/Content/WishList/WishList.tsx";
 import "./App.scss";
 import History from "./components/Content/History/History.tsx";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
+import React from "react";
+import ChangePassword from "./components/Content/ChangePassword/ChangePassword.tsx";
 
 function App() {
   const [active, setState] = useState<string>("");
@@ -48,6 +51,7 @@ function App() {
                 <Route path="profile/:id" element={<Profile/>}></Route>
                 <Route path="wishlist" element={<WishList/>}></Route>
                 <Route path="history" element={<History/>}></Route>
+                <Route path="changepass/:id" element={<ChangePassword/>}></Route>
            </Route>
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />
@@ -57,7 +61,7 @@ function App() {
             <Route path="/trending" element={<Layout><TrendingList /></Layout>}></Route>
             <Route path="/popular" element={<Layout><PopularList /></Layout>}></Route>
             <Route path="/login" element={<Layout><Login /></Layout>}></Route>
-            {auth == `"ROLE_ADMIN"` && <Route path="/admin" element={<AdminLayout><Admin /></AdminLayout>}></Route>}
+            <Route path="/forgotpassword" element={<Layout><ForgotPassword /></Layout>}></Route>
           </Routes>
         </>
       </Router>
