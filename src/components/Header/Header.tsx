@@ -124,7 +124,6 @@ const Header: React.FC<HeaderProps> = (props) => {
       }
     );
   };
-  // console.log("id la:", userId);
   const onUserInfo = async () => {
     const checkMe = await getUserInfo(`http://localhost:8080/api/user/me`).then(
       (data: UserInfoDataType) => {
@@ -230,7 +229,7 @@ const Header: React.FC<HeaderProps> = (props) => {
               >
                 <Input
                   className={styles["input-search"]}
-                  placeholder="Input search text"
+                  placeholder={t("header.search")}
                   onChange={(e) => debounceChange(e.target.value)}
                   onDoubleClick={(e) => setIsShow(false)}
                 />
@@ -265,14 +264,14 @@ const Header: React.FC<HeaderProps> = (props) => {
               className={styles["item-mobile"]}
               onClick={handleToggle}
             >
-              <div className={classNames(styles["content-mobile"])}>Home</div>
+              <div className={classNames(styles["content-mobile"])}>{t("header.navbar.home")}</div>
             </Link>
             <Link
               to="/listfilm"
               className={styles["item-mobile"]}
               onClick={handleToggle}
             >
-              <div className={styles["content-mobile"]}>List Film</div>
+              <div className={styles["content-mobile"]}>{t("header.navbar.listfilm")}</div>
             </Link>
             <div className={styles["change-language"]}>
               <Dropdown overlay={menu}>
@@ -290,21 +289,21 @@ const Header: React.FC<HeaderProps> = (props) => {
                 handleDetail(userIdLc!);
               }}
             >
-              <div className={styles["content-mobile"]}>Account</div>
+              <div className={styles["content-mobile"]}>{t("header.navbar.account")}</div>
             </a>
             <Link
               to="/login"
               className={styles["item-mobile"]}
               onClick={handleToggle}
             >
-              <div className={styles["content-mobile"]}>Login</div>
+              <div className={styles["content-mobile"]}>{t("header.login")}</div>
             </Link>
             <Link
               to="/register"
               className={styles["item-mobile"]}
               onClick={handleToggle}
             >
-              <div className={classNames(styles["content-mobile"], styles["item-mobile"])}>Register</div>
+              <div className={classNames(styles["content-mobile"], styles["item-mobile"])}>{t("header.register")}</div>
             </Link>
             <Link to={""} className={classNames(styles["language-text"],styles["item-mobile"])}>
               <Dropdown overlay={menu}>

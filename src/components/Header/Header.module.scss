@@ -29,12 +29,11 @@
 
 .language-text {
   font-size: 1.2rem;
-  font-weight: 700;
-
 
   @include at($desktop) {
     margin-right: 5px;
     margin-bottom: 0;
+    font-weight: 700;
   }
 }
 
@@ -389,7 +388,7 @@
   @include at($desktop) {
     display: flex;
     position: relative;
-    margin: 0.8rem 0.5rem;
+    margin: 0.7rem 0.5rem;
     color: #fff;
   }
 }

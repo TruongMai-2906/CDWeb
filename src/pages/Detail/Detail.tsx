@@ -90,20 +90,20 @@ const Detail: React.FC<DetailProps> = (props) => {
       smooth: "easeInOutQuart",
     });
   };
-  const addMovieHistory = async ()=>{
-    const addHistory = await post(`http://localhost:8080/api/history/addHistory/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
-    console.log("his",addHistory);
+  const addMovieHistory = async () => {
+    const addHistory = await post(`http://localhost:8080/api/history/addHistory/${slug}`, { id: parseInt(localStorage.getItem("userId") || "-1") })
+    console.log("his", addHistory);
   }
-  const onMovieToWishList = async ()=>{
-    if(wishListStatus){
+  const onMovieToWishList = async () => {
+    if (wishListStatus) {
       const wishList = await post(
         `http://localhost:8080/api/wishlist/findAll?action=remove&favProductId=${slug}`,
         { id: parseInt(localStorage.getItem("userId") || "-1") }
       );
       setWishLishStatus(false)
-    }else{
-      const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, {id: parseInt(localStorage.getItem("userId") || "-1")})
-    setWishLishStatus(true)
+    } else {
+      const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, { id: parseInt(localStorage.getItem("userId") || "-1") })
+      setWishLishStatus(true)
     }
   }
   useEffect(() => {
@@ -113,11 +113,11 @@ const Detail: React.FC<DetailProps> = (props) => {
         { id: parseInt(localStorage.getItem("userId") || "-1") }
       );
       setWishList(wishList.data);
-      wishList.data?.map((e)=>{
-      if (e.movie.slug === slug) {
-        setWishLishStatus(true)
-      }
-    })
+      wishList.data?.map((e) => {
+        if (e.movie.slug === slug) {
+          setWishLishStatus(true)
+        }
+      })
     };
     checkWishLish()
   }, []);
@@ -172,7 +172,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                     </li>
                   </ul>
                 </div>
-              <div className={styles["overlay"]}></div>
+                <div className={styles["overlay"]}></div>
               </div>
               <div className={styles["text"]}>
                 <div
@@ -209,7 +209,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                             {films?.genres.map((gen) => gen.name)}
                           </a>
                         </li>
-                        
+
                       </div>
 
                       <div className={styles["column"]}>
@@ -290,6 +290,8 @@ const Detail: React.FC<DetailProps> = (props) => {
                           }
                         }}
                       />
+                      {/* <VideoJS/> */}
+                      
 
                     </div>
                   </div>

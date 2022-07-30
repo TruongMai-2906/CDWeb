@@ -126,7 +126,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             id={styles["form-control"]}
             type="text"
             {...register("name")}
-            placeholder="Your name.."
+            placeholder={t("register.placeholderName")}
             className={`form-control ${errors.name ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.name?.message}</div>
@@ -136,7 +136,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             id={styles["form-control"]}
             type="text"
             {...register("username")}
-            placeholder="Enter your user name"
+            placeholder={t("register.placeholderUsername")}
             onChange={(e) => checkValidName(e.target.value)}
             className={`form-control ${errors.username ? 'is-invalid' : ''} `}
           />
@@ -147,7 +147,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             id={styles["form-control"]}
             type="text"
             {...register("email")}
-            placeholder="Enter your email"
+            placeholder={t("register.placeholderEmail")}
             onChange={(e) => checkValidEmail(e.target.value)}
             className={`form-control ${errors.email ? 'is-invalid' : ''} `}
           />
@@ -158,7 +158,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             id={styles["form-control"]}
             type="password"
             {...register("password")}
-            placeholder="Enter your password"
+            placeholder={t("register.placeholderPassword")}
             className={`form-control ${errors.password ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
@@ -167,7 +167,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
             id={styles["form-control"]}
             type="password"
             {...register("confirmPassword")}
-            placeholder="Enter your password"
+            placeholder={t("register.placeholderConfirmPassword")}
             className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''} `}
           />
           <div className="invalid-feedback">{errors.confirmPassword?.message}</div>

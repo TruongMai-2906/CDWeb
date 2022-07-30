@@ -4,8 +4,11 @@
     "register": "Đăng ký",
     "navbar": {
       "home": "Trang chủ",
-      "listfilm": "Phim"
-    }
+      "listfilm": "Phim",
+      "account": "Tài khoản"
+    },
+    "search":"Nhập từ khóa"
+
   },
   "setting": {
     "editprofile": "Sửa hồ sơ",
@@ -43,7 +46,10 @@
   "login": {
     "title": "Đăng nhập",
     "username": "Tài khoản",
-    "password": "Mật khẩu"
+    "password": "Mật khẩu",
+    "forgotpass": "Quên mật khẩu?",
+    "placehoderuser": "Nhập username",
+    "placehoderpassword": "Nhập mật khẩu"
   },
   "register": {
     "title": "Đăng ký",
@@ -51,7 +57,20 @@
     "username": "Tài khoản",
     "email": "Email",
     "password": "Mật khẩu",
-    "confirmpassword": "Nhập lại mật khẩu"
+    "confirmpassword": "Nhập lại mật khẩu",
+    "placeholderName":"Tên của bạn...",
+    "placeholderUsername":"Nhập tên đăng nhập",
+    "placeholderEmail":"Nhập email",
+    "placeholderPassword":"Mật khẩu",
+    "placeholderConfirmPassword":"Nhập lại mật khẩu"
+  },
+  "forgotpass": {
+    "title": "Quên mật khẩu",
+    "description": "Lấy lại mật khẩu",
+    "email": "Email",
+    "submit": "Gửi",
+    "placehoderEmail": "Nhập email của bạn"
+
   },
   "related":"Liên quan",
   "recommend": "Đề xuất",

@@ -83,19 +83,19 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
     return (
         <div className={styles["forgot-container"]}>
             <div className={styles["forgot-form"]}>
-                <h1 className={styles["forgot-title"]}>{t('login.title')}</h1>
+                <h1 className={styles["forgot-title"]}>{t('forgotpass.title')}</h1>
                 <form onSubmit={handleSubmit(onSubmit)} method="post">
-                    <label className={styles["forgot-label"]}>{t('login.password')}</label>
+                    <label className={styles["forgot-label"]}>{t('forgotpass.email')}</label>
                     <input
                         type="email"
                         {...register("email")}
-                        placeholder="Enter your email"
+                        placeholder={t("forgotpass.placehoderEmail")}
                         onChange={(e) => checkValidEmail(e.target.value)}
                         className={classNames(`form-control ${errors.email ? 'is-invalid' : ''}`, styles["form-control"])}
                     />
                     {validEmail.field !== "email" && <div style={{ paddingLeft: "20px", color: "red" }}>{validEmail.message}</div>}
                     <div className="invalid-feedback">{errors.email?.message}</div>
-                    <Button htmlType="submit" type="primary" disabled={disable}>Submit</Button>
+                    <Button htmlType="submit" type="primary" disabled={disable}>{t("forgotpass.submit")}</Button>
                 </form>
             </div>
         </div>

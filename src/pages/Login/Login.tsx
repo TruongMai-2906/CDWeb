@@ -91,7 +91,7 @@ const Login: React.FC<LoginProps> = (props) => {
           <input
             type="text"
             {...register("username")}
-            placeholder="Enter your user name"
+            placeholder={t("login.placehoderuser")}
             onChange={(e) => setUsername(e.target.value)}
             className={classNames(`form-control ${errors.username ? 'is-invalid' : ''}`, styles["form-control"])}
           />
@@ -101,12 +101,12 @@ const Login: React.FC<LoginProps> = (props) => {
           <input
             type="password"
             {...register("password")}
-            placeholder="Enter your password"
+            placeholder={t('login.placehoderpassword')}
             onChange={(e) => setPassword(e.target.value)}
             className={classNames(`form-control ${errors.password ? 'is-invalid' : ''}`, styles["form-control"])}
           />
           <div className="invalid-feedback">{errors.password?.message}</div>
-          <Link to="/forgotpassword">Forgot Password?</Link>
+          <Link to="/forgotpassword">{t('login.forgotpass')}</Link>
           <Button htmlType="submit" type="primary">Submit</Button>
         </form>
       </div>
