@@ -22,6 +22,7 @@ import { WatchFilmDataType } from "../WatchFilm/WatchFilm.tsx";
 import { post, del } from "../../utilities/api.ts";
 import { scroller } from "react-scroll";
 import { useTranslation } from "react-i18next";
+import VideoPlayer from "../VideoJS/VideoJS.tsx";
 // Api_URL
 const API_URL = (e: string) => {
   return `http://localhost:8080/api/movie/${e}`;
@@ -60,6 +61,14 @@ const Detail: React.FC<DetailProps> = (props) => {
   const [wishListData, setWishList] = useState<Movies[]>();
   const [slugWishList, setSlugWishList] = useState<string>();
 
+  const videoJsOptions = {
+    sources: [
+      {
+        src: "//vjs.zencdn.net/v/oceans.mp4",
+        type: "video/mp4"
+      }
+    ]
+  };
   useEffect(() => {
     fetch(API_URL(slug))
       .then((res) => res.json())
@@ -290,8 +299,7 @@ const Detail: React.FC<DetailProps> = (props) => {
                           }
                         }}
                       />
-                      {/* <VideoJS/> */}
-                      
+                      {/* <VideoPlayer options={videoJsOptions} /> */}
 
                     </div>
                   </div>

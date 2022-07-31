@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 export interface RecommendProps {
   slug: string,
   title: string,
-  posterUrl: string
+  poster_path: string
 }
 
 export const Recommend: React.FC<RecommendProps> = (props) => {
@@ -22,7 +22,6 @@ export const Recommend: React.FC<RecommendProps> = (props) => {
     fetch(API_URL)
       .then((res) => res.json())
       .then(data => {
-        // console.log(data);
         setFilm(data);
       })
   }, [])

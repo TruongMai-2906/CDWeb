@@ -28,12 +28,12 @@ const Trending: React.FC<TrendingProps> = (props) => {
     const navigate = useNavigate();
     useEffect(() => {
         fetch(API_URL)
-          .then((res) => res.json())
-          .then(data => {
-            // console.log(data);
-            setMovieTrending(data);
-          })
-      }, [])
+            .then((res) => res.json())
+            .then(data => {
+                // console.log(data);
+                setMovieTrending(data);
+            })
+    }, [])
 
     const handleDetail = (e: string) => {
         navigate(`/detail/${e}`);
@@ -47,6 +47,7 @@ const Trending: React.FC<TrendingProps> = (props) => {
                         slidesPerView={mobile ? 2 : 3}
                         spaceBetween={16}
                         slidesPerGroup={mobile ? 1 : 3}
+                        initialSlide={2}
                         loop={true}
                         navigation={true}
                         modules={[Pagination, Navigation]}

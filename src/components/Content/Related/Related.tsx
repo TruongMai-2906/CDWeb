@@ -47,6 +47,7 @@ export const Related: React.FC<RelatedProps> = (props) => {
             navigation={true}
             modules={[Pagination, Navigation]}
             className={styles['mySwiper']}
+            initialSlide={2}
           >
             {films.map((film:any) => (
               <SwiperSlide key={film} className={styles['items']}>

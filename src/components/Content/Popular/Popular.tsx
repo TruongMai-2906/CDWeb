@@ -50,11 +50,12 @@ const Popular: React.FC<PopularProps> = (props) => {
                         slidesPerView={mobile ? 2 : 3}
                         spaceBetween={16}
                         slidesPerGroup={mobile ? 1 : 3}
+                        initialSlide={1}
                         loop={true}
                         navigation={true}
                         modules={[Pagination, Navigation]}
                         className={styles['mySwiper']}
-                        
+
                     >
                         {moviePopular?.map((movieItem) => (
                             <SwiperSlide key={movieItem.slug} className={styles['items']}>
