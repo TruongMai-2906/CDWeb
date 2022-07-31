@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Input, Select, Checkbox, Button, Form } from "antd";
 //@ts-ignore
 import styles from "./Register.module.scss";
@@ -7,7 +7,7 @@ import { FormProvider } from "rc-field-form";
 //@ts-ignore
 import { post, get } from "../../utilities/api.ts";
 import { debounce } from 'lodash'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -30,6 +30,7 @@ export interface ResponseStatus {
 export const url: string = "http://localhost:8080/";
 export interface RegisterProps { }
 export const Register: React.FC<RegisterProps> = (props) => {
+  const { userName, email } = useParams();
   const { t, i18n } = useTranslation();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
@@ -49,7 +50,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
       .required('Confirm Password is required')
       .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
   });
-  const { handleSubmit, register, formState: { errors } } = useForm<User>({
+  const { handleSubmit, register, formState: { errors }, setValue } = useForm<User>({
     resolver: yupResolver(validationSchema)
   });
   const [disable, setDisable] = useState<boolean>(false);
@@ -63,6 +64,19 @@ export const Register: React.FC<RegisterProps> = (props) => {
     password: "",
     confirmPassword: ""
   });
+
+  useEffect(() => {
+    console.log("userName", userName);
+    console.log("email", email);
+    if (userName) {
+      setValue("username", userName);
+      setValue("name", userName);
+    }
+    if (email) {
+      setValue("email", email);
+    }
+  }, [userName]);
+
   //call api
   const onSubmit: SubmitHandler<User> = async (data) => {
     const response = await post(`${url}api/auth/signup`, data
