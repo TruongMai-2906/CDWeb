@@ -115,6 +115,11 @@ body {
     right: 1rem;
     color: #fff;
     border-radius: 20px;
+    transition: all 0.2s;
+    
+    &:hover {
+      color: #ff9601;
+    }
 
     @include at($desktop) {
       font-size: 1.5rem;

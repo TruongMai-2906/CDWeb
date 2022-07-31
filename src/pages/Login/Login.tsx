@@ -14,6 +14,7 @@ import { debounce } from "lodash";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
+import FacebookLogin from 'react-facebook-login';
 
 export interface LoginProps {}
 
@@ -82,6 +83,12 @@ const Login: React.FC<LoginProps> = (props) => {
       // footer: '<a href="">Why do I have this issue?</a>'
     })
   };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+    navigate(`/register/${response.name}/${response.email}`)
+  }
+
   return (
     <div className={styles["login-container"]}>
       <div className={styles["login-form"]}>
@@ -108,6 +115,14 @@ const Login: React.FC<LoginProps> = (props) => {
           <div className="invalid-feedback">{errors.password?.message}</div>
           <Link to="/forgotpassword">{t('login.forgotpass')}</Link>
           <Button htmlType="submit" type="primary">Submit</Button>
+
+          <FacebookLogin
+            appId="1227239494774329"
+            fields="name,email,picture"
+            callback={responseFacebook}
+            cssClass={styles["facebook"]}
+            icon="fa-facebook"
+          />
         </form>
       </div>
     </div>

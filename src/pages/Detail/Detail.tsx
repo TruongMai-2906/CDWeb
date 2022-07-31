@@ -80,6 +80,8 @@ const Detail: React.FC<DetailProps> = (props) => {
   const [secondsElapsed, setSecondsElapsed] = useState<any>();
 
   const handleDetail = (e: string) => {
+    console.log("here");
+    
     navigate(`/watch/${e}`);
   };
 
@@ -92,9 +94,9 @@ const Detail: React.FC<DetailProps> = (props) => {
   };
   const addMovieHistory = async () => {
     const addHistory = await post(`http://localhost:8080/api/history/addHistory/${slug}`, { id: parseInt(localStorage.getItem("userId") || "-1") })
-    console.log("his", addHistory);
   }
   const onMovieToWishList = async () => {
+    
     if (wishListStatus) {
       const wishList = await post(
         `http://localhost:8080/api/wishlist/findAll?action=remove&favProductId=${slug}`,
@@ -102,7 +104,12 @@ const Detail: React.FC<DetailProps> = (props) => {
       );
       setWishLishStatus(false)
     } else {
-      const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, { id: parseInt(localStorage.getItem("userId") || "-1") })
+      try {
+        const addWishList = await post(`http://localhost:8080/api/wishlist/addWishList/${slug}`, { id: parseInt(localStorage.getItem("userId") || "-1") })
+
+      } catch (err) {
+        navigate("/login");
+      }
       setWishLishStatus(true)
     }
   }

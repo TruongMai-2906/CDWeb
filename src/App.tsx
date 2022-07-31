@@ -56,6 +56,7 @@ function App() {
             <Route path="/watch" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/watch/:id" element={<Layout><WatchFilm /></Layout>} />
             <Route path="/register" element={<Layout><Register /></Layout>}></Route>
+            <Route path="/register/:userName/:email" element={<Layout><Register /></Layout>}></Route>
             <Route path="/listfilm" element={<Layout><ListFilm /></Layout>}></Route>
             <Route path="/detail/:slug" element={<Layout><Detail /></Layout>}></Route>
             <Route path="/trending" element={<Layout><TrendingList /></Layout>}></Route>
