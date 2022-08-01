@@ -70,7 +70,14 @@
     "email": "Email",
     "submit": "Gửi",
     "placehoderEmail": "Nhập email của bạn"
-
+  },
+  "changepass": {
+    "title": "Đổi mật khẩu",
+    "description": "Change your password",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "submit": "Submit"
   },
   "related":"Liên quan",
   "recommend": "Đề xuất",
